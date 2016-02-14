@@ -1,0 +1,54 @@
+{
+  "name": "blockbuilder-search",
+  "version": "0.0.1",
+  "description": "Blocks search engine plugin.",
+  "main": "index.js",
+  "scripts": {
+    "local": "webpack --color --progress --watch",
+    "buildWatch": "webpack --color --progress --watch",
+    "build": "webpack --color --progress",
+    "buildProd": "webpack --color --progress -p"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enjalot/blockbuilder-search.git"
+  },
+  "keywords": [
+    "d3.js",
+    "blocks",
+    "data",
+    "visualization"
+  ],
+  "author": "Ian Johnson",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/enjalot/blockbuilder-search/issues"
+  },
+  "homepage": "https://github.com/enjalot/blockbuilder-search#readme",
+  "dependencies": {
+    "babel-core": "^6.4.0",
+    "babel-loader": "^6.2.1",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "d3": "^3.5.15",
+    "elasticsearch": "^10.1.3",
+    "express": "^4.13.4",
+    "node-sass": "^3.2.0",
+    "react": "^0.14.6",
+    "react-dom": "^0.14.2",
+    "react-redux": "^4.4.0",
+    "react-router": "^0.13.5",
+    "react-tooltip": "^1.0.3",
+    "redux": "^3.3.1",
+    "redux-thunk": "^1.0.3",
+    "reselect": "^2.0.3",
+    "sass": "^0.5.0",
+    "style-loader": "^0.13.0",
+    "superagent": "^1.6.1"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "sass-loader": "^3.1.2",
+    "webpack": "^1.12.11"
+  }
+}
