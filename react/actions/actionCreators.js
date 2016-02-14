@@ -27,9 +27,8 @@ function requestSearch(query) {
 }
 
 function receiveSearch(response) {
-  console.log("RECEIVED SEARCH", response)
   return {
     type: actions.RECEIVE_SEARCH,
-    data: response,
+    data: response
   };
 }

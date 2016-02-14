@@ -34,11 +34,15 @@ module.exports = function(conf, app) {
     method: "text", "api", filename"
     text: "awesome data"
     user: "enjalot"
+    sort: "updated_at", "created_at"
+    sort_dir: "desc", "asc"
+
   }
   */
 function searchES(es, submittedQuery, callback) {
   // Powers the search by calling elasticsearch on behalf of the user
   // TODO: analytics (store query into ES as well!)
+  var queryTerm = {};
   var query = {};
 
   var method = submittedQuery.method;
@@ -48,7 +52,7 @@ function searchES(es, submittedQuery, callback) {
   if(method === "text") {
     // This is the "best field" query structure described in the docs:
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_tuning_best_fields_queries.html
-    query.dis_max = {
+    queryTerm.dis_max = {
       "queries": [
         { "match": { "description": text }},
         { "match": { "readme":  text }},
@@ -59,19 +63,19 @@ function searchES(es, submittedQuery, callback) {
   } else if(method === "api") {
     // We assume the user knows what the possible API functions are
     // and we are doing an exact match
-    query.match = {
+    queryTerm.match = {
       "api": text
     }
   } else if(method === "filename") {
     // We want to support things like *.csv or flare*
     // so we use wildcard
-    query.wildcard = {
+    queryTerm.wildcard = {
       "filenames": text
     }
   }
   if(user || dateRange) {
-    var textQuery = JSON.parse(JSON.stringify(query)); // {{0_0}}
-    query = {}
+    var textQuery = JSON.parse(JSON.stringify(queryTerm)); // {{0_0}}
+    queryTerm = {}
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_most_important_queries_and_filters.html#_bool_filter
     var must = [];
     if(user) {
@@ -81,7 +85,7 @@ function searchES(es, submittedQuery, callback) {
       must.push({ "range": { "updated_at": { "gte": dateRange[0]}}})
       must.push({ "range": { "updated_at": { "lte": dateRange[1]}}})
     }
-    query.filtered = {
+    queryTerm.filtered = {
       "filter": {
         "bool": {
           "must": must
@@ -89,6 +93,16 @@ function searchES(es, submittedQuery, callback) {
       }
     }
   }
+
+  /*
+    an ES search looks like:
+    {
+      query: { ... },
+      aggs: { ... },
+      size: 100
+    }
+  */
+  query.query = queryTerm;
 
   // If this is a pagination request, don't request aggregations
   if(!submittedQuery.from) {
@@ -108,5 +122,15 @@ function searchES(es, submittedQuery, callback) {
   }
   query.size = submittedQuery.size;
 
-  es.search(query, callback);
+  console.log("submitted", JSON.stringify(submittedQuery))
+  console.log("QUERY", JSON.stringify(query))
+  if(submittedQuery.sort && submittedQuery.sort_dir) {
+    // TODO: handle sorting properly
+  }
+
+  es.search({
+    index: "blockbuilder",
+    type: "blocks",
+    body: query
+  }, callback);
 }

@@ -1,0 +1,48 @@
+#results {
+  max-width: 970px;
+  display: block;
+  position: relative;
+  margin: 10px auto;
+  padding: 0 10px;
+
+  .summary {
+
+  }
+  .blocks {
+    margin-top: 10px;
+
+  }
+
+  .block-link {
+    display: inline-block;
+    box-sizing: border-box;
+    height: 82px;
+    width: 232px;
+    padding: 8px 10px;
+    float: left;
+    margin: 10px 10px 10px 0;
+    color: #111;
+    text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
+    background-color: #eee;
+    border: solid 1px #eee;
+    border-bottom: solid 1px #ccc;
+    background-position: 0% 0%;
+    transition: ease 750ms background-position;
+  }
+  .block-link:hover {
+    background-position: 0% 50%;
+  }
+  .block-link:not(:hover) {
+    text-decoration: none;
+  }
+
+  .block-description {
+    font-size: 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 55px;
+  }
+  .block-user {
+    font-size: 10px;
+  }
+}
