@@ -47,9 +47,13 @@ function searchES(es, submittedQuery, callback) {
 
   var method = submittedQuery.method;
   var text = submittedQuery.text;
+  var recent;
+  if(method === "text" && !text) {
+    recent = true;
+  }
   var user = submittedQuery.user;
   var dateRange = submittedQuery.dateRange;
-  if(method === "text") {
+  if(method === "text" && text) {
     // This is the "best field" query structure described in the docs:
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_tuning_best_fields_queries.html
     queryTerm.dis_max = {
@@ -60,6 +64,8 @@ function searchES(es, submittedQuery, callback) {
       ],
       "tie_breaker": 0.1
     }
+  } else if(recent) {
+    queryTerm.match_all = {};
   } else if(method === "api") {
     // We assume the user knows what the possible API functions are
     // and we are doing an exact match
@@ -124,8 +130,12 @@ function searchES(es, submittedQuery, callback) {
 
   console.log("submitted", JSON.stringify(submittedQuery))
   console.log("QUERY", JSON.stringify(query))
-  if(submittedQuery.sort && submittedQuery.sort_dir) {
-    // TODO: handle sorting properly
+  // For now we are only paying attention to the sort order if this is a "recent" query
+  // this is so that we don't override the relevance score for other pages.
+  // TODO:
+  if(recent && submittedQuery.sort && submittedQuery.sort_dir) {
+    query.sort = {}
+    query.sort[submittedQuery.sort] = { order: submittedQuery.sort_dir }
   }
 
   es.search({

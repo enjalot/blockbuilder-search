@@ -3,14 +3,12 @@
   display: block;
   position: relative;
   margin: 10px auto;
-  padding: 0 10px;
+  padding: 0 10px 20px 10px;
 
   .summary {
-
   }
   .blocks {
     margin-top: 10px;
-
   }
 
   .block-link {
@@ -44,5 +42,14 @@
   }
   .block-user {
     font-size: 10px;
+  }
+
+  .load-more {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 5px;
+    border: 1px solid green;
+    cursor: pointer;
+    font-size: 20px;
   }
 }

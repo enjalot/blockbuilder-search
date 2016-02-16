@@ -11,15 +11,19 @@ import SearchBar from './searchbar'
 
 const App = React.createClass({
 	componentDidMount() {
-    console.log("commencing search")
-    this.props.actions.getSearch({ method: "text", text: "circle", size: 100})
+    this.props.actions.getSearch(this.props.query)
 	},
 	render() {
 		return (
-			<div >
+			<div>
         <Header></Header>
-        <SearchBar></SearchBar>
-        <Results></Results>
+        <SearchBar
+          query={this.props.query}
+          getSearch={this.props.actions.getSearch}
+        ></SearchBar>
+        <Results
+          getPage={this.props.actions.getPage}
+        ></Results>
       </div>
     )
   }

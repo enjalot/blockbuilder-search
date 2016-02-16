@@ -4,9 +4,15 @@ import { connect } from 'react-redux';
 import './results.scss';
 
 const ResultsComponent = React.createClass({
+  handleLoadMore() {
+    console.log("LOAD MORE")
+    this.props.getPage(this.props.query, this.props.results.length)
+
+  },
   render() {
     var query = this.props.query;
     var results = this.props.results;
+    var totalResults = this.props.totalResults;
     var aggregations = this.props.aggregations;
 
     var resultDivs = results.map((d) => {
@@ -31,9 +37,18 @@ const ResultsComponent = React.createClass({
       var mostleast = query.sort_dir === "desc" ? "most" : "least";
       var updatedcreated = query.sort === "updated_at" ? "updated" : "created";
       // TODO: make the mostleast and updatedcreated into dropdown menus which affect the query.
-      summary = (<span>Showing {results.length} of the {mostleast} recently {updatedcreated} blocks </span>)
+      summary = (<span>Showing {results.length}/{totalResults} of the {mostleast} recently {updatedcreated} blocks.</span>)
     } else {
-      summary = (<span>Showing {results.length} of the most relevant blocks.</span>)
+      summary = (<span>Showing {results.length}/{totalResults} of the most relevant blocks.</span>)
+    }
+    var loading;
+    if(this.props.loading) {
+      loading = "LOADING"
+    }
+
+    var loadMore;
+    if(results.length < totalResults) {
+      loadMore = <a className="load-more" onClick={this.handleLoadMore}>Load more</a>
     }
 
     return (
@@ -44,6 +59,8 @@ const ResultsComponent = React.createClass({
         <div className="blocks">
           {resultDivs}
         </div>
+        {loading}
+        {loadMore}
       </div>
     )
   }
@@ -53,6 +70,7 @@ const mapStateToProps = (state, ownProps) => {
 	return {
     query: state.query,
     results: state.results,
+    totalResults: state.totalResults,
     aggregations: state.aggregations
   }
 }
@@ -60,6 +78,5 @@ const mapActionsToProps = (dispatch) => {
 	return {
   }
 }
-
 const Results = connect(mapStateToProps, mapActionsToProps)(ResultsComponent);
 export default Results
