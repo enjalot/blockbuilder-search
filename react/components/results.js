@@ -5,9 +5,7 @@ import './results.scss';
 
 const ResultsComponent = React.createClass({
   handleLoadMore() {
-    console.log("LOAD MORE")
     this.props.getPage(this.props.query, this.props.results.length)
-
   },
   render() {
     var query = this.props.query;
@@ -31,9 +29,8 @@ const ResultsComponent = React.createClass({
 
     // If there is no text query we want to show a "latest query"
     var summary;
-    console.log("query", query)
-    if(query.method === "text" && !query.text) {
-      console.log("LATEST!")
+    if(!query.text) {
+      //console.log("LATEST!")
       var mostleast = query.sort_dir === "desc" ? "most" : "least";
       var updatedcreated = query.sort === "updated_at" ? "updated" : "created";
       // TODO: make the mostleast and updatedcreated into dropdown menus which affect the query.

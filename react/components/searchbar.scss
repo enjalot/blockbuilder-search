@@ -1,3 +1,4 @@
+$blue: #66B5AF;
 
 #searchbar {
   max-width: 970px;
@@ -9,18 +10,27 @@
     outline: none;
     border: 1px solid #111;
     font-size: 18px;
-
+    height: 24px;
   }
   input.user-search {
     display: none;
   }
-  button.search {
-    margin: 0 5px;
-    font-size: 18px;
-    background-color: #66B5AF;
+  .search-button {
+    display: inline-block;
+    margin: 0px 5px;
+    padding: 4px 8px;
+    font-size: 16px;
+    background-color: $blue;
     border: 1px solid white;
+    border-radius: 3px;
     color: white;
     outline: none;
+    cursor: pointer;
+  }
+  .search-button:hover {
+    background-color: white;
+    color: $blue;
+    border: 1px solid $blue;
   }
 
 }

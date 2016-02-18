@@ -1,3 +1,5 @@
+$blue: #66B5AF;
+
 #results {
   max-width: 970px;
   display: block;
@@ -48,8 +50,25 @@
     display: inline-block;
     margin: 20px 0;
     padding: 5px;
-    border: 1px solid green;
+    border: 1px solid $blue;
     cursor: pointer;
     font-size: 20px;
+  }
+  .load-more {
+    display: inline-block;
+    margin: 0px 5px;
+    padding: 4px 8px;
+    font-size: 16px;
+    background-color: $blue;
+    border: 1px solid white;
+    border-radius: 3px;
+    color: white;
+    outline: none;
+    cursor: pointer;
+  }
+  .load-more:hover {
+    background-color: white;
+    color: $blue;
+    border: 1px solid $blue;
   }
 }

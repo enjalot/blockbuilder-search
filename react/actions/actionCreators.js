@@ -5,7 +5,8 @@ import d3 from 'd3'
 export default {
     // Data loading
     getSearch,
-    getPage
+    getPage,
+    setQuery,
     // UI controls
 }
 
@@ -32,6 +33,13 @@ function getPage(query, from) {
         dispatch(receivePage(response))
       })
     };
+}
+
+function setQuery(query) {
+  return {
+    type: actions.SET_QUERY,
+    query: query
+  };
 }
 
 function requestSearch(query) {

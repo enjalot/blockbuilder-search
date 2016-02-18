@@ -31,9 +31,9 @@ module.exports = function(conf, app) {
 /*
   Expects an elasticsearch client to be supplied, and a query with the structure:
   {
-    method: "text", "api", filename"
     text: "awesome data"
     user: "enjalot"
+    api: ["d3.nest", "d3.layout.pack"]
     sort: "updated_at", "created_at"
     sort_dir: "desc", "asc"
 
@@ -45,15 +45,11 @@ function searchES(es, submittedQuery, callback) {
   var queryTerm = {};
   var query = {};
 
-  var method = submittedQuery.method;
   var text = submittedQuery.text;
   var recent;
-  if(method === "text" && !text) {
-    recent = true;
-  }
   var user = submittedQuery.user;
   var dateRange = submittedQuery.dateRange;
-  if(method === "text" && text) {
+  if(text) {
     // This is the "best field" query structure described in the docs:
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_tuning_best_fields_queries.html
     queryTerm.dis_max = {
@@ -64,9 +60,12 @@ function searchES(es, submittedQuery, callback) {
       ],
       "tie_breaker": 0.1
     }
-  } else if(recent) {
+  } else {
+    recent = true;
     queryTerm.match_all = {};
-  } else if(method === "api") {
+  }
+  // TODO: rethink this, we want potentially want to filter by these
+  /* else if(method === "api") {
     // We assume the user knows what the possible API functions are
     // and we are doing an exact match
     queryTerm.match = {
@@ -78,7 +77,7 @@ function searchES(es, submittedQuery, callback) {
     queryTerm.wildcard = {
       "filenames": text
     }
-  }
+  }*/
   if(user || dateRange) {
     var textQuery = JSON.parse(JSON.stringify(queryTerm)); // {{0_0}}
     queryTerm = {}
@@ -88,8 +87,8 @@ function searchES(es, submittedQuery, callback) {
       must.push({ "match": { "userId": user }})
     }
     if(dateRange) {
-      must.push({ "range": { "updated_at": { "gte": dateRange[0]}}})
-      must.push({ "range": { "updated_at": { "lte": dateRange[1]}}})
+      must.push({ "range": { "created_at": { "gte": dateRange[0]}}})
+      must.push({ "range": { "created_at": { "lte": dateRange[1]}}})
     }
     queryTerm.filtered = {
       "filter": {
@@ -112,6 +111,7 @@ function searchES(es, submittedQuery, callback) {
 
   // If this is a pagination request, don't request aggregations
   if(!submittedQuery.from) {
+    /* TODO: enable this when we actually use it
     query.aggs = {
       "users": {
         "terms" : { "field": "userId" }
@@ -123,6 +123,7 @@ function searchES(es, submittedQuery, callback) {
         "min": {"field": "created_at" }
       }
     }
+    */
   } else {
     query.from = submittedQuery.from;
   }

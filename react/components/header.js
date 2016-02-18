@@ -5,7 +5,7 @@ const Header = React.createClass({
   render() {
     return (
       <div id="header">
-        <h1>Blockbuilder Search</h1>
+        <h1>Search the Bl.ocks</h1>
       </div>
     )
   }

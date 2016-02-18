@@ -11,7 +11,20 @@ import SearchBar from './searchbar'
 
 const App = React.createClass({
 	componentDidMount() {
-    this.props.actions.getSearch(this.props.query)
+    var query = {...this.props.query}
+    var hash = window.location.hash;
+    if(hash) {
+      var options = hash.slice(1).split(";");
+      var object = {}
+      options.forEach(function(option){
+        var keyvalue = option.split("=");
+        object[keyvalue[0]] = keyvalue[1];
+      })
+      if(object.text) {
+        query.text = object.text
+      }
+    }
+    this.props.actions.getSearch(query);
 	},
 	render() {
 		return (
@@ -19,6 +32,7 @@ const App = React.createClass({
         <Header></Header>
         <SearchBar
           query={this.props.query}
+          setQuery={this.props.actions.setQuery}
           getSearch={this.props.actions.getSearch}
         ></SearchBar>
         <Results

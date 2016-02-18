@@ -1,15 +1,21 @@
 import actions from './actions/actionNames.js'
 
 const initialState = {
-  query: { method: "text", text: "", size: 100, sort: "created_at", sort_dir: "desc"},
+  query: { text: "", size: 100, sort: "created_at", sort_dir: "desc"},
   results: [],
   aggregations: {}
 }
 
 function rootReduce(state = initialState, action) {
 	switch (action.type) {
+    case actions.SET_QUERY:
+      return {
+        ...state,
+        // we don't overwrite the whole query, just the parts that are updated
+        query: { ...state.query, ...action.query},
+      };
 		case actions.REQUEST_SEARCH:
-      console.log("ACTION REQUEST SEARCH", action)
+      //console.log("ACTION REQUEST SEARCH", action)
       return {
         ...state,
         // we don't overwrite the whole query, just the parts that are updated
@@ -19,7 +25,7 @@ function rootReduce(state = initialState, action) {
         loading: true
       };
 		case actions.RECEIVE_SEARCH:
-      console.log("ACTION RECEIVE SEARCH", action)
+      //console.log("ACTION RECEIVE SEARCH", action)
 			return {
 				...state,
         loading: false,
@@ -28,14 +34,14 @@ function rootReduce(state = initialState, action) {
         aggregations: action.data.aggregations
 			}
     case actions.REQUEST_PAGE:
-      console.log("ACTION REQUEST PAGE", action)
+      //console.log("ACTION REQUEST PAGE", action)
       return {
         ...state,
         // we don't overwrite the whole query, just the parts that are updated
         loading: true
       };
     case actions.RECEIVE_PAGE:
-      console.log("ACTION RECEIVE PAGE", action)
+      //console.log("ACTION RECEIVE PAGE", action)
       var moreResults = action.data.hits.hits; // TODO: null check this
 			return {
 				...state,
