@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect'
 import ActionCreators from '../actions/actionCreators';
+import ReactTooltip from 'react-tooltip'
 
 import Header from './header'
 import Results from './results'
@@ -38,6 +39,7 @@ const App = React.createClass({
         <Results
           getPage={this.props.actions.getPage}
         ></Results>
+        <ReactTooltip />
       </div>
     )
   }

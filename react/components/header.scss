@@ -1,4 +1,28 @@
 #header {
   max-width: 970px;
   margin: 0px auto;
+
+  #nav {
+    position: fixed;
+    top: 10px;
+    left: 3px;
+
+    .nav-link {
+      margin-top: 6px;
+      margin-left: 8px;
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+    .nav-link a {
+      font-size: 11px;
+      color: black;
+      &:hover {
+        border-bottom: 0;
+      }
+    }
+
+    z-index: 300;
+  }
+
 }
