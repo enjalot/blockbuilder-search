@@ -1,9 +1,10 @@
 import actions from './actions/actionNames.js'
 
 const initialState = {
-  query: { text: "", size: 100, sort: "created_at", sort_dir: "desc"},
+  query: { text: "", size: 100, sort: "created_at", sort_dir: "desc", user: "", api: []},
   results: [],
-  aggregations: {}
+  d3Apis: [],
+  //aggregations: {}
 }
 
 function rootReduce(state = initialState, action) {
@@ -21,7 +22,7 @@ function rootReduce(state = initialState, action) {
         // we don't overwrite the whole query, just the parts that are updated
         query: { ...state.query, ...action.query},
         results: [],
-        aggregations: {},
+        //aggregations: {},
         loading: true
       };
 		case actions.RECEIVE_SEARCH:
@@ -31,7 +32,7 @@ function rootReduce(state = initialState, action) {
         loading: false,
         results: action.data.hits.hits, // TODO: null check this
         totalResults: action.data.hits.total,
-        aggregations: action.data.aggregations
+        //aggregations: action.data.aggregations
 			}
     case actions.REQUEST_PAGE:
       //console.log("ACTION REQUEST PAGE", action)
@@ -48,6 +49,16 @@ function rootReduce(state = initialState, action) {
         loading: false,
         results: state.results.concat(moreResults)
 			}
+    case actions.RECEIVE_AGGREGATE_D3_API:
+      //console.log("RECEIVE", action.data)
+      return  {
+        ...state,
+        d3Apis: action.data.aggregations.all_api.buckets
+      }
+    case actions.REQUEST_AGGREGATE_D3_API:
+      return {
+        ...state
+      }
     default:
 			return state;
 	}

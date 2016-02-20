@@ -10,8 +10,8 @@ const ResultsComponent = React.createClass({
   render() {
     var query = this.props.query;
     var results = this.props.results;
-    var totalResults = this.props.totalResults;
-    var aggregations = this.props.aggregations;
+    var totalResults = this.props.totalResults || 0;
+    //var aggregations = this.props.aggregations;
 
     var resultDivs = results.map((d) => {
       var block = d._source;
@@ -20,7 +20,7 @@ const ResultsComponent = React.createClass({
         style.backgroundImage = "url(https://gist.githubusercontent.com/" + block.userId + "/" + d._id + "/raw/" + block.thumb + "/thumbnail.png)"
       }
       return (
-        <a key={"block-" + d._id} className="block-link" href={"/" + block.userId + "/" + d._id} style={style}>
+        <a key={"block-" + d._id} className="block-link" href={"/" + block.userId + "/" + d._id} style={style} target="_blank">
           <div className="block-description">{block.description}</div>
           <div className="block-user">@{block.userId}</div>
         </a>
@@ -68,7 +68,7 @@ const mapStateToProps = (state, ownProps) => {
     query: state.query,
     results: state.results,
     totalResults: state.totalResults,
-    aggregations: state.aggregations
+    //aggregations: state.aggregations
   }
 }
 const mapActionsToProps = (dispatch) => {

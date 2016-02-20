@@ -5,7 +5,7 @@ $blue: #66B5AF;
   display: block;
   position: relative;
   margin: 10px auto;
-  padding: 0 10px 20px 10px;
+  padding: 0 10px 30px 10px;
 
   .summary {
   }
@@ -65,6 +65,8 @@ $blue: #66B5AF;
     color: white;
     outline: none;
     cursor: pointer;
+    float: left;
+    clear: left;
   }
   .load-more:hover {
     background-color: white;

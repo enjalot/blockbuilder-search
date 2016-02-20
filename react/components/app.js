@@ -22,7 +22,13 @@ const App = React.createClass({
         object[keyvalue[0]] = keyvalue[1];
       })
       if(object.text) {
-        query.text = object.text
+        query.text = object.text;
+      }
+      if(object.user) {
+        query.user = object.user;
+      }
+      if(object.api) {
+        query.api = object.api.split(",")
       }
     }
     this.props.actions.getSearch(query);
@@ -33,12 +39,17 @@ const App = React.createClass({
         <Header></Header>
         <SearchBar
           query={this.props.query}
+          d3Apis={this.props.d3Apis}
           setQuery={this.props.actions.setQuery}
           getSearch={this.props.actions.getSearch}
+          getAggregateD3API={this.props.actions.getAggregateD3API}
         ></SearchBar>
         <Results
           getPage={this.props.actions.getPage}
         ></Results>
+        <div id="credits">
+          made with love for the <a href="http://d3js.org">d3.js</a> community by <a href="https://twitter.com/enjalot">@enjalot</a>
+        </div>
         <ReactTooltip />
       </div>
     )

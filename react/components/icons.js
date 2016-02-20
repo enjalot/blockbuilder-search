@@ -41,3 +41,15 @@ class IconQuestion extends React.Component {
   }
 }
 export { IconQuestion }
+
+// https://raw.githubusercontent.com/iconic/open-iconic/master/svg/circle-x.svg
+class IconClose extends React.Component {
+  render() {
+    return (
+      <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 8 8">
+        <path d="M4 0c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-1.5 1.78l1.5 1.5 1.5-1.5.72.72-1.5 1.5 1.5 1.5-.72.72-1.5-1.5-1.5 1.5-.72-.72 1.5-1.5-1.5-1.5.72-.72z" />
+      </svg>
+    )
+  }
+}
+export { IconClose }

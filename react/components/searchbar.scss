@@ -13,7 +13,10 @@ $blue: #66B5AF;
     height: 24px;
   }
   input.user-search {
-    display: none;
+    margin: 0 5px;
+  }
+  input.api-autocomplete {
+    margin: 0 5px;
   }
   .search-button {
     display: inline-block;
@@ -31,6 +34,46 @@ $blue: #66B5AF;
     background-color: white;
     color: $blue;
     border: 1px solid $blue;
+  }
+
+  #autocomplete-apis {
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    border: 1px solid $blue;
+  }
+
+  #autocomplete-apis .ac-api {
+    margin: 2px 0;
+    padding: 3px 5px;
+    background-color: white;
+    cursor: pointer;
+  }
+  #autocomplete-apis .ac-api:hover {
+    background-color: $blue;
+    color: white;
+  }
+
+  #selected-apis {
+    width: 100%;
+    min-height: 25px;
+    margin: 10px 0;
+    z-index: 10;
+  }
+  #selected-apis .selected-api {
+    float: left;
+    margin-top: 5px;
+    margin-right: 5px;
+    padding: 3px 5px;
+    border: 1px solid $blue;
+    border-radius: 3px;
+  }
+  #selected-apis .remove-api {
+    cursor: pointer;
+    margin: 0 2px;
+  }
+  #selected-apis .remove-api path {
+    fill: $blue;
   }
 
 }

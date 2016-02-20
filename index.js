@@ -16,15 +16,29 @@ module.exports = function(conf, app) {
   }
   function searchAPI(req, res, next) {
     // Assumes express body-parser
-    var query = req.body;
+    //var query = req.body;
+    var query = req.query;
+    if(typeof(query.api) === "string") {
+      query.api = [query.api]
+    }
+
     searchES(client, query, function(err, results) {
       if(err) return res.send(err);
       res.send(results);
     })
   }
+
+  function aggregateD3API(req, res, next) {
+    getAllAPIFunctions(client, function(err, results) {
+      if(err) return res.send(err);
+      res.send(results)
+    })
+  }
+
   return {
     page: searchPage,
-    api: searchAPI
+    api: searchAPI,
+    aggregateD3API: aggregateD3API
   }
 }
 
@@ -48,6 +62,8 @@ function searchES(es, submittedQuery, callback) {
   var text = submittedQuery.text;
   var recent;
   var user = submittedQuery.user;
+  var api = submittedQuery.api || [];
+  console.log("API", api)
   var dateRange = submittedQuery.dateRange;
   if(text) {
     // This is the "best field" query structure described in the docs:
@@ -78,7 +94,7 @@ function searchES(es, submittedQuery, callback) {
       "filenames": text
     }
   }*/
-  if(user || dateRange) {
+  if(user || api.length || dateRange) {
     var textQuery = JSON.parse(JSON.stringify(queryTerm)); // {{0_0}}
     queryTerm = {}
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_most_important_queries_and_filters.html#_bool_filter
@@ -86,11 +102,19 @@ function searchES(es, submittedQuery, callback) {
     if(user) {
       must.push({ "match": { "userId": user }})
     }
+    if(api) {
+      api.forEach(function(fn) {
+        must.push({ "match": { "api": fn }})
+      })
+    }
+    /*
     if(dateRange) {
       must.push({ "range": { "created_at": { "gte": dateRange[0]}}})
       must.push({ "range": { "created_at": { "lte": dateRange[1]}}})
     }
+    */
     queryTerm.filtered = {
+      "query": textQuery,
       "filter": {
         "bool": {
           "must": must
@@ -139,6 +163,25 @@ function searchES(es, submittedQuery, callback) {
     query.sort[submittedQuery.sort] = { order: submittedQuery.sort_dir }
   }
 
+  es.search({
+    index: "blockbuilder",
+    type: "blocks",
+    body: query
+  }, callback);
+}
+
+function getAllAPIFunctions(es, callback) {
+  var query = {
+    "size": 0,
+    "aggs": {
+      "all_api": {
+        "terms": {
+          "field": "api",
+          "size": 0
+        }
+      }
+    }
+  }
   es.search({
     index: "blockbuilder",
     type: "blocks",
