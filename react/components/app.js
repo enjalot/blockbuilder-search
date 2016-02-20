@@ -13,7 +13,7 @@ import SearchBar from './searchbar'
 const App = React.createClass({
 	componentDidMount() {
     var query = {...this.props.query}
-    var hash = window.location.hash;
+    var hash = decodeURIComponent(window.location.hash);
     if(hash) {
       var options = hash.slice(1).split(";");
       var object = {}
