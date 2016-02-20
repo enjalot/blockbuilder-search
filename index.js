@@ -100,11 +100,11 @@ function searchES(es, submittedQuery, callback) {
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_most_important_queries_and_filters.html#_bool_filter
     var must = [];
     if(user) {
-      must.push({ "match": { "userId": user }})
+      must.push({ "term": { "userId": user }})
     }
     if(api) {
       api.forEach(function(fn) {
-        must.push({ "match": { "api": fn }})
+        must.push({ "term": { "api": fn }})
       })
     }
     /*
