@@ -57,7 +57,6 @@ const App = React.createClass({
 })
 
 const select = (state) => {
-  console.log("select", state)
   /*
 	let gistsFiltered = gistFilter(state);
 	return {

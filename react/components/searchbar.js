@@ -4,7 +4,6 @@ import './searchbar.scss'
 
 const ACAPIDiv = React.createClass({
   handleClick() {
-    console.log("click!", this.props.api)
     this.props.handleAPISelect(this.props.api)
   },
   render() {
@@ -90,9 +89,7 @@ const SearchBar = React.createClass({
   },
   onAPIBlur() {
     var that = this;
-    console.log("blur")
     setTimeout(function() {
-      console.log("hmmm")
       that.setState({showApis: false})
     }, 250)
   },
@@ -148,7 +145,6 @@ const SearchBar = React.createClass({
     var apiDivs = [];
     var api = this.props.query.api;
     if(api) {
-      console.log("api", api)
       api.forEach(function(fn) {
         apiDivs.push( (<APIDiv key={"fn-" + fn} api={fn} handleAPIDeselect={that.handleAPIDeselect}/>) )
       })

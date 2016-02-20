@@ -1,7 +1,7 @@
 {
   "name": "blockbuilder-search",
-  "version": "0.0.1",
-  "description": "Blocks search engine plugin.",
+  "version": "0.1.0",
+  "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
     "local": "webpack --color --progress --watch",
