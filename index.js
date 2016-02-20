@@ -1,5 +1,5 @@
 
-module.exports = function(conf, app) {
+module.exports = function(conf, app, ga) {
   var elasticsearch = require('elasticsearch');
   var client = new elasticsearch.Client(conf);
 
@@ -7,12 +7,15 @@ module.exports = function(conf, app) {
   var express = require('express')
   app.use('/public-search', express.static(__dirname + '/public'));
 
-  var template = fs.readFileSync(__dirname + "/views/search.html").toString()
+  var Handlebars = require('handlebars')
+  var src = fs.readFileSync(__dirname + "/views/search.html").toString()
+  var template = Handlebars.compile(src)
+  var html = template({ga: ga})
 
   function searchPage(req, res, next) {
     console.log("search page")
     // TODO: there is probably a more canonical way to do this
-    return res.send(template);
+    return res.send(html);
   }
   function searchAPI(req, res, next) {
     // Assumes express body-parser
