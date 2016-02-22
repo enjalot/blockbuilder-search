@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { IconLoader } from './icons'
 
 import './results.scss';
 
@@ -40,7 +41,7 @@ const ResultsComponent = React.createClass({
     }
     var loading;
     if(this.props.loading) {
-      loading = "LOADING"
+      loading = (<div className=".loading"><IconLoader></IconLoader></div>)
     }
 
     var loadMore;
@@ -68,6 +69,7 @@ const mapStateToProps = (state, ownProps) => {
     query: state.query,
     results: state.results,
     totalResults: state.totalResults,
+    loading: state.loading
     //aggregations: state.aggregations
   }
 }
