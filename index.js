@@ -13,7 +13,6 @@ module.exports = function(conf, app, ga) {
   var html = template({ga: ga})
 
   function searchPage(req, res, next) {
-    console.log("search page")
     // TODO: there is probably a more canonical way to do this
     return res.send(html);
   }
@@ -66,7 +65,6 @@ function searchES(es, submittedQuery, callback) {
   var recent;
   var user = submittedQuery.user;
   var api = submittedQuery.api || [];
-  console.log("API", api)
   var dateRange = submittedQuery.dateRange;
   if(text) {
     // This is the "best field" query structure described in the docs:
@@ -156,8 +154,8 @@ function searchES(es, submittedQuery, callback) {
   }
   query.size = submittedQuery.size;
 
-  console.log("submitted", JSON.stringify(submittedQuery))
-  console.log("QUERY", JSON.stringify(query))
+  console.log(new Date(), "submitted", JSON.stringify(submittedQuery))
+  console.log(new Date(), "QUERY", JSON.stringify(query))
   // For now we are only paying attention to the sort order if this is a "recent" query
   // this is so that we don't override the relevance score for other pages.
   // TODO:
