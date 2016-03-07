@@ -12,13 +12,31 @@ export default {
     // UI controls
 }
 
+function injectScreenshots(response, callback){
+  var gists = response.hits.hits;
+  var gistsWithoutThumb = gists.filter(function(d){ return !d._source.thumb; })
+  var gistsWithoutThumbIds = gistsWithoutThumb.map(function(d, i){ return d._id; });;
+  if(gistsWithoutThumbIds.length > 0){
+    d3.json("http://69.164.216.89:8080")
+      .post(JSON.stringify({"gists":gistsWithoutThumbIds}), function(error, data) {
+        gistsWithoutThumb.forEach(function(d){ return d._source.thumbBase64 = data[d._id]; });
+        callback.call(this, response);
+      });
+  }
+  else {
+    callback.call(this, response);
+  }
+}
+
 // Query elasticsearch
 function getSearch(query) {
   return dispatch => {
     dispatch(requestSearch(query));
     d3.json('/api/search?' + qs.stringify(query), function(err, response) {
-        dispatch(receiveSearch(response))
-      })
+      injectScreenshots(response, function(responseWithScreenshots){
+        dispatch(receiveSearch(responseWithScreenshots));
+      });
+    })
   };
 }
 
@@ -28,7 +46,9 @@ function getPage(query, from) {
   return dispatch => {
     dispatch(requestPage(q));
     d3.json('/api/search?' + qs.stringify(q), function(err, response) {
-        dispatch(receivePage(response))
+        injectScreenshots(response, function(responseWithScreenshots){
+          dispatch(receivePage(responseWithScreenshots));
+        });
       })
   };
 }

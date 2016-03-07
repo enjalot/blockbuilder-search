@@ -20,6 +20,9 @@ const ResultsComponent = React.createClass({
       if(block.thumb) {
         style.backgroundImage = "url(https://gist.githubusercontent.com/" + block.userId + "/" + d._id + "/raw/" + block.thumb + "/thumbnail.png)"
       }
+      else if(block.thumbBase64){
+        style.backgroundImage = "url(data:image/png;base64," + block.thumbBase64 + ")"
+      }
       return (
         <a key={"block-" + d._id} className="block-link" href={"/" + block.userId + "/" + d._id} style={style} target="_blank">
           <div className="block-description">{block.description}</div>
