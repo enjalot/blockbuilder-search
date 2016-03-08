@@ -28,10 +28,10 @@ function rootReduce(state = initialState, action) {
 		case actions.RECEIVE_SEARCH:
       //console.log("ACTION RECEIVE SEARCH", action)
 			return {
-				...state,
+		...state,
         loading: false,
-        results: action.data.hits.hits, // TODO: null check this
-        totalResults: action.data.hits.total,
+        results: (action.data.hits) ? action.data.hits.hits : [],
+        totalResults: (action.data.hits) ? action.data.hits.total : 0,
         //aggregations: action.data.aggregations
 			}
     case actions.REQUEST_PAGE:
