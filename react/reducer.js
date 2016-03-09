@@ -41,6 +41,12 @@ function rootReduce(state = initialState, action) {
         // we don't overwrite the whole query, just the parts that are updated
         loading: true
       };
+    case actions.RECEIVE_SCREENSHOTS:
+      //console.log("RECEIVE_SCREENSHOTS", action)
+		return {
+		  ...state,
+          screenshots: action.data
+	}
     case actions.RECEIVE_PAGE:
       //console.log("ACTION RECEIVE PAGE", action)
       var moreResults = action.data.hits.hits; // TODO: null check this

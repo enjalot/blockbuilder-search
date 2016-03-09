@@ -7,6 +7,7 @@ export default {
     // Data loading
     getSearch,
     getPage,
+    getScreenshotList,
     setQuery,
     getAggregateD3API
     // UI controls
@@ -30,6 +31,14 @@ function getPage(query, from) {
     d3.json('/api/search?' + qs.stringify(q), function(err, response) {
         dispatch(receivePage(response))
       })
+  };
+}
+
+function getScreenshotList() {
+  return dispatch => {
+    d3.json('http://christopheviau.com/block_screenshot/screenshot_list.json', function(err, response) {
+      dispatch(receiveScreenshotList(response))
+    })
   };
 }
 
@@ -77,6 +86,14 @@ function receivePage(response) {
     data: response
   };
 }
+
+function receiveScreenshotList(response) {
+  return {
+    type: actions.RECEIVE_SCREENSHOTS,
+    data: response
+  };
+}
+
 function requestAggregateD3API() {
   return {
     type: actions.REQUEST_AGGREGATE_D3_API,

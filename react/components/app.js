@@ -32,6 +32,7 @@ const App = React.createClass({
       }
     }
     this.props.actions.getSearch(query);
+    this.props.actions.getScreenshotList();
 	},
 	render() {
 		return (
