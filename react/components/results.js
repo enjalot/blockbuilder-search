@@ -12,6 +12,7 @@ const ResultsComponent = React.createClass({
     var query = this.props.query;
     var results = this.props.results;
     var totalResults = this.props.totalResults || 0;
+    var screenshots = this.props.screenshots || [];
     //var aggregations = this.props.aggregations;
 
     var resultDivs = results.map((d) => {
@@ -19,6 +20,11 @@ const ResultsComponent = React.createClass({
       var style = {};
       if(block.thumb) {
         style.backgroundImage = "url(https://gist.githubusercontent.com/" + block.userId + "/" + d._id + "/raw/" + block.thumb + "/thumbnail.png)"
+      }
+      else {
+        if(screenshots.indexOf(d._id + ".png") > -1){
+          style.backgroundImage = "url(http://christopheviau.com/block_screenshot/" + d._id + ".png)"
+        }
       }
       return (
         <a key={"block-" + d._id} className="block-link" href={"/" + block.userId + "/" + d._id} style={style} target="_blank">
@@ -69,6 +75,7 @@ const mapStateToProps = (state, ownProps) => {
     query: state.query,
     results: state.results,
     totalResults: state.totalResults,
+    screenshots: state.screenshots,
     loading: state.loading
     //aggregations: state.aggregations
   }
