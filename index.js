@@ -23,6 +23,9 @@ module.exports = function(conf, app, ga) {
     if(typeof(query.api) === "string") {
       query.api = [query.api]
     }
+    if(typeof(query.d3modules) === "string") {
+      query.d3modules = [query.d3modules]
+    }
 
     searchES(client, query, function(err, results) {
       if(err) return res.send(err);
@@ -36,11 +39,18 @@ module.exports = function(conf, app, ga) {
       res.send(results)
     })
   }
+  function aggregateD3Modules(req, res, next) {
+    getAllModules(client, function(err, results) {
+      if(err) return res.send(err);
+      res.send(results)
+    })
+  }
 
   return {
     page: searchPage,
     api: searchAPI,
-    aggregateD3API: aggregateD3API
+    aggregateD3API: aggregateD3API,
+    aggregateD3Modules: aggregateD3Modules
   }
 }
 
@@ -64,7 +74,9 @@ function searchES(es, submittedQuery, callback) {
   var text = submittedQuery.text;
   var recent;
   var user = submittedQuery.user;
+  var d3version = submittedQuery.d3version;
   var api = submittedQuery.api || [];
+  var d3modules = submittedQuery.d3modules || [];
   var dateRange = submittedQuery.dateRange;
   if(text) {
     // This is the "best field" query structure described in the docs:
@@ -95,7 +107,7 @@ function searchES(es, submittedQuery, callback) {
       "filenames": text
     }
   }*/
-  if(user || api.length || dateRange) {
+  if(user || d3version || api.length || d3modules.length || dateRange) {
     var textQuery = JSON.parse(JSON.stringify(queryTerm)); // {{0_0}}
     queryTerm = {}
     // https://www.elastic.co/guide/en/elasticsearch/guide/current/_most_important_queries_and_filters.html#_bool_filter
@@ -103,9 +115,17 @@ function searchES(es, submittedQuery, callback) {
     if(user) {
       must.push({ "term": { "userId": user }})
     }
+    if(d3version) {
+      must.push({"term": {"d3version": d3version }})
+    }
     if(api) {
       api.forEach(function(fn) {
         must.push({ "term": { "api": fn }})
+      })
+    }
+    if(d3modules) {
+      d3modules.forEach(function(module) {
+        must.push({ "term": { "d3modules": module }})
       })
     }
     /*
@@ -178,6 +198,25 @@ function getAllAPIFunctions(es, callback) {
       "all_api": {
         "terms": {
           "field": "api",
+          "size": 0
+        }
+      }
+    }
+  }
+  es.search({
+    index: "blockbuilder",
+    type: "blocks",
+    body: query
+  }, callback);
+}
+
+function getAllModules(es, callback) {
+  var query = {
+    "size": 0,
+    "aggs": {
+      "all_modules": {
+        "terms": {
+          "field": "d3modules",
           "size": 0
         }
       }

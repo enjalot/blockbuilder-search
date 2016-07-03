@@ -18,6 +18,9 @@ $blue: #66B5AF;
   input.api-autocomplete {
     margin: 0 5px;
   }
+  input.modules-autocomplete {
+    margin: 0 5px;
+  }
   .search-button {
     display: inline-block;
     margin: 0px 5px;
@@ -42,14 +45,20 @@ $blue: #66B5AF;
     background-color: white;
     border: 1px solid $blue;
   }
+  #autocomplete-modules {
+    position: absolute;
+    z-index: 100;
+    background-color: white;
+    border: 1px solid $blue;
+  }
 
-  #autocomplete-apis .ac-api {
+  .ac-api {
     margin: 2px 0;
     padding: 3px 5px;
     background-color: white;
     cursor: pointer;
   }
-  #autocomplete-apis .ac-api:hover {
+  .ac-api:hover {
     background-color: $blue;
     color: white;
   }
@@ -60,7 +69,13 @@ $blue: #66B5AF;
     margin: 10px 0;
     z-index: 10;
   }
-  #selected-apis .selected-api {
+  #selected-modules{
+    width: 100%;
+    min-height: 25px;
+    margin: 10px 0;
+    z-index: 10;
+  }
+  .selected-api {
     float: left;
     margin-top: 5px;
     margin-right: 5px;
@@ -68,11 +83,11 @@ $blue: #66B5AF;
     border: 1px solid $blue;
     border-radius: 3px;
   }
-  #selected-apis .remove-api {
+  .remove-api {
     cursor: pointer;
     margin: 0 2px;
   }
-  #selected-apis .remove-api path {
+  .remove-api path {
     fill: $blue;
   }
 

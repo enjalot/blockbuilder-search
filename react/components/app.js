@@ -27,8 +27,14 @@ const App = React.createClass({
       if(object.user) {
         query.user = object.user;
       }
+      if(object.d3version) {
+        query.d3version = object.d3version;
+      }
       if(object.api) {
         query.api = object.api.split(",")
+      }
+      if(object.d3modules) {
+        query.d3modules = object.d3modules.split(",")
       }
     }
     this.props.actions.getSearch(query);
@@ -41,9 +47,11 @@ const App = React.createClass({
         <SearchBar
           query={this.props.query}
           d3Apis={this.props.d3Apis}
+          d3Modules={this.props.d3Modules}
           setQuery={this.props.actions.setQuery}
           getSearch={this.props.actions.getSearch}
           getAggregateD3API={this.props.actions.getAggregateD3API}
+          getAggregateD3Modules={this.props.actions.getAggregateD3Modules}
         ></SearchBar>
         <Results
           getPage={this.props.actions.getPage}

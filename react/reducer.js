@@ -1,9 +1,10 @@
 import actions from './actions/actionNames.js'
 
 const initialState = {
-  query: { text: "", size: 100, sort: "created_at", sort_dir: "desc", user: "", api: []},
+  query: { text: "", size: 100, sort: "created_at", sort_dir: "desc", user: "", api: [], d3modules: [], d3version:""},
   results: [],
   d3Apis: [],
+  d3Modules: [],
   //aggregations: {}
 }
 
@@ -62,6 +63,16 @@ function rootReduce(state = initialState, action) {
         d3Apis: action.data.aggregations.all_api.buckets
       }
     case actions.REQUEST_AGGREGATE_D3_API:
+      return {
+        ...state
+      }
+    case actions.RECEIVE_AGGREGATE_D3_MODULES:
+      //console.log("RECEIVE", action.data)
+      return  {
+        ...state,
+        d3Modules: action.data.aggregations.all_modules.buckets
+      }
+    case actions.REQUEST_AGGREGATE_D3_MODULES:
       return {
         ...state
       }

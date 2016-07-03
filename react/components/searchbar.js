@@ -25,7 +25,10 @@ const SearchBar = React.createClass({
     return {
       apiValue: "",
       apiPos: { top: 0, left: 0 },
-      showApis: false
+      showApis: false,
+      moduleValue: "",
+      modulePos: { top: 0, left: 0 },
+      showModules: false
     }
   },
   handleSearch() {
@@ -50,9 +53,17 @@ const SearchBar = React.createClass({
       if(hash) hash += ";"
       hash += "user=" + mergedQuery.user;
     }
+    if(mergedQuery.d3version) {
+      if(hash) hash += ";"
+      hash += "d3version=" + mergedQuery.d3version;
+    }
     if(mergedQuery.api.length) {
       if(hash) hash += ";"
       hash += "api=" + mergedQuery.api;
+    }
+    if(mergedQuery.d3modules.length) {
+      if(hash) hash += ";"
+      hash += "d3modules=" + mergedQuery.d3modules;
     }
     window.location.hash = hash;
     this.props.getSearch(mergedQuery)
@@ -76,6 +87,16 @@ const SearchBar = React.createClass({
     var value = this.refs.user.value;
     var query = { ...this.props.query, user: value }
     this.props.setQuery(query)
+  },
+  handleVersionChange () {
+    var value = this.refs.d3version.value;
+    if(value == "any version") value = "";
+    var query = { ...this.props.query, d3version: value }
+    this.props.setQuery(query)
+    var that = this;
+    setTimeout(function() {
+      that.handleSearch()
+    })
   },
   onAPIFocus() {
     if(!this.props.d3Apis.length)
@@ -130,6 +151,61 @@ const SearchBar = React.createClass({
       that.handleSearch()
     })
   },
+
+  /////////////////////////////////////////////////////////////
+  onModuleFocus() {
+    if(!this.props.d3Modules.length)
+      this.props.getAggregateD3Modules()
+
+    var bbox = this.refs.modules.getBoundingClientRect()
+    this.setState({
+      modulePos: { top: bbox.bottom, left: bbox.left },
+      showModules: true
+    })
+  },
+  onModuleBlur() {
+    var that = this;
+    setTimeout(function() {
+      that.setState({showModules: false})
+    }, 250)
+  },
+  handleModuleChange() {
+    var value = this.refs.modules.value;
+    this.setState({ moduleValue: value })
+  },
+  handleModuleKeyDown (evt) {
+    if(evt.nativeEvent.keyCode === 27) {
+      this.setState({showModules: false})
+    }
+  },
+  handleModuleSelect(module) {
+    this.setState({showModules: false})
+    if(this.props.query.d3modules.indexOf(module) >=0) return;
+    var d3modules = this.props.query.d3modules.concat([module])
+    this.props.setQuery({
+      ...this.props.query,
+      d3modules: d3modules
+    })
+    this.refs.modules.value = "";
+    var that = this;
+    setTimeout(function() {
+      that.handleSearch()
+    })
+  },
+  handleModuleDeselect(module) {
+    var index = this.props.query.d3modules.indexOf(module)
+    if(index < 0) return;
+    var d3modules = this.props.query.d3modules.concat([])
+    d3modules.splice(index,1)
+    this.props.setQuery({
+      ...this.props.query,
+      d3modules: d3modules
+    })
+    var that = this;
+    setTimeout(function() {
+      that.handleSearch()
+    })
+  },
   componentDidUpdate() {
     if(this.refs) {
       if(this.refs.search) {
@@ -149,7 +225,6 @@ const SearchBar = React.createClass({
         apiDivs.push( (<APIDiv key={"fn-" + fn} api={fn} handleAPIDeselect={that.handleAPIDeselect}/>) )
       })
     }
-
     var allApiDivs = [];
     var d3Apis = this.props.d3Apis
     var apiValue = this.state.apiValue
@@ -170,21 +245,71 @@ const SearchBar = React.createClass({
       top: this.state.apiPos.top + "px",
       left: this.state.apiPos.left + "px",
     }
+
+    // TODO: make this a component...
+    var moduleDivs = [];
+    var d3modules = this.props.query.d3modules;
+    if(d3modules) {
+      d3modules.forEach(function(module) {
+        moduleDivs.push( (<APIDiv key={"module-" + module} api={module} handleAPIDeselect={that.handleModuleDeselect}/>) )
+      })
+    }
+    var allModuleDivs = [];
+    var alld3Modules = this.props.d3Modules
+    var moduleValue = this.state.moduleValue
+    if(alld3Modules.length) {
+      var top20 = [];
+      alld3Modules.forEach(function(module) {
+        if(!moduleValue || (moduleValue && module.key.indexOf(moduleValue)) >= 0)
+          top20.push(module)
+      })
+      top20 = top20.sort(function(a,b) { return b.doc_count - a.doc_count}).slice(0,20);
+      top20.forEach(function(module) {
+        //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
+        allModuleDivs.push( (<ACAPIDiv key={"ac-module-" + module.key} api={module.key} handleAPISelect={that.handleModuleSelect} />) )
+      })
+    }
+    var moduleStyle = {
+      display: this.state.showModules ? "block" : "none",
+      top: this.state.modulePos.top + "px",
+      left: this.state.modulePos.left + "px",
+    }
     return (
       <div id="searchbar">
         <input ref="search" className="text-search" type="text" onKeyDown={this.handleKeyDown} onChange={this.handleChange} />
         <a className="search-button" onClick={this.handleSearch}>Search</a>
         <input ref="user" className="user-search" type="text" placeholder="username" onKeyDown={this.handleUserKeyDown} onChange={this.handleUserChange} />
+
         <input ref="api" className="api-autocomplete" type="text" placeholder="API functions: d3..."
           onFocus={this.onAPIFocus}
           onBlur={this.onAPIBlur}
           onKeyDown={this.handleAPIKeyDown}
           onChange={this.handleAPIChange} />
+
+        <input ref="modules" className="modules-autocomplete" type="text" placeholder="d3-modules"
+          onFocus={this.onModuleFocus}
+          onBlur={this.onModuleBlur}
+          onKeyDown={this.handleModuleKeyDown}
+          onChange={this.handleModuleChange} />
+
+        <select ref="d3version" value={this.props.query.d3version} onChange={this.handleVersionChange}>
+          <option defaultValue="">any version</option>
+          <option defaultValue="v4">v4</option>
+          <option defaultValue="v3">v3</option>
+          <option defaultValue="v2">v2</option>
+        </select>
+
         <div id="selected-apis">
           {apiDivs}
         </div>
+        <div id="selected-modules">
+          {moduleDivs}
+        </div>
         <div id="autocomplete-apis" style={apiStyle}>
           {allApiDivs}
+        </div>
+        <div id="autocomplete-modules" style={moduleStyle}>
+          {allModuleDivs}
         </div>
       </div>
     )

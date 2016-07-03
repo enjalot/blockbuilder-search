@@ -9,7 +9,8 @@ export default {
     getPage,
     getScreenshotList,
     setQuery,
-    getAggregateD3API
+    getAggregateD3API,
+    getAggregateD3Modules
     // UI controls
 }
 
@@ -48,6 +49,15 @@ function getAggregateD3API() {
     dispatch(requestAggregateD3API());
     d3.json('/api/aggregateD3API', function(err, response) {
         dispatch(receiveAggregateD3API(response))
+      })
+  };
+}
+// Support pagination (don't clear results of previous query)
+function getAggregateD3Modules() {
+  return dispatch => {
+    dispatch(requestAggregateD3Modules());
+    d3.json('/api/aggregateD3Modules', function(err, response) {
+        dispatch(receiveAggregateD3Modules(response))
       })
   };
 }
@@ -103,6 +113,19 @@ function requestAggregateD3API() {
 function receiveAggregateD3API(response) {
   return {
     type: actions.RECEIVE_AGGREGATE_D3_API,
+    data: response
+  };
+}
+
+function requestAggregateD3Modules() {
+  return {
+    type: actions.REQUEST_AGGREGATE_D3_MODULES,
+  };
+}
+
+function receiveAggregateD3Modules(response) {
+  return {
+    type: actions.RECEIVE_AGGREGATE_D3_MODULES,
     data: response
   };
 }
