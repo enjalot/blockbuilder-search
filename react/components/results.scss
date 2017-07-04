@@ -22,7 +22,7 @@ $blue: #66B5AF;
     padding: 8px 10px;
     float: left;
     margin: 10px 10px 10px 0;
-    color: #111;
+    color: #444444;
     text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
     background-color: #eee;
     border: solid 1px #eee;
@@ -43,9 +43,11 @@ $blue: #66B5AF;
     text-overflow: ellipsis;
     max-height: 55px;
     padding-bottom: 5px;
+    color: #444444;
   }
   .block-user {
     font-size: 10px;
+    color: #444444;
   }
 
   .load-more {
