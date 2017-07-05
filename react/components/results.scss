@@ -33,6 +33,13 @@ $blue: #66B5AF;
   }
   .block-link:hover {
     background-position: 0% 50%;
+    text-decoration: none;
+    .block-description {
+      color: #66b5af;
+    }
+    .block-user {
+      color: #66b5af;
+    }
   }
   .block-link:not(:hover) {
     text-decoration: none;
