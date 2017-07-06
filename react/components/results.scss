@@ -35,10 +35,14 @@ $blue: #66B5AF;
     background-position: 0% 50%;
     text-decoration: none;
     .block-description {
-      color: #66b5af;
+      background-color: rgba(238, 238, 238, 0.95);
+
     }
     .block-user {
-      color: #66b5af;
+      background-color: rgba(238, 238, 238, 0.95);
+    }
+    .no-thumbnail {
+      color:  #66b5af;
     }
   }
   .block-link:not(:hover) {
@@ -59,7 +63,6 @@ $blue: #66B5AF;
   }
 
   .load-more {
-    display: inline-block;
     margin: 20px 0;
     padding: 5px;
     border: 1px solid $blue;

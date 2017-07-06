@@ -18,16 +18,18 @@ const ResultsComponent = React.createClass({
     var resultDivs = results.map((d) => {
       var block = d._source;
       var style = {};
+      var classNameString = "block-link";
       if(block.thumb) {
         style.backgroundImage = "url(https://gist.githubusercontent.com/" + block.userId + "/" + d._id + "/raw/" + block.thumb + "/thumbnail.png)"
       }
       else {
         if(screenshots.indexOf(d._id + ".png") > -1){
           style.backgroundImage = "url(http://christopheviau.com/block_screenshot/" + d._id + ".png)"
+          classNameString = classNameString + " " + "no-thumbnail";
         }
       }
       return (
-        <a key={"block-" + d._id} className="block-link" href={"/" + block.userId + "/" + d._id} style={style} target="_blank">
+        <a key={"block-" + d._id} className={classNameString} href={"/" + block.userId + "/" + d._id} style={style} target="_blank">
           <div className="block-description">{block.description}</div>
           <div className="block-user">@{block.userId}</div>
         </a>
