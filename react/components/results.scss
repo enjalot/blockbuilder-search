@@ -9,6 +9,7 @@ $blue: #66B5AF;
   padding: 0 10px 30px 10px;
 
   .summary {
+    color: #444444;
   }
   .blocks {
     margin-top: 10px;
@@ -22,7 +23,7 @@ $blue: #66B5AF;
     padding: 8px 10px;
     float: left;
     margin: 10px 10px 10px 0;
-    color: #111;
+    color: #444444;
     text-shadow: 1px 1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, -1px -1px 0 #fff;
     background-color: #eee;
     border: solid 1px #eee;
@@ -32,6 +33,17 @@ $blue: #66B5AF;
   }
   .block-link:hover {
     background-position: 0% 50%;
+    text-decoration: none;
+    .block-description {
+      background-color: rgba(238, 238, 238, 0.95);
+
+    }
+    .block-user {
+      background-color: rgba(238, 238, 238, 0.95);
+    }
+    .no-thumbnail {
+      color:  #66b5af;
+    }
   }
   .block-link:not(:hover) {
     text-decoration: none;
@@ -42,13 +54,15 @@ $blue: #66B5AF;
     overflow: hidden;
     text-overflow: ellipsis;
     max-height: 55px;
+    padding-bottom: 5px;
+    color: #444444;
   }
   .block-user {
     font-size: 10px;
+    color: #444444;
   }
 
   .load-more {
-    display: inline-block;
     margin: 20px 0;
     padding: 5px;
     border: 1px solid $blue;

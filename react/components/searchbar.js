@@ -4,7 +4,7 @@ import './searchbar.scss'
 
 const ACAPIDiv = React.createClass({
   handleClick() {
-    this.props.handleAPISelect(this.props.api)
+    this.props.handleAPISelect(this.props.api.substring(2))
   },
   render() {
     return (<div className="ac-api" onClick={this.handleClick}>{this.props.api}</div>)
@@ -237,7 +237,7 @@ const SearchBar = React.createClass({
       top20 = top20.sort(function(a,b) { return b.doc_count - a.doc_count}).slice(0,20);
       top20.forEach(function(fn) {
         //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
-        allApiDivs.push( (<ACAPIDiv key={"ac-fn-" + fn.key} api={fn.key} handleAPISelect={that.handleAPISelect} />) )
+        allApiDivs.push( (<ACAPIDiv key={"ac-fn-" + fn.key} api={"\u002B " + fn.key} handleAPISelect={that.handleAPISelect} />) )
       })
     }
     var apiStyle = {
@@ -266,7 +266,7 @@ const SearchBar = React.createClass({
       top20 = top20.sort(function(a,b) { return b.doc_count - a.doc_count}).slice(0,20);
       top20.forEach(function(module) {
         //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
-        allModuleDivs.push( (<ACAPIDiv key={"ac-module-" + module.key} api={module.key} handleAPISelect={that.handleModuleSelect} />) )
+        allModuleDivs.push( (<ACAPIDiv key={"ac-module-" + module.key} api={"\u002B " + module.key} handleAPISelect={that.handleModuleSelect} />) )
       })
     }
     var moduleStyle = {

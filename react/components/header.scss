@@ -1,6 +1,7 @@
 #header {
   max-width: 970px;
   margin: 0px auto;
+  color: #444444;
 
   #nav {
     position: fixed;
@@ -16,9 +17,12 @@
     }
     .nav-link a {
       font-size: 11px;
-      color: black;
+      color: #444444;
       &:hover {
         border-bottom: 0;
+      }
+      path {
+        fill: #444444;
       }
     }
 
