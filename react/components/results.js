@@ -1,3 +1,4 @@
+import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { IconLoader } from './icons';
@@ -7,6 +8,22 @@ import './results.scss';
 const ResultsComponent = React.createClass({
   handleLoadMore() {
     this.props.getPage(this.props.query, this.props.results.length);
+  },
+
+  onMouseOver(i, event) {
+    const currentBlockId = event.slice(14);
+
+    // if the shift key is pressed 
+    // while mousing over a result
+    // open up the blockbuilder graph search result
+    Mousetrap.bind('shift', () => {
+      console.log('event', event);
+      console.log('currentBlockId', currentBlockId);
+      window.open(`http://localhost:3000/?gist_id=${currentBlockId}`, '_blank');
+    });
+  },
+  onMouseOut() {
+    Mousetrap.unbind('shift');
   },
   render() {
     var query = this.props.query;
@@ -39,9 +56,12 @@ const ResultsComponent = React.createClass({
         <a
           key={'block-' + d._id}
           className={classNameString}
+          data-tag={block.description}
           href={'/' + block.userId + '/' + d._id}
           style={style}
           target="_blank"
+          onMouseOver={this.onMouseOver}
+          onMouseOut={this.onMouseOut}
         >
           <div className="block-description">{block.description}</div>
           <div className="block-user">@{block.userId}</div>
