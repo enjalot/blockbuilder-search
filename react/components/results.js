@@ -19,7 +19,9 @@ const ResultsComponent = React.createClass({
     Mousetrap.bind('shift', () => {
       console.log('event', event);
       console.log('currentBlockId', currentBlockId);
-      window.open(`http://localhost:3000/?gist_id=${currentBlockId}`, '_blank');
+      // point to blockbuilder graph search prototype
+      // running on digital ocean server
+      window.open(`http://138.197.194.92:8080/?gist_id=${currentBlockId}`, '_blank');
     });
   },
   onMouseOut() {
