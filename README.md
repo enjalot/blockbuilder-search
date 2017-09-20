@@ -14,13 +14,13 @@ This is a small react app using redux.
 
 ### setup blockbuilder dev environment
 
-follow the [full guide](https://github.com/enjalot/blockbuilder/wiki/Development#development) at the **blockbuilder** project
+Follow the [full guide](https://github.com/enjalot/blockbuilder/wiki/Development#development) at the **blockbuilder** project
 
-once you've done that, verify that it worked by opening a web browser and visiting local blockbuilder at [http://[::]:8889](http://[::]:8889)
+Once you've done that, verify that it worked by opening a web browser and visiting local blockbuilder at [http://[::]:8889](http://[::]:8889)
 
 ### setup search index
 
-follow the steps in the [Setup Elasticsearch & Index some Gists](https://github.com/enjalot/blockbuilder-search-index#setup-elasticsearch--index-some-gists) section of the **blockbuilder-search-index** project
+Follow the steps in the [Setup Elasticsearch & Index some Gists](https://github.com/enjalot/blockbuilder-search-index#setup-elasticsearch--index-some-gists) section of the **blockbuilder-search-index** project
 
 These steps guide us through setting up, installing, and running a local Elasticsearch instance that we can populate with blocks.  The blocks data is retrieved from Github and stored as static json files, before being loaded into our Elasticsearch index.  Once our search index is up, running, and populated, we're reading to query it with a web ui. 
 
@@ -30,11 +30,11 @@ These steps guide us through setting up, installing, and running a local Elastic
 // npm link blockbuilder-search
 ```
 
-- watch the **blockbuilder-search** source for changes, and rebuild the bundle on each change
+- Watch the **blockbuilder-search** source for changes, and rebuild the bundle on each change
 
 ```
 cd blockbuilder-search
 npm run buildWatch
 ```
 
-- open a web browser and visit local blockbuilder search [http://[::]:8889/search](http://[::]:8889/search)
+- Open a web browser and visit local blockbuilder search [http://[::]:8889/search](http://[::]:8889/search)
