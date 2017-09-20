@@ -18,7 +18,7 @@ Follow the [full dev setup guide](https://github.com/enjalot/blockbuilder/wiki/D
 
 Once you've done that, verify that it worked by opening a web browser and visiting local blockbuilder at [http://[::]:8889](http://[::]:8889)
 
-### setup search index
+### setup search index backend
 
 Follow the steps in the [Setup Elasticsearch & Index some Gists](https://github.com/enjalot/blockbuilder-search-index#setup-elasticsearch--index-some-gists) section of the **blockbuilder-search-index** project
 
