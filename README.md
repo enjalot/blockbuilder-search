@@ -14,15 +14,15 @@ This is a small react app using redux.
 
 ### setup blockbuilder dev environment
 
-- (full guide)[https://github.com/enjalot/blockbuilder/wiki/Development#development]
+follow the (full guide)[https://github.com/enjalot/blockbuilder/wiki/Development#development] at the **blockbuilder** project
 
-- open a web browser and visit local blockbuilder [http://[::]:8889](http://[::]:8889)
+once you've done that, verify that it worked by opening a web browser and visiting local blockbuilder at [http://[::]:8889](http://[::]:8889)
 
 ### setup search index
 
-- download and install `Elasticsearch 2.3.4` from [https://www.elastic.co/downloads/past-releases](https://www.elastic.co/downloads/past-releases)
+follow the steps in the [Setup Elasticsearch & Index some Gists](https://github.com/enjalot/blockbuilder-search-index#setup-elasticsearch--index-some-gists) section of the **blockbuilder-search-index** project
 
-- populate elasticsearch index with blocks
+These steps guide us through setting up, installing, and running a local Elasticsearch instance that we can populate with blocks.  The blocks data is retrieved from Github and stored as static json files, before being loaded into our Elasticsearch index.  Once our search index is up, running, and populated, we're reading to query it with a web ui. 
 
 ### connect local blockbuilder with local blockbuilder-search
 
