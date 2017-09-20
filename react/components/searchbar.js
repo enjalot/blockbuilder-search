@@ -65,7 +65,7 @@ const SearchBar = React.createClass({
       if(hash) hash += ";"
       hash += "d3modules=" + mergedQuery.d3modules;
     }
-    window.location.hash = hash;
+    window.location.hash = encodeURIComponent(hash);
     this.props.getSearch(mergedQuery)
   },
   handleKeyDown (evt) {
