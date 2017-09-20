@@ -14,7 +14,7 @@ This is a small react app using redux.
 
 ### setup blockbuilder dev environment
 
-follow the (full guide)[https://github.com/enjalot/blockbuilder/wiki/Development#development] at the **blockbuilder** project
+follow the [full guide](https://github.com/enjalot/blockbuilder/wiki/Development#development) at the **blockbuilder** project
 
 once you've done that, verify that it worked by opening a web browser and visiting local blockbuilder at [http://[::]:8889](http://[::]:8889)
 
