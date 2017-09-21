@@ -26,15 +26,24 @@ These steps guide us through setting up, installing, and running a local Elastic
 
 ### connect local blockbuilder with local blockbuilder-search
 
+we'll use [npm link](https://docs.npmjs.com/cli/link) to make sure that **blockbuilder** always shows the latest local build of the **blockbuilder-search** UI. this is a one-time setup step. 
+
 ```
-// npm link blockbuilder-search
+cd blockbuilder-search
+npm link
+cd ../blockbuilder
+npm link blockbuilder-search
 ```
 
-- Watch the **blockbuilder-search** source for changes, and rebuild the bundle on each change
+### Watch the **blockbuilder-search** source for changes...
+
+...and rebuild the bundle on each change.  [npm link](https://docs.npmjs.com/cli/link) will make sure that those changes propogate to the **blockbuilder** project.
 
 ```
 cd blockbuilder-search
 npm run buildWatch
 ```
 
-- Open a web browser and visit local blockbuilder search [http://[::]:8889/search](http://[::]:8889/search)
+### 🎉
+
+Now we can open a web browser and visit local blockbuilder search [http://[::]:8889/search](http://[::]:8889/search)
