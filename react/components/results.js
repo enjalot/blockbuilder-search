@@ -32,9 +32,18 @@ const ResultsComponent = React.createClass({
   },
   render() {
     var query = this.props.query;
-    var results = this.props.results.filter(
-      d => typeof d._source.thumb !== 'undefined'
-    );
+    console.log('query', query);
+    let results = this.props.results;
+
+    // if we are querying for only blocks with thumbnail images
+    if (
+      typeof query.wildcard !== 'undefined' &&
+      typeof query.wildcard.filenames === 'thumbnail.png'
+    ) {
+      results = this.props.results.filter(
+        d => typeof d._source.thumb !== 'undefined'
+      );
+    }
     var totalResults = this.props.totalResults || 0;
     var screenshots = this.props.screenshots || [];
     //var aggregations = this.props.aggregations;
@@ -43,7 +52,6 @@ const ResultsComponent = React.createClass({
       var block = d._source;
       var style = {};
       var classNameString = 'block-link';
-      console.log('block.thumb', block.thumb);
       if (block.thumb) {
         style.backgroundImage =
           'url(https://gist.githubusercontent.com/' +
