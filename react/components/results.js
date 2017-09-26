@@ -37,8 +37,8 @@ const ResultsComponent = React.createClass({
 
     // if we are querying for only blocks with thumbnail images
     if (
-      typeof query.wildcard !== 'undefined' &&
-      typeof query.wildcard.filenames === 'thumbnail.png'
+      typeof query.filenames !== 'undefined' &&
+      query.filenames.indexOf('thumbnail.png') > -1
     ) {
       results = this.props.results.filter(
         d => typeof d._source.thumb !== 'undefined'
