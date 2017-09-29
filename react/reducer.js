@@ -36,7 +36,7 @@ function rootReduce(state = initialState, action) {
         loading: true
       };
     case actions.RECEIVE_SEARCH:
-      //console.log("ACTION RECEIVE SEARCH", action)
+      console.log("ACTION RECEIVE SEARCH", action)
       return {
         ...state,
         loading: false,
