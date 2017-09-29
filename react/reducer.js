@@ -3,7 +3,7 @@ import actions from './actions/actionNames.js';
 const initialState = {
   query: {
     text: '',
-    size: 100,
+    size: 512,
     sort: 'created_at',
     sort_dir: 'desc',
     user: '',
