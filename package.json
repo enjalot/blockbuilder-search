@@ -1,6 +1,6 @@
 {
   "name": "blockbuilder-search",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
