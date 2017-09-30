@@ -21,7 +21,10 @@ const ResultsComponent = React.createClass({
       console.log('currentBlockId', currentBlockId);
       // point to blockbuilder graph search prototype
       // running on digital ocean server
-      window.open(`http://138.197.194.92:8080/?gist_id=${currentBlockId}`, '_blank');
+      window.open(
+        `http://138.197.194.92:8080/?gist_id=${currentBlockId}`,
+        '_blank'
+      );
     });
   },
   onMouseOut() {
@@ -29,7 +32,18 @@ const ResultsComponent = React.createClass({
   },
   render() {
     var query = this.props.query;
-    var results = this.props.results;
+    console.log('query', query);
+    let results = this.props.results;
+
+    // if we are querying for only blocks with thumbnail images
+    if (
+      typeof query.filenames !== 'undefined' &&
+      query.filenames.indexOf('thumbnail.png') > -1
+    ) {
+      results = this.props.results.filter(
+        d => typeof d._source.thumb !== 'undefined'
+      );
+    }
     var totalResults = this.props.totalResults || 0;
     var screenshots = this.props.screenshots || [];
     //var aggregations = this.props.aggregations;
@@ -67,14 +81,20 @@ const ResultsComponent = React.createClass({
             <div className="block-description">{block.description}</div>
             <div className="block-user">@{block.userId}</div>
           </a>
-          <a className="block-org-link"
+          <a
+            className="block-org-link"
             href={'http://bl.ocks.org/' + block.userId + '/' + d._id}
             target="_blank"
-          >bl.ocks.org</a>
-          <a className="block-graph-link"
+          >
+            bl.ocks.org
+          </a>
+          <a
+            className="block-graph-link"
             href={'http://138.197.194.92:8080/?gist_id=' + d._id}
             target="_blank"
-          >graph search</a>
+          >
+            graph search
+          </a>
         </div>
       );
     });
