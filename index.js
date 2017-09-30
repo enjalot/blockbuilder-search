@@ -184,7 +184,7 @@ function searchES(es, submittedQuery, callback) {
   }
 
   query._source = {
-    excludes: ['code', 'readme']
+    excludes: ['code', 'readme', 'api', 'colors', 'd3modules']
   };
 
   es.search(
