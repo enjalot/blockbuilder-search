@@ -2,10 +2,14 @@ import Mousetrap from 'mousetrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { IconLoader } from './icons';
+import { graphSearchIPAddress } from '../constants';
 
 import './results.scss';
 
 const ResultsComponent = React.createClass({
+  constructor() {
+
+  }
   handleLoadMore() {
     this.props.getPage(this.props.query, this.props.results.length);
   },
@@ -22,7 +26,7 @@ const ResultsComponent = React.createClass({
       // point to blockbuilder graph search prototype
       // running on digital ocean server
       window.open(
-        `http://138.197.194.92:8080/?gist_id=${currentBlockId}`,
+        `http://${graphSearchIPAddress}:8080/?gist_id=${currentBlockId}`,
         '_blank'
       );
     });
@@ -90,7 +94,7 @@ const ResultsComponent = React.createClass({
           </a>
           <a
             className="block-graph-link"
-            href={'http://138.197.194.92:8080/?gist_id=' + d._id}
+            href={`http://${graphSearchIPAddress}:8080/?gist_id=${d._id}`}
             target="_blank"
           >
             graph search
