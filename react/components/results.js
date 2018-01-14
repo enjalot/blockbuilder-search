@@ -7,9 +7,6 @@ import { graphSearchIPAddress } from '../constants';
 import './results.scss';
 
 const ResultsComponent = React.createClass({
-  constructor() {
-
-  }
   handleLoadMore() {
     this.props.getPage(this.props.query, this.props.results.length);
   },
