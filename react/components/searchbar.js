@@ -352,7 +352,7 @@ const SearchBar = React.createClass({
         <a className="search-button" onClick={this.handleSearch}>
           Search
         </a>
-        <a className="search-button" onClick={this.handleObservableSearch}>
+        <a className="search-button-emoji" onClick={this.handleObservableSearch}>
           📓
         </a>
         <input
