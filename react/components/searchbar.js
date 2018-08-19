@@ -78,6 +78,13 @@ const SearchBar = React.createClass({
     window.location.hash = encodeURIComponent(hash);
     this.props.getSearch(mergedQuery);
   },
+  handleObservableSearch() {
+    var value = this.refs.search.value;
+    const searchString = encodeURIComponent(value)
+
+    const observableSearchURI = `https://beta.observablehq.com/search?query=${searchString}`
+    window.open(observableSearchURI)
+  },
   handleKeyDown(evt) {
     if (evt.nativeEvent.keyCode === 13) {
       this.handleSearch();
@@ -344,6 +351,9 @@ const SearchBar = React.createClass({
         />
         <a className="search-button" onClick={this.handleSearch}>
           Search
+        </a>
+        <a className="search-button-emoji" onClick={this.handleObservableSearch}>
+          📓
         </a>
         <input
           ref="user"
