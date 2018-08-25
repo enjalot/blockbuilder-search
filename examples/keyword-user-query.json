@@ -1,7 +1,7 @@
 {
   "query": {
-    "filtered": {
-      "query": {
+    "bool": {
+      "must": {
         "dis_max": {
           "queries": [
             {
