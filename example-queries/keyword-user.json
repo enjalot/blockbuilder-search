@@ -1,0 +1,43 @@
+{
+  "query": {
+    "bool": {
+      "must": {
+        "dis_max": {
+          "queries": [
+            {
+              "match": {
+                "description": "isometric"
+              }
+            },
+            {
+              "match": {
+                "readme": "isometric"
+              }
+            },
+            {
+              "match": {
+                "code": "isometric"
+              }
+            }
+          ],
+          "tie_breaker": 0.1
+        }
+      },
+      "filter": {
+        "bool": {
+          "must": [
+            {
+              "term": {
+                "userId": "nitaku"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "size": "512",
+  "_source": {
+    "excludes": ["code", "readme", "api", "colors", "d3modules"]
+  }
+}
