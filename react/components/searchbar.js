@@ -117,7 +117,10 @@ const SearchBar = React.createClass({
     this.props.setQuery(query);
   },
   handleUserChange() {
-    var value = this.refs.user.value;
+    // lowercase all user names
+    // since this seems to be how we index them 
+    // in elasticsearch
+    var value = this.refs.user.value.toLowerCase();
     var query = { ...this.props.query, user: value };
     this.props.setQuery(query);
   },
