@@ -57,9 +57,8 @@ const App = React.createClass({
           getPage={this.props.actions.getPage}
         ></Results>
         <div id="credits">
-          Made with love for the <a href="http://d3js.org">d3.js</a> community by <a href="https://twitter.com/enjalot">@enjalot</a>.
+          Made with love for the <a href="http://d3js.org">d3.js</a> community by <a href="https://twitter.com/enjalot">@enjalot</a>, <a href="https://twitter.com/micahstubbs">@micahstubbs</a> and <a href="https://github.com/enjalot/blockbuilder-search/graphs/contributors">contributors</a>.
           <br/>
-          Hosted with love by <a href="https://www.elastic.co/cloud">Elastic Cloud</a>
         </div>
         <ReactTooltip />
       </div>
