@@ -54,6 +54,7 @@
   "devDependencies": {
     "css-loader": "^0.23.1",
     "eslint": "^5.4.0",
+    "eslint-config-prettier": "^3.0.1",
     "prettier": "^1.14.2",
     "sass-loader": "^7.1.0",
     "webpack": "^1.12.11"
