@@ -4,7 +4,7 @@ Icons taken from blockbuilder repo, starting to question my design choices :)
 import React from 'react'
 
 // For Homepage link
-//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/home.svg
+// https://raw.githubusercontent.com/iconic/open-iconic/master/svg/home.svg
 class IconHome extends React.Component {
   render() {
     return (
@@ -22,7 +22,7 @@ class IconHome extends React.Component {
 export { IconHome }
 
 // For the Search page
-//https://raw.githubusercontent.com/iconic/open-iconic/master/svg/magnifying-glass.svg
+// https://raw.githubusercontent.com/iconic/open-iconic/master/svg/magnifying-glass.svg
 class IconSearch extends React.Component {
   render() {
     return (
