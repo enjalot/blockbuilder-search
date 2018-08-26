@@ -1,15 +1,15 @@
-import actions from "./actions/actionNames.js"
+import actions from './actions/actionNames.js'
 
 const initialState = {
   query: {
-    text: "",
+    text: '',
     size: 512,
-    sort: "created_at",
-    sort_dir: "desc",
-    user: "",
+    sort: 'created_at',
+    sort_dir: 'desc',
+    user: '',
     api: [],
     d3modules: [],
-    d3version: ""
+    d3version: ''
   },
   results: [],
   d3Apis: [],
@@ -36,7 +36,7 @@ function rootReduce(state = initialState, action) {
         loading: true
       }
     case actions.RECEIVE_SEARCH:
-      console.log("ACTION RECEIVE SEARCH", action)
+      console.log('ACTION RECEIVE SEARCH', action)
       return {
         ...state,
         loading: false,

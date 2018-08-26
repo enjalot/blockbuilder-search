@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import { IconHome, IconQuestion, IconSearch } from "./icons.js"
-import "./header.scss"
+import React, { Component } from 'react'
+import { IconHome, IconQuestion, IconSearch } from './icons.js'
+import './header.scss'
 
 const Header = React.createClass({
   render() {

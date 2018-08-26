@@ -1,7 +1,7 @@
 /*
 Icons taken from blockbuilder repo, starting to question my design choices :)
 */
-import React from "react"
+import React from 'react'
 
 // For Homepage link
 //https://raw.githubusercontent.com/iconic/open-iconic/master/svg/home.svg

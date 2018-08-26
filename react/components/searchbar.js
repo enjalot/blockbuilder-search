@@ -1,6 +1,6 @@
-import React, { Component } from "react"
-import { IconClose } from "./icons"
-import "./searchbar.scss"
+import React, { Component } from 'react'
+import { IconClose } from './icons'
+import './searchbar.scss'
 
 const ACAPIDiv = React.createClass({
   handleClick() {
@@ -22,10 +22,10 @@ const APIDiv = React.createClass({
   render() {
     return (
       <div className="selected-api">
-        <span>{this.props.api}</span>{" "}
+        <span>{this.props.api}</span>{' '}
         <span className="remove-api" onClick={this.handleClick}>
           <IconClose />
-        </span>{" "}
+        </span>{' '}
       </div>
     )
   }
@@ -34,10 +34,10 @@ const APIDiv = React.createClass({
 const SearchBar = React.createClass({
   getInitialState() {
     return {
-      apiValue: "",
+      apiValue: '',
       apiPos: { top: 0, left: 0 },
       showApis: false,
-      moduleValue: "",
+      moduleValue: '',
       modulePos: { top: 0, left: 0 },
       showModules: false
     }
@@ -46,34 +46,34 @@ const SearchBar = React.createClass({
     var value = this.refs.search.value
     // TODO: parse file: ?
     var query = {
-      method: "text"
+      method: 'text'
     }
     if (value) {
       query.text = value
     } else {
-      query.sort = "created_at"
-      query.sort_dir = "desc"
+      query.sort = 'created_at'
+      query.sort_dir = 'desc'
     }
     var mergedQuery = { ...this.props.query, ...query }
     // TODO: this will have to account for other features
     // like user and apis
-    var hash = ""
-    if (mergedQuery.text) hash += "text=" + mergedQuery.text
+    var hash = ''
+    if (mergedQuery.text) hash += 'text=' + mergedQuery.text
     if (mergedQuery.user) {
-      if (hash) hash += ";"
-      hash += "user=" + mergedQuery.user
+      if (hash) hash += ';'
+      hash += 'user=' + mergedQuery.user
     }
     if (mergedQuery.d3version) {
-      if (hash) hash += ";"
-      hash += "d3version=" + mergedQuery.d3version
+      if (hash) hash += ';'
+      hash += 'd3version=' + mergedQuery.d3version
     }
     if (mergedQuery.api.length) {
-      if (hash) hash += ";"
-      hash += "api=" + mergedQuery.api
+      if (hash) hash += ';'
+      hash += 'api=' + mergedQuery.api
     }
     if (mergedQuery.d3modules.length) {
-      if (hash) hash += ";"
-      hash += "d3modules=" + mergedQuery.d3modules
+      if (hash) hash += ';'
+      hash += 'd3modules=' + mergedQuery.d3modules
     }
     window.location.hash = encodeURIComponent(hash)
     this.props.getSearch(mergedQuery)
@@ -106,7 +106,7 @@ const SearchBar = React.createClass({
     if (checked) {
       query = {
         ...this.props.query,
-        filenames: ["thumbnail.png"]
+        filenames: ['thumbnail.png']
       }
     } else {
       query = {
@@ -123,7 +123,7 @@ const SearchBar = React.createClass({
   },
   handleVersionChange() {
     var value = this.refs.d3version.value
-    if (value == "any version") value = ""
+    if (value == 'any version') value = ''
     var query = { ...this.props.query, d3version: value }
     this.props.setQuery(query)
     var that = this
@@ -163,7 +163,7 @@ const SearchBar = React.createClass({
       ...this.props.query,
       api: apis
     })
-    this.refs.api.value = ""
+    this.refs.api.value = ''
     var that = this
     setTimeout(function() {
       that.handleSearch()
@@ -217,7 +217,7 @@ const SearchBar = React.createClass({
       ...this.props.query,
       d3modules: d3modules
     })
-    this.refs.modules.value = ""
+    this.refs.modules.value = ''
     var that = this
     setTimeout(function() {
       that.handleSearch()
@@ -255,7 +255,7 @@ const SearchBar = React.createClass({
       api.forEach(function(fn) {
         apiDivs.push(
           <APIDiv
-            key={"fn-" + fn}
+            key={'fn-' + fn}
             api={fn}
             handleAPIDeselect={that.handleAPIDeselect}
           />
@@ -280,17 +280,17 @@ const SearchBar = React.createClass({
         //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allApiDivs.push(
           <ACAPIDiv
-            key={"ac-fn-" + fn.key}
-            api={"\u002B " + fn.key}
+            key={'ac-fn-' + fn.key}
+            api={'\u002B ' + fn.key}
             handleAPISelect={that.handleAPISelect}
           />
         )
       })
     }
     var apiStyle = {
-      display: this.state.showApis ? "block" : "none",
-      top: this.state.apiPos.top + "px",
-      left: this.state.apiPos.left + "px"
+      display: this.state.showApis ? 'block' : 'none',
+      top: this.state.apiPos.top + 'px',
+      left: this.state.apiPos.left + 'px'
     }
 
     // TODO: make this a component...
@@ -300,7 +300,7 @@ const SearchBar = React.createClass({
       d3modules.forEach(function(module) {
         moduleDivs.push(
           <APIDiv
-            key={"module-" + module}
+            key={'module-' + module}
             api={module}
             handleAPIDeselect={that.handleModuleDeselect}
           />
@@ -328,17 +328,17 @@ const SearchBar = React.createClass({
         //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allModuleDivs.push(
           <ACAPIDiv
-            key={"ac-module-" + module.key}
-            api={"\u002B " + module.key}
+            key={'ac-module-' + module.key}
+            api={'\u002B ' + module.key}
             handleAPISelect={that.handleModuleSelect}
           />
         )
       })
     }
     var moduleStyle = {
-      display: this.state.showModules ? "block" : "none",
-      top: this.state.modulePos.top + "px",
-      left: this.state.modulePos.left + "px"
+      display: this.state.showModules ? 'block' : 'none',
+      top: this.state.modulePos.top + 'px',
+      left: this.state.modulePos.left + 'px'
     }
     return (
       <div id="searchbar">
