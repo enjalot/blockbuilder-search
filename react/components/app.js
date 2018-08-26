@@ -2,8 +2,8 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { createSelector } from 'reselect'
-import ActionCreators from '../actions/actionCreators';
 import ReactTooltip from 'react-tooltip'
+import ActionCreators from '../actions/actionCreators';
 
 import Header from './header'
 import Results from './results'
@@ -12,13 +12,13 @@ import SearchBar from './searchbar'
 
 const App = React.createClass({
 	componentDidMount() {
-    var query = {...this.props.query}
-    var hash = decodeURIComponent(window.location.hash);
+    const query = {...this.props.query}
+    const hash = decodeURIComponent(window.location.hash);
     if(hash) {
-      var options = hash.slice(1).split(";");
-      var object = {}
-      options.forEach(function(option){
-        var keyvalue = option.split("=");
+      const options = hash.slice(1).split(";");
+      const object = {}
+      options.forEach((option) => {
+        const keyvalue = option.split("=");
         object[keyvalue[0]] = keyvalue[1];
       })
       if(object.text) {
@@ -43,7 +43,7 @@ const App = React.createClass({
 	render() {
 		return (
 			<div>
-        <Header></Header>
+        <Header />
         <SearchBar
           query={this.props.query}
           d3Apis={this.props.d3Apis}
@@ -52,10 +52,10 @@ const App = React.createClass({
           getSearch={this.props.actions.getSearch}
           getAggregateD3API={this.props.actions.getAggregateD3API}
           getAggregateD3Modules={this.props.actions.getAggregateD3Modules}
-        ></SearchBar>
+         />
         <Results
           getPage={this.props.actions.getPage}
-        ></Results>
+         />
         <div id="credits">
           Made with love for the <a href="http://d3js.org">d3.js</a> community by <a href="https://twitter.com/enjalot">@enjalot</a>.
           <br/>
@@ -67,19 +67,19 @@ const App = React.createClass({
   }
 })
 
-const select = (state) => {
+const select = (state) => 
   /*
 	let gistsFiltered = gistFilter(state);
 	return {
 		...state, gistsFiltered
   };
   */
-  return {
+   ({
     ...state
-  }
-}
+  })
+
 const mapDispatchToProps = (dispatch) => {
-	let actions = bindActionCreators(ActionCreators, dispatch);
+	const actions = bindActionCreators(ActionCreators, dispatch);
 	return {
 		actions
 	};

@@ -1,6 +1,6 @@
-import actions from './actionNames.js'
 import qs from 'querystring'
 import d3 from 'd3'
+import actions from './actionNames.js'
 
 export default {
   // Data loading
@@ -17,7 +17,7 @@ export default {
 function getSearch(query) {
   return dispatch => {
     dispatch(requestSearch(query))
-    d3.json('/api/search?' + qs.stringify(query), function(err, response) {
+    d3.json(`/api/search?${  qs.stringify(query)}`, (err, response) => {
       dispatch(receiveSearch(response))
     })
   }
@@ -25,10 +25,10 @@ function getSearch(query) {
 
 // Support pagination (don't clear results of previous query)
 function getPage(query, from) {
-  var q = { ...query, from: from }
+  const q = { ...query, from }
   return dispatch => {
     dispatch(requestPage(q))
-    d3.json('/api/search?' + qs.stringify(q), function(err, response) {
+    d3.json(`/api/search?${  qs.stringify(q)}`, (err, response) => {
       dispatch(receivePage(response))
     })
   }
@@ -38,7 +38,7 @@ function getScreenshotList() {
   return dispatch => {
     d3.json(
       'http://christopheviau.com/block_screenshot/screenshot_list.json',
-      function(err, response) {
+      (err, response) => {
         dispatch(receiveScreenshotList(response))
       }
     )
@@ -49,7 +49,7 @@ function getScreenshotList() {
 function getAggregateD3API() {
   return dispatch => {
     dispatch(requestAggregateD3API())
-    d3.json('/api/aggregateD3API', function(err, response) {
+    d3.json('/api/aggregateD3API', (err, response) => {
       dispatch(receiveAggregateD3API(response))
     })
   }
@@ -58,7 +58,7 @@ function getAggregateD3API() {
 function getAggregateD3Modules() {
   return dispatch => {
     dispatch(requestAggregateD3Modules())
-    d3.json('/api/aggregateD3Modules', function(err, response) {
+    d3.json('/api/aggregateD3Modules', (err, response) => {
       dispatch(receiveAggregateD3Modules(response))
     })
   }
@@ -67,14 +67,14 @@ function getAggregateD3Modules() {
 function setQuery(query) {
   return {
     type: actions.SET_QUERY,
-    query: query
+    query
   }
 }
 
 function requestSearch(query) {
   return {
     type: actions.REQUEST_SEARCH,
-    query: query
+    query
   }
 }
 
@@ -88,7 +88,7 @@ function receiveSearch(response) {
 function requestPage(query) {
   return {
     type: actions.REQUEST_PAGE,
-    query: query
+    query
   }
 }
 
