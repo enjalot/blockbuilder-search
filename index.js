@@ -133,8 +133,8 @@ function searchES(es, submittedQuery, callback) {
       must.push({ "range": { "created_at": { "lte": dateRange[1]}}})
     }
     */
-    queryTerm.filtered = {
-      query: textQuery,
+    queryTerm.bool = {
+      must: textQuery,
       filter: {
         bool: {
           must: must
