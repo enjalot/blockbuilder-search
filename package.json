@@ -9,18 +9,14 @@
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
     "format": "prettier --list-different --write \"{react,views}/**/*.js\"",
-    "format:check": "prettier --list-different --debug-check \"{react,views}/**/*.js\""
+    "format:check":
+      "prettier --list-different --debug-check \"{react,views}/**/*.js\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enjalot/blockbuilder-search.git"
   },
-  "keywords": [
-    "d3.js",
-    "blocks",
-    "data",
-    "visualization"
-  ],
+  "keywords": ["d3.js", "blocks", "data", "visualization"],
   "author": "Ian Johnson",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -39,7 +35,6 @@
     "handlebars": "^4.0.5",
     "mousetrap": "^1.6.1",
     "node-sass": "^4.9.3",
-    "prettier": "^1.14.2",
     "react": "^0.14.6",
     "react-dom": "^0.14.2",
     "react-redux": "^4.4.0",
@@ -54,6 +49,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "prettier": "^1.14.2",
     "sass-loader": "^7.1.0",
     "webpack": "^1.12.11"
   }
