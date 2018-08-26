@@ -320,8 +320,8 @@ const SearchBar = React.createClass({
         )
           top20.push(module)
       })
-      // top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
-      top20 = top20.slice(0, 20)
+      top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
+      // top20 = top20.slice(0, 20)
       top20.forEach((module, i) => {
         console.log('module', module)
         // allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )

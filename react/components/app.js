@@ -34,9 +34,9 @@ const App = React.createClass({
       if (object.api) {
         query.api = object.api.split(',')
       }
-      // if (object.d3modules) {
-      //   query.d3modules = object.d3modules.split(',')
-      // }
+      if (object.d3modules) {
+        query.d3modules = object.d3modules.split(',')
+      }
       console.log('this.props.d3Modules', this.props.d3Modules)
       console.log('d3Modules from file', d3Modules)
     }
@@ -55,7 +55,7 @@ const App = React.createClass({
         <SearchBar
           query={this.props.query}
           d3Apis={this.props.d3Apis}
-          d3Modules={d3ModulesList}
+          d3Modules={this.props.d3Modules}
           setQuery={this.props.actions.setQuery}
           getSearch={this.props.actions.getSearch}
           getAggregateD3API={this.props.actions.getAggregateD3API}
