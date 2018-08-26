@@ -58,22 +58,22 @@ const SearchBar = React.createClass({
     // TODO: this will have to account for other features
     // like user and apis
     let hash = ''
-    if (mergedQuery.text) hash += `text=${  mergedQuery.text}`
+    if (mergedQuery.text) hash += `text=${mergedQuery.text}`
     if (mergedQuery.user) {
       if (hash) hash += ';'
-      hash += `user=${  mergedQuery.user}`
+      hash += `user=${mergedQuery.user}`
     }
     if (mergedQuery.d3version) {
       if (hash) hash += ';'
-      hash += `d3version=${  mergedQuery.d3version}`
+      hash += `d3version=${mergedQuery.d3version}`
     }
     if (mergedQuery.api.length) {
       if (hash) hash += ';'
-      hash += `api=${  mergedQuery.api}`
+      hash += `api=${mergedQuery.api}`
     }
     if (mergedQuery.d3modules.length) {
       if (hash) hash += ';'
-      hash += `d3modules=${  mergedQuery.d3modules}`
+      hash += `d3modules=${mergedQuery.d3modules}`
     }
     window.location.hash = encodeURIComponent(hash)
     this.props.getSearch(mergedQuery)
@@ -123,7 +123,7 @@ const SearchBar = React.createClass({
   },
   handleVersionChange() {
     let value = this.refs.d3version.value
-    if (value == 'any version') value = ''
+    if (value === 'any version') value = ''
     const query = { ...this.props.query, d3version: value }
     this.props.setQuery(query)
     const that = this
@@ -252,10 +252,10 @@ const SearchBar = React.createClass({
     const apiDivs = []
     const api = this.props.query.api
     if (api) {
-      api.forEach((fn) => {
+      api.forEach(fn => {
         apiDivs.push(
           <APIDiv
-            key={`fn-${  fn}`}
+            key={`fn-${fn}`}
             api={fn}
             handleAPIDeselect={that.handleAPIDeselect}
           />
@@ -267,19 +267,17 @@ const SearchBar = React.createClass({
     const apiValue = this.state.apiValue
     if (d3Apis.length) {
       var top20 = []
-      d3Apis.forEach((fn) => {
+      d3Apis.forEach(fn => {
         if (!apiValue || (apiValue && fn.key.indexOf(apiValue)) >= 0)
           top20.push(fn)
       })
-      top20 = top20
-        .sort((a, b) => b.doc_count - a.doc_count)
-        .slice(0, 20)
-      top20.forEach((fn) => {
+      top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
+      top20.forEach(fn => {
         // allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allApiDivs.push(
           <ACAPIDiv
-            key={`ac-fn-${  fn.key}`}
-            api={`\u002B ${  fn.key}`}
+            key={`ac-fn-${fn.key}`}
+            api={`\u002B ${fn.key}`}
             handleAPISelect={that.handleAPISelect}
           />
         )
@@ -287,18 +285,18 @@ const SearchBar = React.createClass({
     }
     const apiStyle = {
       display: this.state.showApis ? 'block' : 'none',
-      top: `${this.state.apiPos.top  }px`,
-      left: `${this.state.apiPos.left  }px`
+      top: `${this.state.apiPos.top}px`,
+      left: `${this.state.apiPos.left}px`
     }
 
     // TODO: make this a component...
     const moduleDivs = []
     const d3modules = this.props.query.d3modules
     if (d3modules) {
-      d3modules.forEach((module) => {
+      d3modules.forEach(module => {
         moduleDivs.push(
           <APIDiv
-            key={`module-${  module}`}
+            key={`module-${module}`}
             api={module}
             handleAPIDeselect={that.handleModuleDeselect}
           />
@@ -310,22 +308,20 @@ const SearchBar = React.createClass({
     const moduleValue = this.state.moduleValue
     if (alld3Modules.length) {
       var top20 = []
-      alld3Modules.forEach((module) => {
+      alld3Modules.forEach(module => {
         if (
           !moduleValue ||
           (moduleValue && module.key.indexOf(moduleValue)) >= 0
         )
           top20.push(module)
       })
-      top20 = top20
-        .sort((a, b) => b.doc_count - a.doc_count)
-        .slice(0, 20)
-      top20.forEach((module) => {
+      top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
+      top20.forEach(module => {
         // allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allModuleDivs.push(
           <ACAPIDiv
-            key={`ac-module-${  module.key}`}
-            api={`\u002B ${  module.key}`}
+            key={`ac-module-${module.key}`}
+            api={`\u002B ${module.key}`}
             handleAPISelect={that.handleModuleSelect}
           />
         )
@@ -333,8 +329,8 @@ const SearchBar = React.createClass({
     }
     const moduleStyle = {
       display: this.state.showModules ? 'block' : 'none',
-      top: `${this.state.modulePos.top  }px`,
-      left: `${this.state.modulePos.left  }px`
+      top: `${this.state.modulePos.top}px`,
+      left: `${this.state.modulePos.left}px`
     }
     return (
       <div id="searchbar">

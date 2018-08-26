@@ -19,6 +19,32 @@
   "plugins": ["react"],
   "rules": {
     "react/jsx-filename-extension": "off",
-    "import/extensions": "off"
+    "react/no-this-in-sfc": "off",
+    "import/extensions": "off",
+    "no-use-before-define": "off",
+    "react/destructuring-assignment": "off",
+    "import/no-duplicates": "off",
+    "no-unused-vars": "off",
+    "no-var": "off",
+    "vars-on-top": "off",
+    "no-console": "off",
+    "react/no-string-refs": "off",
+    "block-scoped-var": "off",
+    "prefer-destructuring": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": "off",
+    "jsx-a11y/anchor-is-valid": "off",
+    "jsx-a11y/accessible-emoji": "off",
+    "jsx-a11y/click-events-have-key-events": "off",
+    "react/no-deprecated": "off",
+    "no-underscore-dangle": "off",
+    "react/jsx-no-target-blank": "off",
+    "react/prefer-stateless-function": "off",
+    "react/no-multi-comp": "off",
+    "no-useless-concat": "off",
+    "jsx-a11y/mouse-events-have-key-events": "off",
+    "no-redeclare": "off",
+    "import/prefer-default-export": "off"
   }
 }
