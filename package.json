@@ -7,7 +7,9 @@
     "local": "webpack --color --progress --watch",
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
-    "buildProd": "webpack --color --progress -p"
+    "buildProd": "webpack --color --progress -p",
+    "format": "prettier --list-different --write \"{react,views}/**/*.js\"",
+    "format:check": "prettier --list-different --debug-check \"{react,views}/**/*.js\""
   },
   "repository": {
     "type": "git",
