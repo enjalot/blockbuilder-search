@@ -1,11 +1,9 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import root from './reducer.js';
+import { createStore, applyMiddleware, compose } from 'redux'
+import thunk from 'redux-thunk'
+import root from './reducer.js'
 
-const createStoreWithMiddleware = compose(
-  applyMiddleware(thunk)
-)(createStore);
+const createStoreWithMiddleware = compose(applyMiddleware(thunk))(createStore)
 
-export default createStoreWithMiddleware(root);
+export default createStoreWithMiddleware(root)
 
-//export default createStore(reducers);
+// export default createStore(reducers);
