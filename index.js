@@ -187,14 +187,7 @@ function searchES(es, submittedQuery, callback) {
     excludes: ['code', 'readme', 'api', 'colors', 'd3modules']
   };
 
-  es.search(
-    {
-      index: 'blockbuilder',
-      type: 'blocks',
-      body: query
-    },
-    callback
-  );
+  performSearch(es, query, callback);
 }
 
 function getAllAPIFunctions(es, callback) {
@@ -209,14 +202,7 @@ function getAllAPIFunctions(es, callback) {
       }
     }
   };
-  es.search(
-    {
-      index: 'blockbuilder',
-      type: 'blocks',
-      body: query
-    },
-    callback
-  );
+  performSearch(es, query, callback);
 }
 
 function getAllModules(es, callback) {
@@ -230,7 +216,11 @@ function getAllModules(es, callback) {
         }
       }
     }
-  };
+  }
+  performSearch(es, query, callback);
+}
+
+function performSearch(es, query, callback) {
   es.search(
     {
       index: 'blockbuilder',
@@ -240,3 +230,4 @@ function getAllModules(es, callback) {
     callback
   );
 }
+
