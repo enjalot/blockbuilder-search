@@ -54,35 +54,31 @@ const ResultsComponent = React.createClass({
       const style = {}
       let classNameString = 'block-link'
       if (block.thumb) {
-        style.backgroundImage =
-          `url(https://gist.githubusercontent.com/${ 
-          block.userId 
-          }/${ 
-          d._id 
-          }/raw/${ 
-          block.thumb 
-          }/thumbnail.png)`
-      } else if (screenshots.indexOf(`${d._id  }.png`) > -1) {
-          style.backgroundImage =
-            `url(http://christopheviau.com/block_screenshot/${  d._id  }.png)`
-          classNameString = `${classNameString  } ` + `no-thumbnail`
-        }
+        style.backgroundImage = `url(https://gist.githubusercontent.com/${
+          block.userId
+        }/${d._id}/raw/${block.thumb}/thumbnail.png)`
+      } else if (screenshots.indexOf(`${d._id}.png`) > -1) {
+        style.backgroundImage = `url(http://christopheviau.com/block_screenshot/${
+          d._id
+        }.png)`
+        classNameString = `${classNameString} ` + `no-thumbnail`
+      }
       return (
         <div
-          key={`block-${  d._id}`}
+          key={`block-${d._id}`}
           className={classNameString}
           data-tag={block.description}
           style={style}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
         >
-          <a href={`/${  block.userId  }/${  d._id}`} target="_blank">
+          <a href={`/${block.userId}/${d._id}`} target="_blank">
             <div className="block-description">{block.description}</div>
             <div className="block-user">@{block.userId}</div>
           </a>
           <a
             className="block-org-link"
-            href={`http://bl.ocks.org/${  block.userId  }/${  d._id}`}
+            href={`http://bl.ocks.org/${block.userId}/${d._id}`}
             target="_blank"
           >
             bl.ocks.org
@@ -148,13 +144,13 @@ const ResultsComponent = React.createClass({
 })
 
 const mapStateToProps = (state, ownProps) => ({
-    query: state.query,
-    results: state.results,
-    totalResults: state.totalResults,
-    screenshots: state.screenshots,
-    loading: state.loading
-    // aggregations: state.aggregations
-  })
+  query: state.query,
+  results: state.results,
+  totalResults: state.totalResults,
+  screenshots: state.screenshots,
+  loading: state.loading
+  // aggregations: state.aggregations
+})
 const mapActionsToProps = dispatch => ({})
 const Results = connect(
   mapStateToProps,

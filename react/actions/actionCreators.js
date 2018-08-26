@@ -17,7 +17,7 @@ export default {
 function getSearch(query) {
   return dispatch => {
     dispatch(requestSearch(query))
-    d3.json(`/api/search?${  qs.stringify(query)}`, (err, response) => {
+    d3.json(`/api/search?${qs.stringify(query)}`, (err, response) => {
       dispatch(receiveSearch(response))
     })
   }
@@ -28,7 +28,7 @@ function getPage(query, from) {
   const q = { ...query, from }
   return dispatch => {
     dispatch(requestPage(q))
-    d3.json(`/api/search?${  qs.stringify(q)}`, (err, response) => {
+    d3.json(`/api/search?${qs.stringify(q)}`, (err, response) => {
       dispatch(receivePage(response))
     })
   }
