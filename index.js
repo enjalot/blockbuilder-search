@@ -192,12 +192,10 @@ function searchES(es, submittedQuery, callback) {
 
 function getAllAPIFunctions(es, callback) {
   var query = {
-    size: 0,
     aggs: {
       all_api: {
         terms: {
-          field: 'api',
-          size: 0
+          field: 'api'
         }
       }
     }
@@ -207,12 +205,10 @@ function getAllAPIFunctions(es, callback) {
 
 function getAllModules(es, callback) {
   var query = {
-    size: 0,
     aggs: {
       all_modules: {
         terms: {
-          field: 'd3modules',
-          size: 0
+          field: 'd3modules'
         }
       }
     }
