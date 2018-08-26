@@ -9,11 +9,11 @@
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
     "format":
-      "prettier --config .prettierrc.json --write \"{react,views}/**/*.js\"",
+      "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
     "format:check":
-      "prettier --config config/.prettierrc.json --debug-check --list-different \"{react,views}/**/*.js\"",
-    "lint": "eslint \"{react,views}/**/*.js\"",
-    "lint:fix": "eslint --fix \"{react,views}/**/*.js\""
+      "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'",
+    "lint": "eslint '{react,views}/**/*.js'",
+    "lint:fix": "eslint --fix '{react,views}/**/*.js'"
   },
   "repository": {
     "type": "git",
