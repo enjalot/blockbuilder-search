@@ -9,9 +9,9 @@
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
     "format":
-      "prettier --config .prettierrc.json --write \"{react,views}/**/*.js\"",
+      "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
     "format:check":
-      "prettier --config config/.prettierrc.json --debug-check --list-different \"{react,views}/**/*.js\""
+      "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'"
   },
   "repository": {
     "type": "git",
