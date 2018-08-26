@@ -120,8 +120,9 @@ const SearchBar = React.createClass({
     // lowercase all user names
     // since this seems to be how we index them 
     // in elasticsearch
-    var value = this.refs.user.value.toLowerCase();
-    var query = { ...this.props.query, user: value };
+    var value = `${this.refs.user.value}`.toLowerCase();
+    var rawValue = this.refs.user.value
+    var query = { ...this.props.query, user: value, userRaw: rawValue  };
     this.props.setQuery(query);
   },
   handleVersionChange() {
@@ -245,8 +246,8 @@ const SearchBar = React.createClass({
       if (this.refs.search) {
         this.refs.search.value = this.props.query.text;
       }
-      if (this.refs.user && this.props.query.user) {
-        this.refs.user.value = this.props.query.user;
+      if (this.refs.user && this.props.query.userRaw) {
+        this.refs.user.value = this.props.query.userRaw;
       }
     }
   },
