@@ -1,0 +1,10 @@
+{
+  "aggs": {
+    "all_api": {
+      "terms": {
+        "field": "api",
+        "fielddata": "true"
+      }
+    }
+  }
+}
