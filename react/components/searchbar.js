@@ -43,9 +43,9 @@ const SearchBar = React.createClass({
     }
   },
   handleSearch() {
-    var value = this.refs.search.value
+    const value = this.refs.search.value
     // TODO: parse file: ?
-    var query = {
+    const query = {
       method: 'text'
     }
     if (value) {
@@ -54,32 +54,32 @@ const SearchBar = React.createClass({
       query.sort = 'created_at'
       query.sort_dir = 'desc'
     }
-    var mergedQuery = { ...this.props.query, ...query }
+    const mergedQuery = { ...this.props.query, ...query }
     // TODO: this will have to account for other features
     // like user and apis
-    var hash = ''
-    if (mergedQuery.text) hash += 'text=' + mergedQuery.text
+    let hash = ''
+    if (mergedQuery.text) hash += `text=${mergedQuery.text}`
     if (mergedQuery.user) {
       if (hash) hash += ';'
-      hash += 'user=' + mergedQuery.user
+      hash += `user=${mergedQuery.user}`
     }
     if (mergedQuery.d3version) {
       if (hash) hash += ';'
-      hash += 'd3version=' + mergedQuery.d3version
+      hash += `d3version=${mergedQuery.d3version}`
     }
     if (mergedQuery.api.length) {
       if (hash) hash += ';'
-      hash += 'api=' + mergedQuery.api
+      hash += `api=${mergedQuery.api}`
     }
     if (mergedQuery.d3modules.length) {
       if (hash) hash += ';'
-      hash += 'd3modules=' + mergedQuery.d3modules
+      hash += `d3modules=${mergedQuery.d3modules}`
     }
     window.location.hash = encodeURIComponent(hash)
     this.props.getSearch(mergedQuery)
   },
   handleObservableSearch() {
-    var value = this.refs.search.value
+    const value = this.refs.search.value
     const searchString = encodeURIComponent(value)
 
     const observableSearchURI = `https://beta.observablehq.com/search?query=${searchString}`
@@ -91,8 +91,8 @@ const SearchBar = React.createClass({
     }
   },
   handleChange() {
-    var value = this.refs.search.value
-    var query = { ...this.props.query, text: value }
+    const value = this.refs.search.value
+    const query = { ...this.props.query, text: value }
     this.props.setQuery(query)
   },
   handleUserKeyDown(evt) {
@@ -123,35 +123,35 @@ const SearchBar = React.createClass({
     const value = `${this.refs.user.value}`.toLowerCase()
     const rawValue = this.refs.user.value
     const query = { ...this.props.query, user: value, userRaw: rawValue }
-    this.props.setQuery(query);
+    this.props.setQuery(query)
   },
   handleVersionChange() {
-    var value = this.refs.d3version.value
-    if (value == 'any version') value = ''
-    var query = { ...this.props.query, d3version: value }
+    let value = this.refs.d3version.value
+    if (value === 'any version') value = ''
+    const query = { ...this.props.query, d3version: value }
     this.props.setQuery(query)
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.handleSearch()
     })
   },
   onAPIFocus() {
     if (!this.props.d3Apis.length) this.props.getAggregateD3API()
 
-    var bbox = this.refs.api.getBoundingClientRect()
+    const bbox = this.refs.api.getBoundingClientRect()
     this.setState({
       apiPos: { top: bbox.bottom, left: bbox.left },
       showApis: true
     })
   },
   onAPIBlur() {
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.setState({ showApis: false })
     }, 250)
   },
   handleAPIChange() {
-    var value = this.refs.api.value
+    const value = this.refs.api.value
     this.setState({ apiValue: value })
   },
   handleAPIKeyDown(evt) {
@@ -162,50 +162,50 @@ const SearchBar = React.createClass({
   handleAPISelect(api) {
     this.setState({ showApis: false })
     if (this.props.query.api.indexOf(api) >= 0) return
-    var apis = this.props.query.api.concat([api])
+    const apis = this.props.query.api.concat([api])
     this.props.setQuery({
       ...this.props.query,
       api: apis
     })
     this.refs.api.value = ''
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.handleSearch()
     })
   },
   handleAPIDeselect(api) {
-    var index = this.props.query.api.indexOf(api)
+    const index = this.props.query.api.indexOf(api)
     if (index < 0) return
-    var apis = this.props.query.api.concat([])
+    const apis = this.props.query.api.concat([])
     apis.splice(index, 1)
     this.props.setQuery({
       ...this.props.query,
       api: apis
     })
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.handleSearch()
     })
   },
 
-  /////////////////////////////////////////////////////////////
+  // ///////////////////////////////////////////////////////////
   onModuleFocus() {
     if (!this.props.d3Modules.length) this.props.getAggregateD3Modules()
 
-    var bbox = this.refs.modules.getBoundingClientRect()
+    const bbox = this.refs.modules.getBoundingClientRect()
     this.setState({
       modulePos: { top: bbox.bottom, left: bbox.left },
       showModules: true
     })
   },
   onModuleBlur() {
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.setState({ showModules: false })
     }, 250)
   },
   handleModuleChange() {
-    var value = this.refs.modules.value
+    const value = this.refs.modules.value
     this.setState({ moduleValue: value })
   },
   handleModuleKeyDown(evt) {
@@ -216,28 +216,28 @@ const SearchBar = React.createClass({
   handleModuleSelect(module) {
     this.setState({ showModules: false })
     if (this.props.query.d3modules.indexOf(module) >= 0) return
-    var d3modules = this.props.query.d3modules.concat([module])
+    const d3modules = this.props.query.d3modules.concat([module])
     this.props.setQuery({
       ...this.props.query,
-      d3modules: d3modules
+      d3modules
     })
     this.refs.modules.value = ''
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.handleSearch()
     })
   },
   handleModuleDeselect(module) {
-    var index = this.props.query.d3modules.indexOf(module)
+    const index = this.props.query.d3modules.indexOf(module)
     if (index < 0) return
-    var d3modules = this.props.query.d3modules.concat([])
+    const d3modules = this.props.query.d3modules.concat([])
     d3modules.splice(index, 1)
     this.props.setQuery({
       ...this.props.query,
-      d3modules: d3modules
+      d3modules
     })
-    var that = this
-    setTimeout(function() {
+    const that = this
+    setTimeout(() => {
       that.handleSearch()
     })
   },
@@ -247,102 +247,94 @@ const SearchBar = React.createClass({
         this.refs.search.value = this.props.query.text
       }
       if (this.refs.user && this.props.query.userRaw) {
-        this.refs.user.value = this.props.query.userRaw;
+        this.refs.user.value = this.props.query.userRaw
       }
     }
   },
   render() {
-    var that = this
-    var apiDivs = []
-    var api = this.props.query.api
+    const that = this
+    const apiDivs = []
+    const api = this.props.query.api
     if (api) {
-      api.forEach(function(fn) {
+      api.forEach(fn => {
         apiDivs.push(
           <APIDiv
-            key={'fn-' + fn}
+            key={`fn-${fn}`}
             api={fn}
             handleAPIDeselect={that.handleAPIDeselect}
           />
         )
       })
     }
-    var allApiDivs = []
-    var d3Apis = this.props.d3Apis
-    var apiValue = this.state.apiValue
+    const allApiDivs = []
+    const d3Apis = this.props.d3Apis
+    const apiValue = this.state.apiValue
     if (d3Apis.length) {
       var top20 = []
-      d3Apis.forEach(function(fn) {
+      d3Apis.forEach(fn => {
         if (!apiValue || (apiValue && fn.key.indexOf(apiValue)) >= 0)
           top20.push(fn)
       })
-      top20 = top20
-        .sort(function(a, b) {
-          return b.doc_count - a.doc_count
-        })
-        .slice(0, 20)
-      top20.forEach(function(fn) {
-        //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
+      top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
+      top20.forEach(fn => {
+        // allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allApiDivs.push(
           <ACAPIDiv
-            key={'ac-fn-' + fn.key}
-            api={'\u002B ' + fn.key}
+            key={`ac-fn-${fn.key}`}
+            api={`\u002B ${fn.key}`}
             handleAPISelect={that.handleAPISelect}
           />
         )
       })
     }
-    var apiStyle = {
+    const apiStyle = {
       display: this.state.showApis ? 'block' : 'none',
-      top: this.state.apiPos.top + 'px',
-      left: this.state.apiPos.left + 'px'
+      top: `${this.state.apiPos.top}px`,
+      left: `${this.state.apiPos.left}px`
     }
 
     // TODO: make this a component...
-    var moduleDivs = []
-    var d3modules = this.props.query.d3modules
+    const moduleDivs = []
+    const d3modules = this.props.query.d3modules
     if (d3modules) {
-      d3modules.forEach(function(module) {
+      d3modules.forEach(module => {
         moduleDivs.push(
           <APIDiv
-            key={'module-' + module}
+            key={`module-${module}`}
             api={module}
             handleAPIDeselect={that.handleModuleDeselect}
           />
         )
       })
     }
-    var allModuleDivs = []
-    var alld3Modules = this.props.d3Modules
-    var moduleValue = this.state.moduleValue
+    const allModuleDivs = []
+    const alld3Modules = this.props.d3Modules
+    const moduleValue = this.state.moduleValue
     if (alld3Modules.length) {
       var top20 = []
-      alld3Modules.forEach(function(module) {
+      alld3Modules.forEach(module => {
         if (
           !moduleValue ||
           (moduleValue && module.key.indexOf(moduleValue)) >= 0
         )
           top20.push(module)
       })
-      top20 = top20
-        .sort(function(a, b) {
-          return b.doc_count - a.doc_count
-        })
-        .slice(0, 20)
-      top20.forEach(function(module) {
-        //allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
+      top20 = top20.sort((a, b) => b.doc_count - a.doc_count).slice(0, 20)
+      top20.forEach(module => {
+        // allApiDivs.push( (<div className="ac-api" key={"all-fn-" + fn.key} onClick={that.handleAPISelect(fn.key)}>{fn.key}</div>) )
         allModuleDivs.push(
           <ACAPIDiv
-            key={'ac-module-' + module.key}
-            api={'\u002B ' + module.key}
+            key={`ac-module-${module.key}`}
+            api={`\u002B ${module.key}`}
             handleAPISelect={that.handleModuleSelect}
           />
         )
       })
     }
-    var moduleStyle = {
+    const moduleStyle = {
       display: this.state.showModules ? 'block' : 'none',
-      top: this.state.modulePos.top + 'px',
-      left: this.state.modulePos.left + 'px'
+      top: `${this.state.modulePos.top}px`,
+      left: `${this.state.modulePos.left}px`
     }
     return (
       <div id="searchbar">

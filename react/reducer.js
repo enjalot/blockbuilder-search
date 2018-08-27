@@ -14,7 +14,7 @@ const initialState = {
   results: [],
   d3Apis: [],
   d3Modules: []
-  //aggregations: {}
+  // aggregations: {}
 }
 
 function rootReduce(state = initialState, action) {
@@ -26,13 +26,13 @@ function rootReduce(state = initialState, action) {
         query: { ...state.query, ...action.query }
       }
     case actions.REQUEST_SEARCH:
-      //console.log("ACTION REQUEST SEARCH", action)
+      // console.log("ACTION REQUEST SEARCH", action)
       return {
         ...state,
         // we don't overwrite the whole query, just the parts that are updated
         query: { ...state.query, ...action.query },
         results: [],
-        //aggregations: {},
+        // aggregations: {},
         loading: true
       }
     case actions.RECEIVE_SEARCH:
@@ -42,23 +42,23 @@ function rootReduce(state = initialState, action) {
         loading: false,
         results: action.data.hits.hits, // TODO: null check this
         totalResults: action.data.hits.total
-        //aggregations: action.data.aggregations
+        // aggregations: action.data.aggregations
       }
     case actions.REQUEST_PAGE:
-      //console.log("ACTION REQUEST PAGE", action)
+      // console.log("ACTION REQUEST PAGE", action)
       return {
         ...state,
         // we don't overwrite the whole query, just the parts that are updated
         loading: true
       }
     case actions.RECEIVE_SCREENSHOTS:
-      //console.log("RECEIVE_SCREENSHOTS", action)
+      // console.log("RECEIVE_SCREENSHOTS", action)
       return {
         ...state,
         screenshots: action.data
       }
     case actions.RECEIVE_PAGE:
-      //console.log("ACTION RECEIVE PAGE", action)
+      // console.log("ACTION RECEIVE PAGE", action)
       var moreResults = action.data.hits.hits // TODO: null check this
       return {
         ...state,
@@ -66,7 +66,7 @@ function rootReduce(state = initialState, action) {
         results: state.results.concat(moreResults)
       }
     case actions.RECEIVE_AGGREGATE_D3_API:
-      //console.log("RECEIVE", action.data)
+      // console.log("RECEIVE", action.data)
       return {
         ...state,
         d3Apis: action.data.aggregations.all_api.buckets
@@ -76,7 +76,7 @@ function rootReduce(state = initialState, action) {
         ...state
       }
     case actions.RECEIVE_AGGREGATE_D3_MODULES:
-      //console.log("RECEIVE", action.data)
+      // console.log("RECEIVE", action.data)
       return {
         ...state,
         d3Modules: action.data.aggregations.all_modules.buckets

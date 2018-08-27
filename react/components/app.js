@@ -2,8 +2,8 @@ import { connect } from 'react-redux'
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
-import ActionCreators from '../actions/actionCreators'
 import ReactTooltip from 'react-tooltip'
+import ActionCreators from '../actions/actionCreators'
 
 import Header from './header'
 import Results from './results'
@@ -11,13 +11,13 @@ import SearchBar from './searchbar'
 
 const App = React.createClass({
   componentDidMount() {
-    var query = { ...this.props.query }
-    var hash = decodeURIComponent(window.location.hash)
+    const query = { ...this.props.query }
+    const hash = decodeURIComponent(window.location.hash)
     if (hash) {
-      var options = hash.slice(1).split(';')
-      var object = {}
-      options.forEach(function(option) {
-        var keyvalue = option.split('=')
+      const options = hash.slice(1).split(';')
+      const object = {}
+      options.forEach(option => {
+        const keyvalue = option.split('=')
         object[keyvalue[0]] = keyvalue[1]
       })
       if (object.text) {
@@ -63,19 +63,19 @@ const App = React.createClass({
   }
 })
 
-const select = state => {
+const select = state =>
   /*
   let gistsFiltered = gistFilter(state);
   return {
     ...state, gistsFiltered
   };
   */
-  return {
+  ({
     ...state
-  }
-}
+  })
+
 const mapDispatchToProps = dispatch => {
-  let actions = bindActionCreators(ActionCreators, dispatch)
+  const actions = bindActionCreators(ActionCreators, dispatch)
   return {
     actions
   }

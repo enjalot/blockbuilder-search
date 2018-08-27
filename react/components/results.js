@@ -32,7 +32,7 @@ const ResultsComponent = React.createClass({
     Mousetrap.unbind('shift')
   },
   render() {
-    var query = this.props.query
+    const query = this.props.query
     console.log('query', query)
     let results = this.props.results
 
@@ -45,46 +45,40 @@ const ResultsComponent = React.createClass({
         d => typeof d._source.thumb !== 'undefined'
       )
     }
-    var totalResults = this.props.totalResults || 0
-    var screenshots = this.props.screenshots || []
-    //var aggregations = this.props.aggregations;
+    const totalResults = this.props.totalResults || 0
+    const screenshots = this.props.screenshots || []
+    // var aggregations = this.props.aggregations;
 
-    var resultDivs = results.map(d => {
-      var block = d._source
-      var style = {}
-      var classNameString = 'block-link'
+    const resultDivs = results.map(d => {
+      const block = d._source
+      const style = {}
+      let classNameString = 'block-link'
       if (block.thumb) {
-        style.backgroundImage =
-          'url(https://gist.githubusercontent.com/' +
-          block.userId +
-          '/' +
-          d._id +
-          '/raw/' +
-          block.thumb +
-          '/thumbnail.png)'
-      } else {
-        if (screenshots.indexOf(d._id + '.png') > -1) {
-          style.backgroundImage =
-            'url(http://christopheviau.com/block_screenshot/' + d._id + '.png)'
-          classNameString = classNameString + ' ' + 'no-thumbnail'
-        }
+        style.backgroundImage = `url(https://gist.githubusercontent.com/${
+          block.userId
+        }/${d._id}/raw/${block.thumb}/thumbnail.png)`
+      } else if (screenshots.indexOf(`${d._id}.png`) > -1) {
+        style.backgroundImage = `url(http://christopheviau.com/block_screenshot/${
+          d._id
+        }.png)`
+        classNameString = `${classNameString} ` + `no-thumbnail`
       }
       return (
         <div
-          key={'block-' + d._id}
+          key={`block-${d._id}`}
           className={classNameString}
           data-tag={block.description}
           style={style}
           onMouseOver={this.onMouseOver}
           onMouseOut={this.onMouseOut}
         >
-          <a href={'/' + block.userId + '/' + d._id} target="_blank">
+          <a href={`/${block.userId}/${d._id}`} target="_blank">
             <div className="block-description">{block.description}</div>
             <div className="block-user">@{block.userId}</div>
           </a>
           <a
             className="block-org-link"
-            href={'http://bl.ocks.org/' + block.userId + '/' + d._id}
+            href={`http://bl.ocks.org/${block.userId}/${d._id}`}
             target="_blank"
           >
             bl.ocks.org
@@ -101,11 +95,11 @@ const ResultsComponent = React.createClass({
     })
 
     // If there is no text query we want to show a "latest query"
-    var summary
+    let summary
     if (!query.text) {
-      //console.log("LATEST!")
-      var mostleast = query.sort_dir === 'desc' ? 'most' : 'least'
-      var updatedcreated = query.sort === 'updated_at' ? 'updated' : 'created'
+      // console.log("LATEST!")
+      const mostleast = query.sort_dir === 'desc' ? 'most' : 'least'
+      const updatedcreated = query.sort === 'updated_at' ? 'updated' : 'created'
       // TODO: make the mostleast and updatedcreated into dropdown menus which affect the query.
       summary = (
         <span>
@@ -120,7 +114,7 @@ const ResultsComponent = React.createClass({
         </span>
       )
     }
-    var loading
+    let loading
     if (this.props.loading) {
       loading = (
         <div className=".loading">
@@ -129,7 +123,7 @@ const ResultsComponent = React.createClass({
       )
     }
 
-    var loadMore
+    let loadMore
     if (results.length < totalResults) {
       loadMore = (
         <a className="load-more" onClick={this.handleLoadMore}>
@@ -149,19 +143,15 @@ const ResultsComponent = React.createClass({
   }
 })
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    query: state.query,
-    results: state.results,
-    totalResults: state.totalResults,
-    screenshots: state.screenshots,
-    loading: state.loading
-    //aggregations: state.aggregations
-  }
-}
-const mapActionsToProps = dispatch => {
-  return {}
-}
+const mapStateToProps = (state, ownProps) => ({
+  query: state.query,
+  results: state.results,
+  totalResults: state.totalResults,
+  screenshots: state.screenshots,
+  loading: state.loading
+  // aggregations: state.aggregations
+})
+const mapActionsToProps = dispatch => ({})
 const Results = connect(
   mapStateToProps,
   mapActionsToProps

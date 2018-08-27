@@ -11,7 +11,9 @@
     "format":
       "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
     "format:check":
-      "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'"
+      "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'",
+    "lint": "eslint '{react,views}/**/*.js'",
+    "lint:fix": "eslint --fix '{react,views}/**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -49,7 +51,15 @@
     "superagent": "^1.6.1"
   },
   "devDependencies": {
+    "babel-eslint": "^8.2.6",
     "css-loader": "^0.23.1",
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.7.0",
     "prettier": "^1.14.2",
     "sass-loader": "^7.1.0",
     "webpack": "^1.12.11"
