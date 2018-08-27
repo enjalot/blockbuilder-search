@@ -133,8 +133,8 @@ function searchES(es, submittedQuery, callback) {
       must.push({ "range": { "created_at": { "lte": dateRange[1]}}})
     }
     */
-    queryTerm.filtered = {
-      query: textQuery,
+    queryTerm.bool = {
+      must: textQuery,
       filter: {
         bool: {
           must: must
@@ -187,28 +187,36 @@ function searchES(es, submittedQuery, callback) {
     excludes: ['code', 'readme', 'api', 'colors', 'd3modules']
   }
 
-  es.search(
-    {
-      index: 'blockbuilder',
-      type: 'blocks',
-      body: query
-    },
-    callback
-  )
+  performSearch(es, query, callback);
 }
 
 function getAllAPIFunctions(es, callback) {
   var query = {
-    size: 0,
     aggs: {
       all_api: {
         terms: {
           field: 'api',
-          size: 0
+        }
+      }
+    }
+  };
+  performSearch(es, query, callback);
+}
+
+function getAllModules(es, callback) {
+  var query = {
+    aggs: {
+      all_modules: {
+        terms: {
+          field: 'd3modules',
         }
       }
     }
   }
+  performSearch(es, query, callback);
+}
+
+function performSearch(es, query, callback) {
   es.search(
     {
       index: 'blockbuilder',
@@ -219,24 +227,3 @@ function getAllAPIFunctions(es, callback) {
   )
 }
 
-function getAllModules(es, callback) {
-  var query = {
-    size: 0,
-    aggs: {
-      all_modules: {
-        terms: {
-          field: 'd3modules',
-          size: 0
-        }
-      }
-    }
-  }
-  es.search(
-    {
-      index: 'blockbuilder',
-      type: 'blocks',
-      body: query
-    },
-    callback
-  )
-}
