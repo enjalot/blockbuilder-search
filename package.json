@@ -1,24 +1,23 @@
 {
   "name": "blockbuilder-search",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
     "local": "webpack --color --progress --watch",
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
-    "buildProd": "webpack --color --progress -p"
+    "buildProd": "webpack --color --progress -p",
+    "format":
+      "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
+    "format:check":
+      "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enjalot/blockbuilder-search.git"
   },
-  "keywords": [
-    "d3.js",
-    "blocks",
-    "data",
-    "visualization"
-  ],
+  "keywords": ["d3.js", "blocks", "data", "visualization"],
   "author": "Ian Johnson",
   "license": "BSD-3-Clause",
   "bugs": {
@@ -32,7 +31,7 @@
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-1": "^6.5.0",
     "d3": "^3.5.15",
-    "elasticsearch": "^10.1.3",
+    "elasticsearch": "^15.1.1",
     "express": "^4.13.4",
     "handlebars": "^4.0.5",
     "mousetrap": "^1.6.1",
@@ -51,6 +50,7 @@
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
+    "prettier": "^1.14.2",
     "sass-loader": "^7.1.0",
     "webpack": "^1.12.11"
   }
