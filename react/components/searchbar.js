@@ -123,7 +123,7 @@ const SearchBar = React.createClass({
     const value = `${this.refs.user.value}`.toLowerCase()
     const rawValue = this.refs.user.value
     const query = { ...this.props.query, user: value, userRaw: rawValue }
-    this.props.setQuery(query);
+    this.props.setQuery(query)
   },
   handleVersionChange() {
     let value = this.refs.d3version.value
@@ -247,7 +247,7 @@ const SearchBar = React.createClass({
         this.refs.search.value = this.props.query.text
       }
       if (this.refs.user && this.props.query.userRaw) {
-        this.refs.user.value = this.props.query.userRaw;
+        this.refs.user.value = this.props.query.userRaw
       }
     }
   },
