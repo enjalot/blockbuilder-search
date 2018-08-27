@@ -1,40 +1,40 @@
-import Mousetrap from 'mousetrap';
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { IconLoader } from './icons';
-import { graphSearchIPAddress } from '../constants';
+import Mousetrap from 'mousetrap'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { IconLoader } from './icons'
+import { graphSearchIPAddress } from '../constants'
 
-import './results.scss';
+import './results.scss'
 
 const ResultsComponent = React.createClass({
   handleLoadMore() {
-    this.props.getPage(this.props.query, this.props.results.length);
+    this.props.getPage(this.props.query, this.props.results.length)
   },
 
   onMouseOver(i, event) {
-    const currentBlockId = event.slice(14);
+    const currentBlockId = event.slice(14)
 
     // if the shift key is pressed
     // while mousing over a result
     // open up the blockbuilder graph search result
     Mousetrap.bind('shift', () => {
-      console.log('event', event);
-      console.log('currentBlockId', currentBlockId);
+      console.log('event', event)
+      console.log('currentBlockId', currentBlockId)
       // point to blockbuilder graph search prototype
       // running on digital ocean server
       window.open(
         `http://${graphSearchIPAddress}:8080/?gist_id=${currentBlockId}`,
         '_blank'
-      );
-    });
+      )
+    })
   },
   onMouseOut() {
-    Mousetrap.unbind('shift');
+    Mousetrap.unbind('shift')
   },
   render() {
-    var query = this.props.query;
-    console.log('query', query);
-    let results = this.props.results;
+    var query = this.props.query
+    console.log('query', query)
+    let results = this.props.results
 
     // if we are querying for only blocks with thumbnail images
     if (
@@ -43,16 +43,16 @@ const ResultsComponent = React.createClass({
     ) {
       results = this.props.results.filter(
         d => typeof d._source.thumb !== 'undefined'
-      );
+      )
     }
-    var totalResults = this.props.totalResults || 0;
-    var screenshots = this.props.screenshots || [];
+    var totalResults = this.props.totalResults || 0
+    var screenshots = this.props.screenshots || []
     //var aggregations = this.props.aggregations;
 
     var resultDivs = results.map(d => {
-      var block = d._source;
-      var style = {};
-      var classNameString = 'block-link';
+      var block = d._source
+      var style = {}
+      var classNameString = 'block-link'
       if (block.thumb) {
         style.backgroundImage =
           'url(https://gist.githubusercontent.com/' +
@@ -61,12 +61,12 @@ const ResultsComponent = React.createClass({
           d._id +
           '/raw/' +
           block.thumb +
-          '/thumbnail.png)';
+          '/thumbnail.png)'
       } else {
         if (screenshots.indexOf(d._id + '.png') > -1) {
           style.backgroundImage =
-            'url(http://christopheviau.com/block_screenshot/' + d._id + '.png)';
-          classNameString = classNameString + ' ' + 'no-thumbnail';
+            'url(http://christopheviau.com/block_screenshot/' + d._id + '.png)'
+          classNameString = classNameString + ' ' + 'no-thumbnail'
         }
       }
       return (
@@ -97,45 +97,45 @@ const ResultsComponent = React.createClass({
             graph search
           </a>
         </div>
-      );
-    });
+      )
+    })
 
     // If there is no text query we want to show a "latest query"
-    var summary;
+    var summary
     if (!query.text) {
       //console.log("LATEST!")
-      var mostleast = query.sort_dir === 'desc' ? 'most' : 'least';
-      var updatedcreated = query.sort === 'updated_at' ? 'updated' : 'created';
+      var mostleast = query.sort_dir === 'desc' ? 'most' : 'least'
+      var updatedcreated = query.sort === 'updated_at' ? 'updated' : 'created'
       // TODO: make the mostleast and updatedcreated into dropdown menus which affect the query.
       summary = (
         <span>
           Showing {results.length}/{totalResults} of the {mostleast} recently{' '}
           {updatedcreated} blocks.
         </span>
-      );
+      )
     } else {
       summary = (
         <span>
           Showing {results.length}/{totalResults} of the most relevant blocks.
         </span>
-      );
+      )
     }
-    var loading;
+    var loading
     if (this.props.loading) {
       loading = (
         <div className=".loading">
           <IconLoader />
         </div>
-      );
+      )
     }
 
-    var loadMore;
+    var loadMore
     if (results.length < totalResults) {
       loadMore = (
         <a className="load-more" onClick={this.handleLoadMore}>
           Load more
         </a>
-      );
+      )
     }
 
     return (
@@ -145,9 +145,9 @@ const ResultsComponent = React.createClass({
         {loading}
         {loadMore}
       </div>
-    );
+    )
   }
-});
+})
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -157,10 +157,13 @@ const mapStateToProps = (state, ownProps) => {
     screenshots: state.screenshots,
     loading: state.loading
     //aggregations: state.aggregations
-  };
-};
+  }
+}
 const mapActionsToProps = dispatch => {
-  return {};
-};
-const Results = connect(mapStateToProps, mapActionsToProps)(ResultsComponent);
-export default Results;
+  return {}
+}
+const Results = connect(
+  mapStateToProps,
+  mapActionsToProps
+)(ResultsComponent)
+export default Results
