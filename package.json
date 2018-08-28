@@ -1,6 +1,6 @@
 {
   "name": "blockbuilder-search",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
@@ -8,10 +8,8 @@
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
-    "format":
-      "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
-    "format:check":
-      "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'",
+    "format": "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
+    "format:check": "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'",
     "lint": "eslint '{react,views}/**/*.js'",
     "lint:fix": "eslint --fix '{react,views}/**/*.js'"
   },
@@ -19,7 +17,12 @@
     "type": "git",
     "url": "git+https://github.com/enjalot/blockbuilder-search.git"
   },
-  "keywords": ["d3.js", "blocks", "data", "visualization"],
+  "keywords": [
+    "d3.js",
+    "blocks",
+    "data",
+    "visualization"
+  ],
   "author": "Ian Johnson",
   "license": "BSD-3-Clause",
   "bugs": {
