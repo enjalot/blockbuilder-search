@@ -46,11 +46,11 @@ const SearchBar = React.createClass({
     const value = this.refs.search.value
     // TODO: parse file: ?
     const query = {
-      method: 'text'
+      method: 'text',
+      text: value
     }
-    if (value) {
-      query.text = value
-    } else {
+
+    if (!value) {
       query.sort = 'created_at'
       query.sort_dir = 'desc'
     }
@@ -243,7 +243,7 @@ const SearchBar = React.createClass({
   },
   componentDidUpdate() {
     if (this.refs) {
-      if (this.refs.search) {
+      if (this.refs.search || this.refs.search == "") {
         this.refs.search.value = this.props.query.text
       }
       if (this.refs.user && this.props.query.userRaw) {

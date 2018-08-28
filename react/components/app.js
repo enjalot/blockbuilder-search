@@ -25,6 +25,7 @@ const App = React.createClass({
       }
       if (object.user) {
         query.user = object.user
+        query.userRaw = object.user
       }
       if (object.d3version) {
         query.d3version = object.d3version
