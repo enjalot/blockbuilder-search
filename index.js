@@ -192,7 +192,8 @@ function searchES(es, submittedQuery, callback) {
 
 function getAllAPIFunctions(es, callback) {
   var query = {
-    aggs: {
+    size: 0,
+    aggregations: {
       all_api: {
         terms: {
           field: 'api',
@@ -205,7 +206,8 @@ function getAllAPIFunctions(es, callback) {
 
 function getAllModules(es, callback) {
   var query = {
-    aggs: {
+    size: 0,
+    aggregations: {
       all_modules: {
         terms: {
           field: 'd3modules',
