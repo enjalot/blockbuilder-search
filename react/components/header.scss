@@ -1,12 +1,15 @@
 #header {
-  max-width: 970px;
+  // max-width: 970px;
   margin: 0px auto;
   color: #444444;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
 
   #nav {
-    position: fixed;
-    top: 10px;
-    left: 3px;
+    // position: fixed;
+    // top: 10px;
+    // left: 3px;
 
     .nav-link {
       margin-top: 6px;

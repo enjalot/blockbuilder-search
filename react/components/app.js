@@ -42,7 +42,7 @@ const App = React.createClass({
   },
   render() {
     return (
-      <div>
+      <div id="search-container">
         <Header />
         <SearchBar
           query={this.props.query}
