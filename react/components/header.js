@@ -6,7 +6,6 @@ const Header = React.createClass({
   render() {
     return (
       <div id="header">
-        <h1>Search the Bl.ocks</h1>
         <div id="nav">
           <div className="nav-link">
             <a href="/" data-tip="Home" data-place="right" data-effect="float">
@@ -33,6 +32,9 @@ const Header = React.createClass({
               <IconSearch />
             </a>
           </div>
+        </div>
+        <div id="header-text">
+          <h1>Search the Bl.ocks</h1>
         </div>
       </div>
     )
