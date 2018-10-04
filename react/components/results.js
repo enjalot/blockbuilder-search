@@ -35,13 +35,10 @@ const ResultsComponent = React.createClass({
   },
 
   handleScroll(event) {
-    // is the See More button in view?
+    // is the footer in view?
     // if yes, load more data
     const footerEl = document.getElementById('credits')
     const footerIsVisible = this.isElementInViewport(footerEl)
-
-    // let results = this.props.results
-    // const totalResults = this.props.totalResults || 0
 
     if (footerIsVisible) {
       this.handleLoadMore()
@@ -56,7 +53,6 @@ const ResultsComponent = React.createClass({
     // open up the blockbuilder graph search result
     Mousetrap.bind('shift', () => {
       // point to blockbuilder graph search prototype
-      // running on digital ocean server
       window.open(
         `http://${graphSearchIPAddress}:8080/?gist_id=${currentBlockId}`,
         '_blank'
@@ -157,15 +153,6 @@ const ResultsComponent = React.createClass({
         </div>
       )
     }
-
-    // let loadMore
-    // if (results.length < totalResults) {
-    //   loadMore = (
-    //     <a className="load-more" onClick={this.handleLoadMore}>
-    //       Load more
-    //     </a>
-    //   )
-    // }
 
     return (
       <div id="results">
