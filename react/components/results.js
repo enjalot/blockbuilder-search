@@ -39,7 +39,6 @@ const ResultsComponent = React.createClass({
     // if yes, load more data
     const footerEl = document.getElementById('credits')
     const footerIsVisible = this.isElementInViewport(footerEl)
-
     if (footerIsVisible) {
       this.handleLoadMore()
     }
