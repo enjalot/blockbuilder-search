@@ -8,11 +8,11 @@ import './results.scss'
 
 const ResultsComponent = React.createClass({
   componentDidMount() {
-    window.addEventListener('scroll', this.handleScroll.bind(this))
+    window.addEventListener('scroll', this.handleScroll)
   },
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.handleScroll.bind(this))
+    window.removeEventListener('scroll', this.handleScroll)
   },
 
   handleLoadMore() {
