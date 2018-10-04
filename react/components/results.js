@@ -91,7 +91,7 @@ const ResultsComponent = React.createClass({
     const screenshots = this.props.screenshots || []
     // var aggregations = this.props.aggregations;
 
-    const resultDivs = results.map(d => {
+    const resultDivs = results.map((d, i) => {
       const block = d._source
       const style = {}
       let classNameString = 'block-link'
@@ -107,7 +107,7 @@ const ResultsComponent = React.createClass({
       }
       return (
         <div
-          key={`block-${d._id}`}
+          key={`block-${i}-${d._id}`}
           className={classNameString}
           data-tag={block.description}
           style={style}
