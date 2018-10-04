@@ -21,8 +21,6 @@ const ResultsComponent = React.createClass({
 
   isElementInViewport(el) {
     const rect = el.getBoundingClientRect()
-    console.log('el from isElementInViewport', el)
-    console.log('rect from isElementInViewport', rect)
 
     return (
       rect.top >= 0 &&
@@ -41,9 +39,6 @@ const ResultsComponent = React.createClass({
     // if yes, load more data
     const footerEl = document.getElementById('credits')
     const footerIsVisible = this.isElementInViewport(footerEl)
-    console.log('footerIsVisible', footerIsVisible)
-    // console.log('handleScroll', event)
-    // console.log('footerEl', footerEl)
 
     // let results = this.props.results
     // const totalResults = this.props.totalResults || 0
@@ -60,8 +55,6 @@ const ResultsComponent = React.createClass({
     // while mousing over a result
     // open up the blockbuilder graph search result
     Mousetrap.bind('shift', () => {
-      console.log('event', event)
-      console.log('currentBlockId', currentBlockId)
       // point to blockbuilder graph search prototype
       // running on digital ocean server
       window.open(
