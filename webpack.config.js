@@ -1,7 +1,7 @@
 var path = require('path')
 var webpack = require('webpack')
 module.exports = {
-  entry: ['./react/main.js'],
+  entry: ['./src/main.js'],
   output: {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
@@ -14,7 +14,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js?$/,
-        include: path.join(__dirname, 'react'),
+        include: path.join(__dirname, 'src'),
         loader: 'babel-loader',
         query: {
           presets: ['es2015', 'react', 'stage-1']

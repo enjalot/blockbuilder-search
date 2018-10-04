@@ -243,7 +243,7 @@ const SearchBar = React.createClass({
   },
   componentDidUpdate() {
     if (this.refs) {
-      if (this.refs.search || this.refs.search == "") {
+      if (this.refs.search || this.refs.search === '') {
         this.refs.search.value = this.props.query.text
       }
       if (this.refs.user && this.props.query.userRaw) {
