@@ -7,8 +7,50 @@ import { graphSearchIPAddress } from '../constants'
 import './results.scss'
 
 const ResultsComponent = React.createClass({
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll.bind(this))
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll.bind(this))
+  },
+
   handleLoadMore() {
     this.props.getPage(this.props.query, this.props.results.length)
+  },
+
+  isElementInViewport(el) {
+    const rect = el.getBoundingClientRect()
+    console.log('el from isElementInViewport', el)
+    console.log('rect from isElementInViewport', rect)
+
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      Math.floor(rect.bottom) <=
+        (window.innerHeight ||
+          document.documentElement.clientHeight) /*or $(window).height() */ &&
+      Math.floor(rect.right) <=
+        (window.innerWidth ||
+          document.documentElement.clientWidth) /*or $(window).width() */
+    )
+  },
+
+  handleScroll(event) {
+    // is the See More button in view?
+    // if yes, load more data
+    const footerEl = document.getElementById('credits')
+    const footerIsVisible = this.isElementInViewport(footerEl)
+    console.log('footerIsVisible', footerIsVisible)
+    // console.log('handleScroll', event)
+    // console.log('footerEl', footerEl)
+
+    // let results = this.props.results
+    // const totalResults = this.props.totalResults || 0
+
+    if (footerIsVisible) {
+      this.handleLoadMore()
+    }
   },
 
   onMouseOver(i, event) {
@@ -123,21 +165,20 @@ const ResultsComponent = React.createClass({
       )
     }
 
-    let loadMore
-    if (results.length < totalResults) {
-      loadMore = (
-        <a className="load-more" onClick={this.handleLoadMore}>
-          Load more
-        </a>
-      )
-    }
+    // let loadMore
+    // if (results.length < totalResults) {
+    //   loadMore = (
+    //     <a className="load-more" onClick={this.handleLoadMore}>
+    //       Load more
+    //     </a>
+    //   )
+    // }
 
     return (
       <div id="results">
         <div className="summary">{summary}</div>
         <div className="blocks">{resultDivs}</div>
         {loading}
-        {loadMore}
       </div>
     )
   }
