@@ -1,7 +1,7 @@
 /*
 Icons taken from blockbuilder repo, starting to question my design choices :)
 */
-import React from "react";
+import React from 'react'
 
 // For Homepage link
 // https://raw.githubusercontent.com/iconic/open-iconic/master/svg/home.svg
@@ -16,10 +16,10 @@ class IconHome extends React.Component {
       >
         <path d="M4 0l-4 3h1v4h2v-2h2v2h2v-4.03l1 .03-4-3z" />
       </svg>
-    );
+    )
   }
 }
-export { IconHome };
+export { IconHome }
 
 // For the Search page
 // https://raw.githubusercontent.com/iconic/open-iconic/master/svg/magnifying-glass.svg
@@ -34,10 +34,10 @@ class IconSearch extends React.Component {
       >
         <path d="M3.5 0c-1.93 0-3.5 1.57-3.5 3.5s1.57 3.5 3.5 3.5c.59 0 1.17-.14 1.66-.41a1 1 0 0 0 .13.13l1 1a1.02 1.02 0 1 0 1.44-1.44l-1-1a1 1 0 0 0-.16-.13c.27-.49.44-1.06.44-1.66 0-1.93-1.57-3.5-3.5-3.5zm0 1c1.39 0 2.5 1.11 2.5 2.5 0 .66-.24 1.27-.66 1.72-.01.01-.02.02-.03.03a1 1 0 0 0-.13.13c-.44.4-1.04.63-1.69.63-1.39 0-2.5-1.11-2.5-2.5s1.11-2.5 2.5-2.5z" />
       </svg>
-    );
+    )
   }
 }
-export { IconSearch };
+export { IconSearch }
 
 class IconQuestion extends React.Component {
   render() {
@@ -53,10 +53,10 @@ class IconQuestion extends React.Component {
           transform="translate(1)"
         />
       </svg>
-    );
+    )
   }
 }
-export { IconQuestion };
+export { IconQuestion }
 
 // https://raw.githubusercontent.com/iconic/open-iconic/master/svg/circle-x.svg
 class IconClose extends React.Component {
@@ -70,10 +70,10 @@ class IconClose extends React.Component {
       >
         <path d="M4 0c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm-1.5 1.78l1.5 1.5 1.5-1.5.72.72-1.5 1.5 1.5 1.5-.72.72-1.5-1.5-1.5 1.5-.72-.72 1.5-1.5-1.5-1.5.72-.72z" />
       </svg>
-    );
+    )
   }
 }
-export { IconClose };
+export { IconClose }
 
 // taken from: http://codepen.io/aurer/pen/jEGbA
 class IconLoader extends React.Component {
@@ -90,7 +90,7 @@ class IconLoader extends React.Component {
         <div className="sk-cube sk-cube8" />
         <div className="sk-cube sk-cube9" />
       </div>
-    );
+    )
   }
 }
-export { IconLoader };
+export { IconLoader }
