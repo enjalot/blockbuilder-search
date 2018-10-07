@@ -1,7 +1,7 @@
-  {
-    "parser": "babylon",
-    "singleQuote": true,
-    "printWidth": 80,
-    "jsxBracketSameLine": false,
-    "semi": false
-  }
+{
+  "parser": "babylon",
+  "singleQuote": true,
+  "printWidth": 80,
+  "jsxBracketSameLine": false,
+  "semi": false
+}
