@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { IconHome, IconQuestion, IconSearch } from './icons.js'
-import './header.scss'
+import React, { Component } from "react";
+import { IconHome, IconQuestion, IconSearch } from "./icons.js";
+import "./header.scss";
 
 const Header = React.createClass({
   render() {
@@ -37,8 +37,8 @@ const Header = React.createClass({
           <h1>Search the Bl.ocks</h1>
         </div>
       </div>
-    )
+    );
   }
-})
+});
 
-export default Header
+export default Header;
