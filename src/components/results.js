@@ -27,10 +27,10 @@ const ResultsComponent = React.createClass({
       rect.left >= 0 &&
       Math.floor(rect.bottom) <=
         (window.innerHeight ||
-          document.documentElement.clientHeight) /*or $(window).height() */ &&
+          document.documentElement.clientHeight) /* or $(window).height() */ &&
       Math.floor(rect.right) <=
         (window.innerWidth ||
-          document.documentElement.clientWidth) /*or $(window).width() */
+          document.documentElement.clientWidth) /* or $(window).width() */
     )
   },
 
@@ -94,6 +94,7 @@ const ResultsComponent = React.createClass({
         }.png)`
         classNameString = `${classNameString} ` + `no-thumbnail`
       }
+      /* eslint-disable react/no-array-index-key */
       return (
         <div
           key={`block-${i}-${d._id}`}
