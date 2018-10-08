@@ -9,7 +9,7 @@ class IconHome extends React.Component {
   render() {
     return (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 8 8"
@@ -27,7 +27,7 @@ class IconSearch extends React.Component {
   render() {
     return (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 8 8"
@@ -43,7 +43,7 @@ class IconQuestion extends React.Component {
   render() {
     return (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="16"
         height="16"
         viewBox="0 0 8 8"
@@ -63,7 +63,7 @@ class IconClose extends React.Component {
   render() {
     return (
       <svg
-        xmlns="http://www.w3.org/2000/svg"
+        xmlns="https://www.w3.org/2000/svg"
         width="10"
         height="10"
         viewBox="0 0 8 8"
@@ -75,7 +75,7 @@ class IconClose extends React.Component {
 }
 export { IconClose }
 
-// taken from: http://codepen.io/aurer/pen/jEGbA
+// taken from: https://codepen.io/aurer/pen/jEGbA
 class IconLoader extends React.Component {
   render() {
     return (

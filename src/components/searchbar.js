@@ -336,6 +336,7 @@ const SearchBar = React.createClass({
       top: `${this.state.modulePos.top}px`,
       left: `${this.state.modulePos.left}px`
     }
+
     return (
       <div id="searchbar">
         <input
@@ -407,8 +408,8 @@ const SearchBar = React.createClass({
           <label htmlFor="thumbnail-checkbox">with thumbnail image</label>
         </div>
 
-        <div id="selected-apis">{apiDivs}</div>
-        <div id="selected-modules">{moduleDivs}</div>
+        {apiDivs.length > 0 && <div id="selected-apis">{apiDivs}</div>}
+        {moduleDivs.length > 0 && <div id="selected-modules">{moduleDivs}</div>}
         <div id="autocomplete-apis" style={apiStyle}>
           {allApiDivs}
         </div>

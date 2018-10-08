@@ -37,7 +37,7 @@ function getPage(query, from) {
 function getScreenshotList() {
   return dispatch => {
     d3.json(
-      'http://christopheviau.com/block_screenshot/screenshot_list.json',
+      'https://christopheviau.com/block_screenshot/screenshot_list.json',
       (err, response) => {
         dispatch(receiveScreenshotList(response))
       }
