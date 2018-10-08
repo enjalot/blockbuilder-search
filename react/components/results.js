@@ -7,8 +7,41 @@ import { graphSearchIPAddress } from '../constants'
 import './results.scss'
 
 const ResultsComponent = React.createClass({
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll)
+  },
+
   handleLoadMore() {
     this.props.getPage(this.props.query, this.props.results.length)
+  },
+
+  isElementInViewport(el) {
+    const rect = el.getBoundingClientRect()
+
+    return (
+      rect.top >= 0 &&
+      rect.left >= 0 &&
+      Math.floor(rect.bottom) <=
+        (window.innerHeight ||
+          document.documentElement.clientHeight) /*or $(window).height() */ &&
+      Math.floor(rect.right) <=
+        (window.innerWidth ||
+          document.documentElement.clientWidth) /*or $(window).width() */
+    )
+  },
+
+  handleScroll(event) {
+    // is the footer in view?
+    // if yes, load more data
+    const footerEl = document.getElementById('credits')
+    const footerIsVisible = this.isElementInViewport(footerEl)
+    if (footerIsVisible) {
+      this.handleLoadMore()
+    }
   },
 
   onMouseOver(i, event) {
@@ -18,10 +51,7 @@ const ResultsComponent = React.createClass({
     // while mousing over a result
     // open up the blockbuilder graph search result
     Mousetrap.bind('shift', () => {
-      console.log('event', event)
-      console.log('currentBlockId', currentBlockId)
       // point to blockbuilder graph search prototype
-      // running on digital ocean server
       window.open(
         // no https for graph search server yet
         `http://${graphSearchIPAddress}:8080/?gist_id=${currentBlockId}`,
@@ -50,7 +80,7 @@ const ResultsComponent = React.createClass({
     const screenshots = this.props.screenshots || []
     // var aggregations = this.props.aggregations;
 
-    const resultDivs = results.map(d => {
+    const resultDivs = results.map((d, i) => {
       const block = d._source
       const style = {}
       let classNameString = 'block-link'
@@ -66,7 +96,7 @@ const ResultsComponent = React.createClass({
       }
       return (
         <div
-          key={`block-${d._id}`}
+          key={`block-${i}-${d._id}`}
           className={classNameString}
           data-tag={block.description}
           style={style}
@@ -124,21 +154,11 @@ const ResultsComponent = React.createClass({
       )
     }
 
-    let loadMore
-    if (results.length < totalResults) {
-      loadMore = (
-        <a className="load-more" onClick={this.handleLoadMore}>
-          Load more
-        </a>
-      )
-    }
-
     return (
       <div id="results">
         <div className="summary">{summary}</div>
         <div className="blocks">{resultDivs}</div>
         {loading}
-        {loadMore}
       </div>
     )
   }
