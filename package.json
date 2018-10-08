@@ -8,21 +8,16 @@
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
-    "format": "prettier --config .prettierrc.json --write '{react,views}/**/*.js'",
-    "format:check": "prettier --config config/.prettierrc.json --debug-check --list-different '{react,views}/**/*.js'",
-    "lint": "eslint '{react,views}/**/*.js'",
-    "lint:fix": "eslint --fix '{react,views}/**/*.js'"
+    "format": "prettier --config .prettierrc.json --write 'src/**/*.js'",
+    "format:check": "prettier --config config/.prettierrc.json --debug-check --list-different 'src/**/*.js'",
+    "lint": "eslint 'src/**/*.js'",
+    "lint:fix": "eslint --fix 'src/**/*.js'"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enjalot/blockbuilder-search.git"
   },
-  "keywords": [
-    "d3.js",
-    "blocks",
-    "data",
-    "visualization"
-  ],
+  "keywords": ["d3.js", "blocks", "data", "visualization"],
   "author": "Ian Johnson",
   "license": "BSD-3-Clause",
   "bugs": {

@@ -7,7 +7,7 @@ module.exports = function(conf, app, ga) {
   app.use('/public-search', express.static(__dirname + '/public'))
 
   var Handlebars = require('handlebars')
-  var src = fs.readFileSync(__dirname + '/views/search.html').toString()
+  var src = fs.readFileSync(__dirname + '/search.html').toString()
   var template = Handlebars.compile(src)
   var html = template({ ga: ga })
 
@@ -187,7 +187,7 @@ function searchES(es, submittedQuery, callback) {
     excludes: ['code', 'readme', 'api', 'colors', 'd3modules']
   }
 
-  performSearch(es, query, callback);
+  performSearch(es, query, callback)
 }
 
 function getAllAPIFunctions(es, callback) {
@@ -196,12 +196,12 @@ function getAllAPIFunctions(es, callback) {
     aggregations: {
       all_api: {
         terms: {
-          field: 'api',
+          field: 'api'
         }
       }
     }
-  };
-  performSearch(es, query, callback);
+  }
+  performSearch(es, query, callback)
 }
 
 function getAllModules(es, callback) {
@@ -210,12 +210,12 @@ function getAllModules(es, callback) {
     aggregations: {
       all_modules: {
         terms: {
-          field: 'd3modules',
+          field: 'd3modules'
         }
       }
     }
   }
-  performSearch(es, query, callback);
+  performSearch(es, query, callback)
 }
 
 function performSearch(es, query, callback) {
@@ -228,4 +228,3 @@ function performSearch(es, query, callback) {
     callback
   )
 }
-
