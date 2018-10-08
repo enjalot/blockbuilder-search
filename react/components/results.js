@@ -53,6 +53,7 @@ const ResultsComponent = React.createClass({
     Mousetrap.bind('shift', () => {
       // point to blockbuilder graph search prototype
       window.open(
+        // no https for graph search server yet
         `http://${graphSearchIPAddress}:8080/?gist_id=${currentBlockId}`,
         '_blank'
       )
@@ -88,7 +89,7 @@ const ResultsComponent = React.createClass({
           block.userId
         }/${d._id}/raw/${block.thumb}/thumbnail.png)`
       } else if (screenshots.indexOf(`${d._id}.png`) > -1) {
-        style.backgroundImage = `url(http://christopheviau.com/block_screenshot/${
+        style.backgroundImage = `url(https://christopheviau.com/block_screenshot/${
           d._id
         }.png)`
         classNameString = `${classNameString} ` + `no-thumbnail`
@@ -108,7 +109,7 @@ const ResultsComponent = React.createClass({
           </a>
           <a
             className="block-org-link"
-            href={`http://bl.ocks.org/${block.userId}/${d._id}`}
+            href={`https://bl.ocks.org/${block.userId}/${d._id}`}
             target="_blank"
           >
             bl.ocks.org
