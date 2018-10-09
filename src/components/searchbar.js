@@ -58,24 +58,24 @@ const SearchBar = React.createClass({
     // TODO: this will have to account for other features
     // like user and apis
     let hash = ''
-    if (mergedQuery.text) hash += `text=${mergedQuery.text}`
+    if (mergedQuery.text) hash += `text=${encodeURIComponent(mergedQuery.text)}`
     if (mergedQuery.user) {
-      if (hash) hash += ';'
-      hash += `user=${mergedQuery.user}`
+      if (hash) hash += '&'
+      hash += `user=${encodeURIComponent(mergedQuery.user)}`
     }
     if (mergedQuery.d3version) {
-      if (hash) hash += ';'
-      hash += `d3version=${mergedQuery.d3version}`
+      if (hash) hash += '&'
+      hash += `d3version=${encodeURIComponent(mergedQuery.d3version)}`
     }
     if (mergedQuery.api.length) {
-      if (hash) hash += ';'
-      hash += `api=${mergedQuery.api}`
+      if (hash) hash += '&'
+      hash += `api=${encodeURIComponent(mergedQuery.api)}`
     }
     if (mergedQuery.d3modules.length) {
-      if (hash) hash += ';'
-      hash += `d3modules=${mergedQuery.d3modules}`
+      if (hash) hash += '&'
+      hash += `d3modules=${encodeURIComponent(mergedQuery.d3modules)}`
     }
-    window.location.hash = encodeURIComponent(hash)
+    window.location.hash = hash
     this.props.getSearch(mergedQuery)
   },
   handleObservableSearch() {
