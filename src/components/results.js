@@ -64,7 +64,7 @@ const ResultsComponent = React.createClass({
   },
   render() {
     const query = this.props.query
-    console.log('query', query)
+    // console.log('query', query)
     let results = this.props.results
 
     // if we are querying for only blocks with thumbnail images

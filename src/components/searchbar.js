@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { IconClose } from './icons'
+import updateQueryString from '../util/update-query-string.js'
+
 import './searchbar.scss'
 
 const ACAPIDiv = React.createClass({
@@ -57,7 +59,7 @@ const SearchBar = React.createClass({
     const mergedQuery = { ...this.props.query, ...query }
     // TODO: this will have to account for other features
     // like user and apis
-    let hash = ''
+    // let hash = ''
     const url = new URL(window.location)
     const params = new URLSearchParams(url.search)
 
@@ -139,6 +141,9 @@ const SearchBar = React.createClass({
     const rawValue = this.refs.user.value
     const query = { ...this.props.query, user: value, userRaw: rawValue }
     this.props.setQuery(query)
+
+    // update the query string in the url
+    updateQueryString('user', value)
   },
   handleVersionChange() {
     let value = this.refs.d3version.value
@@ -148,6 +153,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('d3version', value)
     })
   },
   onAPIFocus() {
@@ -186,6 +194,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('api', apis)
     })
   },
   handleAPIDeselect(api) {
@@ -200,6 +211,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('api', apis)
     })
   },
 
@@ -240,6 +254,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('d3modules', d3modules)
     })
   },
   handleModuleDeselect(module) {
@@ -254,6 +271,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('d3modules', d3modules)
     })
   },
   componentDidUpdate() {
