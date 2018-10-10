@@ -58,24 +58,39 @@ const SearchBar = React.createClass({
     // TODO: this will have to account for other features
     // like user and apis
     let hash = ''
-    if (mergedQuery.text) hash += `text=${mergedQuery.text}`
+    const url = new URL(window.location)
+    const params = new URLSearchParams(url.search)
+
+    if (mergedQuery.text) {
+      params.append('text', encodeURIComponent(mergedQuery.text))
+      // hash += `text=${encodeURIComponent(mergedQuery.text)}`
+    }
     if (mergedQuery.user) {
-      if (hash) hash += ';'
-      hash += `user=${mergedQuery.user}`
+      params.append('user', encodeURIComponent(mergedQuery.user))
+      // if (hash) hash += ';'
+      // hash += `&user=${encodeURIComponent(mergedQuery.user)}`
     }
     if (mergedQuery.d3version) {
-      if (hash) hash += ';'
-      hash += `d3version=${mergedQuery.d3version}`
+      params.append('d3version', encodeURIComponent(mergedQuery.d3version))
+      // if (hash) hash += ';'
+      // hash += `&d3version=${encodeURIComponent(mergedQuery.d3version)}`
     }
     if (mergedQuery.api.length) {
-      if (hash) hash += ';'
-      hash += `api=${mergedQuery.api}`
+      params.append('api', encodeURIComponent(mergedQuery.api))
+      // if (hash) hash += ';'
+      // hash += `&api=${encodeURIComponent(mergedQuery.api)}`
     }
     if (mergedQuery.d3modules.length) {
-      if (hash) hash += ';'
-      hash += `d3modules=${mergedQuery.d3modules}`
+      params.append('d3modules', encodeURIComponent(mergedQuery.d3modules))
+      // if (hash) hash += ';'
+      // hash += `&d3modules=${encodeURIComponent(mergedQuery.d3modules)}`
     }
-    window.location.hash = encodeURIComponent(hash)
+    // const stateObj = {}
+    // const title = ''
+    // const origin = window.location.origin
+    // const pathname = window.location.pathname
+    // const newUrl = `${origin}${pathname}?${hash}`
+    // history.pushState(stateObj, title, newUrl)
     this.props.getSearch(mergedQuery)
   },
   handleObservableSearch() {

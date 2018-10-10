@@ -12,31 +12,60 @@ import SearchBar from './searchbar'
 const App = React.createClass({
   componentDidMount() {
     const query = { ...this.props.query }
-    const hash = decodeURIComponent(window.location.hash)
-    if (hash) {
-      const options = hash.slice(1).split(';')
-      const object = {}
-      options.forEach(option => {
-        const keyvalue = option.split('=')
-        object[keyvalue[0]] = keyvalue[1]
-      })
-      if (object.text) {
-        query.text = object.text
-      }
-      if (object.user) {
-        query.user = object.user
-        query.userRaw = object.user
-      }
-      if (object.d3version) {
-        query.d3version = object.d3version
-      }
-      if (object.api) {
-        query.api = object.api.split(',')
-      }
-      if (object.d3modules) {
-        query.d3modules = object.d3modules.split(',')
+    // const hash = decodeURIComponent(window.location.hash)
+    console.log('window.location at componentDidMount', window.location)
+    const url = new URL(window.location)
+    const params = new URLSearchParams(url.search)
+    let key
+    let value
+    for (let p of params.entries()) {
+      console.log(p)
+      key = p[0]
+      value = p[1]
+      switch (key) {
+        case 'text':
+          query.text = value
+          break
+        case 'user':
+          query.user = value
+          query.userRaw = value
+          break
+        case 'd3version':
+          query.d3version = value
+          break
+        case 'api':
+          query.api = value.split(',')
+          break
+        case d3modules:
+          query.d3modules = value.split(',')
+          break
       }
     }
+
+    // if (hash) {
+    //   const options = hash.slice(1).split(';')
+    //   const object = {}
+    //   options.forEach(option => {
+    //     const keyvalue = option.split('=')
+    //     object[keyvalue[0]] = keyvalue[1]
+    //   })
+    //   if (object.text) {
+    //     query.text = object.text
+    //   }
+    //   if (object.user) {
+    //     query.user = object.user
+    //     query.userRaw = object.user
+    //   }
+    //   if (object.d3version) {
+    //     query.d3version = object.d3version
+    //   }
+    //   if (object.api) {
+    //     query.api = object.api.split(',')
+    //   }
+    //   if (object.d3modules) {
+    //     query.d3modules = object.d3modules.split(',')
+    //   }
+    // }
     this.props.actions.getSearch(query)
     this.props.actions.getScreenshotList()
   },
