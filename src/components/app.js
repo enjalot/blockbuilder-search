@@ -36,7 +36,7 @@ const App = React.createClass({
         case 'api':
           query.api = value.split(',')
           break
-        case d3modules:
+        case 'd3modules':
           query.d3modules = value.split(',')
           break
       }
