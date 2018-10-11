@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import ReactTooltip from 'react-tooltip'
 import ActionCreators from '../actions/actionCreators'
+import updateQueryString from '../util/update-query-string.js'
+import removeLocationHash from '../util/remove-location-hash.js'
 
 import Header from './header'
 import Results from './results'
@@ -11,15 +13,27 @@ import SearchBar from './searchbar'
 
 const App = React.createClass({
   componentDidMount() {
+    //
+    // redirect old hash links to query strings
+    //
+    const hash = decodeURIComponent(window.location.hash)
+    if (hash) {
+      const options = hash.slice(1).split(';')
+      options.forEach(option => {
+        const pair = option.split('=')
+        const key = pair[0]
+        const value = pair[1]
+        updateQueryString(key, value)
+      })
+      removeLocationHash()
+    }
+
     const query = { ...this.props.query }
-    // const hash = decodeURIComponent(window.location.hash)
-    console.log('window.location at componentDidMount', window.location)
     const url = new URL(window.location)
     const params = new URLSearchParams(url.search)
     let key
     let value
     for (let p of params.entries()) {
-      console.log(p)
       key = p[0]
       value = p[1]
       switch (key) {
@@ -42,30 +56,6 @@ const App = React.createClass({
       }
     }
 
-    // if (hash) {
-    //   const options = hash.slice(1).split(';')
-    //   const object = {}
-    //   options.forEach(option => {
-    //     const keyvalue = option.split('=')
-    //     object[keyvalue[0]] = keyvalue[1]
-    //   })
-    //   if (object.text) {
-    //     query.text = object.text
-    //   }
-    //   if (object.user) {
-    //     query.user = object.user
-    //     query.userRaw = object.user
-    //   }
-    //   if (object.d3version) {
-    //     query.d3version = object.d3version
-    //   }
-    //   if (object.api) {
-    //     query.api = object.api.split(',')
-    //   }
-    //   if (object.d3modules) {
-    //     query.d3modules = object.d3modules.split(',')
-    //   }
-    // }
     this.props.actions.getSearch(query)
     this.props.actions.getScreenshotList()
   },
