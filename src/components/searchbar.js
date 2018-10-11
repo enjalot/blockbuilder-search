@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { IconClose } from './icons'
-import updateQueryString from '../util/update-query-string.js'
+import updateQueryString from '../util/update-query-string'
+import debounce from '../util/debounce'
 
 import './searchbar.scss'
 
@@ -44,7 +45,16 @@ const SearchBar = React.createClass({
       showModules: false
     }
   },
-
+  componentDidUpdate() {
+    if (this.refs) {
+      if (this.refs.search || this.refs.search === '') {
+        this.refs.search.value = this.props.query.text
+      }
+      if (this.refs.user && this.props.query.userRaw) {
+        this.refs.user.value = this.props.query.userRaw
+      }
+    }
+  },
   handleSearch() {
     const value = this.refs.search.value
     // TODO: parse file: ?
@@ -110,8 +120,13 @@ const SearchBar = React.createClass({
   },
   handleTextInput(evt) {
     const value = evt.target.value
+
     // update the query string in the url
     updateQueryString('text', value)
+  },
+  debouncedHandleTextInput(evt) {
+    evt.persist()
+    debounce(this.handleTextInput, 1200)(evt)
   },
   handleTextChange() {
     const value = this.refs.search.value
@@ -150,6 +165,10 @@ const SearchBar = React.createClass({
 
     // update the query string in the url
     updateQueryString('user', value)
+  },
+  debouncedHandleUserChange(evt) {
+    evt.persist()
+    debounce(this.handleUserChange, 1200)(evt)
   },
   handleVersionChange() {
     let value = this.refs.d3version.value
@@ -282,16 +301,6 @@ const SearchBar = React.createClass({
       updateQueryString('d3modules', d3modules)
     })
   },
-  componentDidUpdate() {
-    if (this.refs) {
-      if (this.refs.search || this.refs.search === '') {
-        this.refs.search.value = this.props.query.text
-      }
-      if (this.refs.user && this.props.query.userRaw) {
-        this.refs.user.value = this.props.query.userRaw
-      }
-    }
-  },
   render() {
     const that = this
     const apiDivs = []
@@ -385,7 +394,7 @@ const SearchBar = React.createClass({
           className="text-search"
           type="text"
           onKeyDown={this.handleKeyDown}
-          onInput={this.handleTextInput}
+          onInput={this.debouncedHandleTextInput}
           onChange={this.handleTextChange}
         />
         <a className="search-button" onClick={this.handleSearch}>
@@ -403,7 +412,7 @@ const SearchBar = React.createClass({
           type="text"
           placeholder="username"
           onKeyDown={this.handleUserKeyDown}
-          onChange={this.handleUserChange}
+          onChange={this.debouncedHandleUserChange}
         />
 
         <input
