@@ -186,7 +186,6 @@ const SearchBar = React.createClass({
     this.setState({ showApis: false })
     if (this.props.query.api.indexOf(api) >= 0) return
     const apis = this.props.query.api.concat([api])
-    debugger
     this.props.setQuery({
       ...this.props.query,
       api: apis
