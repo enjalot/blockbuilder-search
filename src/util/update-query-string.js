@@ -5,5 +5,6 @@ export default function updateQueryString(key, value) {
   else params.set(key, value)
 
   url.search = params.toString()
+  // eslint-disable-next-line no-restricted-globals
   history.pushState({}, '', url.toString())
 }

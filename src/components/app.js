@@ -33,7 +33,8 @@ const App = React.createClass({
     const params = new URLSearchParams(url.search)
     let key
     let value
-    for (let p of params.entries()) {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const p of params.entries()) {
       key = p[0]
       value = p[1]
       switch (key) {
@@ -53,6 +54,7 @@ const App = React.createClass({
         case 'd3modules':
           query.d3modules = value.split(',')
           break
+        default:
       }
     }
 
