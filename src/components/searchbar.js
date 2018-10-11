@@ -44,6 +44,7 @@ const SearchBar = React.createClass({
       showModules: false
     }
   },
+
   handleSearch() {
     const value = this.refs.search.value
     // TODO: parse file: ?
@@ -107,7 +108,12 @@ const SearchBar = React.createClass({
       this.handleSearch()
     }
   },
-  handleChange() {
+  handleTextInput(evt) {
+    const value = evt.target.value
+    // update the query string in the url
+    updateQueryString('text', value)
+  },
+  handleTextChange() {
     const value = this.refs.search.value
     const query = { ...this.props.query, text: value }
     this.props.setQuery(query)
@@ -379,7 +385,8 @@ const SearchBar = React.createClass({
           className="text-search"
           type="text"
           onKeyDown={this.handleKeyDown}
-          onChange={this.hanleChange}
+          onInput={this.handleTextInput}
+          onChange={this.handleTextChange}
         />
         <a className="search-button" onClick={this.handleSearch}>
           Search
