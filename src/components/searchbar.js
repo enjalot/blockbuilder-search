@@ -45,6 +45,11 @@ const SearchBar = React.createClass({
       showModules: false
     }
   },
+  componentWillMount: function() {
+    const ms = 1200
+    this.debouncedHandleTextChange = debounce(this.handleTextChange, ms)
+    this.debouncedHandleUserChange = debounce(this.handleUserChange, ms)
+  },
   componentDidUpdate() {
     if (this.refs) {
       if (this.refs.search || this.refs.search === '') {
@@ -118,25 +123,14 @@ const SearchBar = React.createClass({
       this.handleSearch()
     }
   },
-  handleTextInput(evt) {
-    const value = evt.target.value
-
-    // update the query string in the url
-    updateQueryString('text', value)
-  },
-  debouncedHandleTextInput(evt) {
-    evt.persist()
-    debounce(this.handleTextInput, 1200)(evt)
-  },
-  handleTextChange() {
+  handleTextChange(evt) {
     const value = this.refs.search.value
     const query = { ...this.props.query, text: value }
     this.props.setQuery(query)
-  },
-  handleUserKeyDown(evt) {
-    if (evt.nativeEvent.keyCode === 13) {
-      this.handleSearch()
-    }
+    this.handleSearch()
+
+    // update the query string in the url
+    updateQueryString('text', value)
   },
   handleThumbnailChange() {
     const checked = this.refs.thumbnail.checked
@@ -162,13 +156,15 @@ const SearchBar = React.createClass({
     const rawValue = this.refs.user.value
     const query = { ...this.props.query, user: value, userRaw: rawValue }
     this.props.setQuery(query)
+    this.handleSearch()
 
     // update the query string in the url
     updateQueryString('user', value)
   },
-  debouncedHandleUserChange(evt) {
-    evt.persist()
-    debounce(this.handleUserChange, 1200)(evt)
+  handleUserKeyDown(evt) {
+    if (evt.nativeEvent.keyCode === 13) {
+      this.handleSearch()
+    }
   },
   handleVersionChange() {
     let value = this.refs.d3version.value
@@ -394,8 +390,7 @@ const SearchBar = React.createClass({
           className="text-search"
           type="text"
           onKeyDown={this.handleKeyDown}
-          onInput={this.debouncedHandleTextInput}
-          onChange={this.handleTextChange}
+          onChange={this.debouncedHandleTextChange}
         />
         <a className="search-button" onClick={this.handleSearch}>
           Search
