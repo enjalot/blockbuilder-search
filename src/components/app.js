@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux'
 import { createSelector } from 'reselect'
 import ReactTooltip from 'react-tooltip'
 import ActionCreators from '../actions/actionCreators'
+import updateQueryString from '../util/update-query-string.js'
+import removeLocationHash from '../util/remove-location-hash.js'
 
 import Header from './header'
 import Results from './results'
@@ -11,32 +13,66 @@ import SearchBar from './searchbar'
 
 const App = React.createClass({
   componentDidMount() {
-    const query = { ...this.props.query }
+    //
+    // redirect old hash links to query strings
+    //
     const hash = decodeURIComponent(window.location.hash)
     if (hash) {
       const options = hash.slice(1).split(';')
-      const object = {}
       options.forEach(option => {
-        const keyvalue = option.split('=')
-        object[keyvalue[0]] = keyvalue[1]
+        const pair = option.split('=')
+        const key = pair[0]
+        const value = pair[1]
+        updateQueryString(key, value)
       })
-      if (object.text) {
-        query.text = object.text
-      }
-      if (object.user) {
-        query.user = object.user
-        query.userRaw = object.user
-      }
-      if (object.d3version) {
-        query.d3version = object.d3version
-      }
-      if (object.api) {
-        query.api = object.api.split(',')
-      }
-      if (object.d3modules) {
-        query.d3modules = object.d3modules.split(',')
+      removeLocationHash()
+    }
+
+    const query = { ...this.props.query }
+    const url = new URL(window.location)
+    const params = new URLSearchParams(url.search)
+    let key
+    let value
+    // eslint-disable-next-line no-restricted-syntax
+    for (const p of params.entries()) {
+      key = p[0]
+      value = p[1]
+      switch (key) {
+        case 'text':
+          query.text = value
+          break
+        case 'user':
+          query.user = value
+          query.userRaw = value
+          break
+        case 'd3version':
+          query.d3version = value
+          break
+        case 'api':
+          query.api = value.split(',')
+          break
+        case 'd3modules':
+          query.d3modules = value.split(',')
+          break
+        case 'thumb':
+          if (!Array.isArray(query.filenames)) query.filenames = []
+          // intentionally use double equals type coercion
+          // to check if string value is boolean true
+          // eslint-disable-next-line eqeqeq
+          if (value === 'true') {
+            query.filenames.push('thumbnail.png')
+          } else {
+            // look for 'thumbnail.png' and remove it if we find it
+            const thumbIndex = query.filenames.indexOf('thumbnail.png')
+            if (thumbIndex > -1) {
+              query.filenames.splice(thumbIndex, 1)
+            }
+          }
+          break
+        default:
       }
     }
+
     this.props.actions.getSearch(query)
     this.props.actions.getScreenshotList()
   },

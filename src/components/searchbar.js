@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import { IconClose } from './icons'
+import updateQueryString from '../util/update-query-string'
+import debounce from '../util/debounce'
+
 import './searchbar.scss'
 
 const ACAPIDiv = React.createClass({
@@ -42,6 +45,21 @@ const SearchBar = React.createClass({
       showModules: false
     }
   },
+  componentWillMount() {
+    const ms = 1200
+    this.debouncedHandleTextChange = debounce(this.handleTextChange, ms)
+    this.debouncedHandleUserChange = debounce(this.handleUserChange, ms)
+  },
+  componentDidUpdate() {
+    if (this.refs) {
+      if (this.refs.search || this.refs.search === '') {
+        this.refs.search.value = this.props.query.text
+      }
+      if (this.refs.user && this.props.query.userRaw) {
+        this.refs.user.value = this.props.query.userRaw
+      }
+    }
+  },
   handleSearch() {
     const value = this.refs.search.value
     // TODO: parse file: ?
@@ -55,27 +73,25 @@ const SearchBar = React.createClass({
       query.sort_dir = 'desc'
     }
     const mergedQuery = { ...this.props.query, ...query }
-    // TODO: this will have to account for other features
-    // like user and apis
-    let hash = ''
-    if (mergedQuery.text) hash += `text=${mergedQuery.text}`
+    const url = new URL(window.location)
+    const params = new URLSearchParams(url.search)
+
+    if (mergedQuery.text) {
+      params.append('text', encodeURIComponent(mergedQuery.text))
+    }
     if (mergedQuery.user) {
-      if (hash) hash += ';'
-      hash += `user=${mergedQuery.user}`
+      params.append('user', encodeURIComponent(mergedQuery.user))
     }
     if (mergedQuery.d3version) {
-      if (hash) hash += ';'
-      hash += `d3version=${mergedQuery.d3version}`
+      params.append('d3version', encodeURIComponent(mergedQuery.d3version))
     }
     if (mergedQuery.api.length) {
-      if (hash) hash += ';'
-      hash += `api=${mergedQuery.api}`
+      params.append('api', encodeURIComponent(mergedQuery.api))
     }
     if (mergedQuery.d3modules.length) {
-      if (hash) hash += ';'
-      hash += `d3modules=${mergedQuery.d3modules}`
+      params.append('d3modules', encodeURIComponent(mergedQuery.d3modules))
     }
-    window.location.hash = encodeURIComponent(hash)
+
     this.props.getSearch(mergedQuery)
   },
   handleObservableSearch() {
@@ -90,15 +106,14 @@ const SearchBar = React.createClass({
       this.handleSearch()
     }
   },
-  handleChange() {
+  handleTextChange(evt) {
     const value = this.refs.search.value
     const query = { ...this.props.query, text: value }
     this.props.setQuery(query)
-  },
-  handleUserKeyDown(evt) {
-    if (evt.nativeEvent.keyCode === 13) {
-      this.handleSearch()
-    }
+    this.handleSearch()
+
+    // update the query string in the url
+    updateQueryString('text', value)
   },
   handleThumbnailChange() {
     const checked = this.refs.thumbnail.checked
@@ -115,6 +130,9 @@ const SearchBar = React.createClass({
       }
     }
     this.props.setQuery(query)
+
+    // update the query string in the url
+    updateQueryString('thumb', checked)
   },
   handleUserChange() {
     // lowercase all user names
@@ -124,6 +142,15 @@ const SearchBar = React.createClass({
     const rawValue = this.refs.user.value
     const query = { ...this.props.query, user: value, userRaw: rawValue }
     this.props.setQuery(query)
+    this.handleSearch()
+
+    // update the query string in the url
+    updateQueryString('user', value)
+  },
+  handleUserKeyDown(evt) {
+    if (evt.nativeEvent.keyCode === 13) {
+      this.handleSearch()
+    }
   },
   handleVersionChange() {
     let value = this.refs.d3version.value
@@ -133,6 +160,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('d3version', value)
     })
   },
   onAPIFocus() {
@@ -171,6 +201,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('api', apis)
     })
   },
   handleAPIDeselect(api) {
@@ -185,9 +218,11 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('api', apis)
     })
   },
-
   // ///////////////////////////////////////////////////////////
   onModuleFocus() {
     if (!this.props.d3Modules.length) this.props.getAggregateD3Modules()
@@ -225,6 +260,9 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('d3modules', d3modules)
     })
   },
   handleModuleDeselect(module) {
@@ -239,17 +277,10 @@ const SearchBar = React.createClass({
     const that = this
     setTimeout(() => {
       that.handleSearch()
+
+      // update the query string in the url
+      updateQueryString('d3modules', d3modules)
     })
-  },
-  componentDidUpdate() {
-    if (this.refs) {
-      if (this.refs.search || this.refs.search === '') {
-        this.refs.search.value = this.props.query.text
-      }
-      if (this.refs.user && this.props.query.userRaw) {
-        this.refs.user.value = this.props.query.userRaw
-      }
-    }
   },
   render() {
     const that = this
@@ -344,7 +375,7 @@ const SearchBar = React.createClass({
           className="text-search"
           type="text"
           onKeyDown={this.handleKeyDown}
-          onChange={this.hanleChange}
+          onChange={this.debouncedHandleTextChange}
         />
         <a className="search-button" onClick={this.handleSearch}>
           Search
@@ -361,7 +392,7 @@ const SearchBar = React.createClass({
           type="text"
           placeholder="username"
           onKeyDown={this.handleUserKeyDown}
-          onChange={this.handleUserChange}
+          onChange={this.debouncedHandleUserChange}
         />
 
         <input
@@ -403,6 +434,10 @@ const SearchBar = React.createClass({
             id="thumbnail-checkbox"
             className="thumbnail-checkbox"
             type="checkbox"
+            checked={
+              this.props.query.filenames &&
+              this.props.query.filenames.includes('thumbnail.png')
+            }
             onChange={this.handleThumbnailChange}
           />
           <label htmlFor="thumbnail-checkbox">with thumbnail image</label>
