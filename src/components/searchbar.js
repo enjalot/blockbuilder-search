@@ -45,7 +45,7 @@ const SearchBar = React.createClass({
       showModules: false
     }
   },
-  componentWillMount() {
+  componentWillMount: function() {
     const ms = 1200
     this.debouncedHandleTextChange = debounce(this.handleTextChange, ms)
     this.debouncedHandleUserChange = debounce(this.handleUserChange, ms)
@@ -130,6 +130,9 @@ const SearchBar = React.createClass({
       }
     }
     this.props.setQuery(query)
+
+    // update the query string in the url
+    updateQueryString('thumb', checked)
   },
   handleUserChange() {
     // lowercase all user names
@@ -220,7 +223,6 @@ const SearchBar = React.createClass({
       updateQueryString('api', apis)
     })
   },
-
   // ///////////////////////////////////////////////////////////
   onModuleFocus() {
     if (!this.props.d3Modules.length) this.props.getAggregateD3Modules()
@@ -432,6 +434,10 @@ const SearchBar = React.createClass({
             id="thumbnail-checkbox"
             className="thumbnail-checkbox"
             type="checkbox"
+            checked={
+              this.props.query.filenames &&
+              this.props.query.filenames.includes('thumbnail.png')
+            }
             onChange={this.handleThumbnailChange}
           />
           <label htmlFor="thumbnail-checkbox">with thumbnail image</label>

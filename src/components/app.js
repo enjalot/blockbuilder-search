@@ -54,6 +54,21 @@ const App = React.createClass({
         case 'd3modules':
           query.d3modules = value.split(',')
           break
+        case 'thumb':
+          if (!Array.isArray(query.filenames)) query.filenames = []
+          // intentionally use double equals type coercion
+          // to check if string value is boolean true
+          // eslint-disable-next-line eqeqeq
+          if (value === 'true') {
+            query.filenames.push('thumbnail.png')
+          } else {
+            // look for 'thumbnail.png' and remove it if we find it
+            const thumbIndex = query.filenames.indexOf('thumbnail.png')
+            if (thumbIndex > -1) {
+              query.filenames.splice(thumbIndex, 1)
+            }
+          }
+          break
         default:
       }
     }
