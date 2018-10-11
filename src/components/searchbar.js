@@ -45,7 +45,7 @@ const SearchBar = React.createClass({
       showModules: false
     }
   },
-  componentWillMount: function() {
+  componentWillMount() {
     const ms = 1200
     this.debouncedHandleTextChange = debounce(this.handleTextChange, ms)
     this.debouncedHandleUserChange = debounce(this.handleUserChange, ms)
