@@ -423,6 +423,7 @@ const SearchBar = React.createClass({
           onChange={this.handleVersionChange}
         >
           <option defaultValue="">any version</option>
+          <option defaultValue="v5">v5</option>
           <option defaultValue="v4">v4</option>
           <option defaultValue="v3">v3</option>
           <option defaultValue="v2">v2</option>
