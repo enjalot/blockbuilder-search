@@ -89,10 +89,27 @@ const ResultsComponent = React.createClass({
           block.userId
         }/${d._id}/raw/${block.thumb}/thumbnail.png)`
       } else if (screenshots.indexOf(`${d._id}.png`) > -1) {
-        style.backgroundImage = `url(https://christopheviau.com/block_screenshot/${
-          d._id
-        }.png)`
-        classNameString = `${classNameString} ` + `no-thumbnail`
+        const chrisVStem = 'https://christopheviau.com'
+        const chrisVUrl = `${chrisVStem}/block_screenshot/${d._id}.png`
+
+        style.backgroundImage = `url(${chrisVUrl})`
+        classNameString = `${classNameString} no-thumbnail`
+      } else {
+        // construct a url for a thumbnail image
+        // that is stored as an object inside a GCP (Google Cloud) bucket
+        //
+        // example:
+        // https://storage.googleapis.com/blockbuilder-screenshots/https-bl-ocks-org-aaizemberg-raw-8063f8c2d1adb7c7ee68-thumbnail.png
+        const gcpStem = 'https://storage.googleapis.com'
+        const bucket = 'blockbuilder-screenshots'
+        const blocksStem = 'https-bl-ocks-org'
+        const user = block.userId
+        const gistId = d._id
+        const thumbnailFilename = `${blocksStem}-${user}-raw-${gistId}-thumbnail.png`
+        const gcpBucketObjectUrl = `${gcpStem}/${bucket}/${thumbnailFilename}`
+
+        style.backgroundImage = `url(${gcpBucketObjectUrl})`
+        classNameString = `${classNameString} no-thumbnail`
       }
       /* eslint-disable react/no-array-index-key */
       return (
