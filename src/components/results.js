@@ -89,12 +89,12 @@ const ResultsComponent = React.createClass({
           block.userId
         }/${d._id}/raw/${block.thumb}/thumbnail.png)`
       } else if (screenshots.indexOf(`${d._id}.png`) > -1) {
-        // legacy from an early attempt to generate thumbnails
-        // for the blocks, en masse
-        // may no longer be maintained
         const chrisVStem = 'https://christopheviau.com'
-        const chrisVUrl = `url(${chrisVStem}/block_screenshot/${d._id}.png)`
+        const chrisVUrl = `${chrisVStem}/block_screenshot/${d._id}.png`
 
+        style.backgroundImage = `url(${chrisVUrl})`
+        classNameString = `${classNameString} no-thumbnail`
+      } else {
         // construct a url for a thumbnail image
         // that is stored as an object inside a GCP (Google Cloud) bucket
         //
