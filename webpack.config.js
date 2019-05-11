@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+
 module.exports = {
   entry: ['./src/main.js'],
   output: {
@@ -7,26 +8,21 @@ module.exports = {
     filename: 'bundle.js',
     publicPath: '/'
   },
-  progress: true,
-  colors: true,
   devtool: '#inline-source-map',
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js?$/,
         include: path.join(__dirname, 'src'),
         loader: 'babel-loader',
-        query: {
-          presets: ['es2015', 'react', 'stage-1']
-        }
       },
       {
         test: /\.scss$/,
-        loader: 'style!css!sass'
-      }
+        use: ["css-loader", "sass-loader"]
+      },
     ]
   },
   resolve: {
-    extensions: ['', '.js', '.jsx', '.scss', '.css', '.json']
+    extensions: ['.js', '.jsx', '.scss', '.css', '.json']
   }
 }

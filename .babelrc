@@ -1,0 +1,10 @@
+// Hoist this out that parcel and webpack can share the same babel configuration
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "@babel/plugin-proposal-class-properties"
+  ]
+}
