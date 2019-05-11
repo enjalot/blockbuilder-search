@@ -3,3 +3,10 @@ package-lock.json
 yarn-error.log
 *.sublime-project
 *.sublime-workspace
+
+# Outputs from Parcel
+dist/
+.cache/
+
+# Outputs from Netlify
+.netlify/
