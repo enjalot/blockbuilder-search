@@ -12,7 +12,8 @@
     "format:check": "prettier --config config/.prettierrc.json --debug-check --list-different 'src/**/*.js'",
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint --fix 'src/**/*.js'",
-    "parcel": "parcel index.html"
+    "parcel": "parcel index.html",
+    "parcel-build": "parcel build index.html"
   },
   "repository": {
     "type": "git",

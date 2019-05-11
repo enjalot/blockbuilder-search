@@ -1,3 +1,10 @@
+# This configuration is for the standalone version of blockbuilder-search.
+# Used with netlify-cli tool
+# https://www.netlify.com/docs/netlify-toml-reference/
+[build]
+  command = 'npm run parcel-build'
+  publish = 'dist'
+
 [dev]
   command = 'npm run parcel'
   port = 1234
