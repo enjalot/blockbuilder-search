@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 module.exports = {
   entry: ['./src/main.js'],
@@ -7,6 +8,9 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     filename: 'bundle.js',
     publicPath: '/'
+  },
+  stats: {
+    colors: true
   },
   devtool: '#inline-source-map',
   module: {
@@ -24,5 +28,6 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.jsx', '.scss', '.css', '.json']
-  }
+  },
+  plugins: [new ProgressBarPlugin()]
 }
