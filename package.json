@@ -13,6 +13,9 @@
     "lint": "eslint 'src/**/*.js'",
     "lint:fix": "eslint --fix 'src/**/*.js'"
   },
+  "engines": {
+    "node": ">=12.3.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enjalot/blockbuilder-search.git"
