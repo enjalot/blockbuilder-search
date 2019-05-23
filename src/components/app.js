@@ -11,7 +11,7 @@ import Header from './header'
 import Results from './results'
 import SearchBar from './searchbar'
 
-const App = React.createClass({
+class App extends React.Component {
   componentDidMount() {
     //
     // redirect old hash links to query strings
@@ -75,7 +75,8 @@ const App = React.createClass({
 
     this.props.actions.getSearch(query)
     this.props.actions.getScreenshotList()
-  },
+  }
+
   render() {
     return (
       <div id="search-container">
@@ -111,7 +112,7 @@ const App = React.createClass({
       </div>
     )
   }
-})
+}
 
 const select = state =>
   /*

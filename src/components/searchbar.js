@@ -5,10 +5,11 @@ import debounce from '../util/debounce'
 
 import './searchbar.scss'
 
-const ACAPIDiv = React.createClass({
-  handleClick() {
+class ACAPIDiv extends React.Component {
+  handleClick = () => {
     this.props.handleAPISelect(this.props.api.substring(2))
-  },
+  };
+
   render() {
     return (
       <div className="ac-api" onClick={this.handleClick}>
@@ -16,12 +17,13 @@ const ACAPIDiv = React.createClass({
       </div>
     )
   }
-})
+}
 
-const APIDiv = React.createClass({
-  handleClick() {
+class APIDiv extends React.Component {
+  handleClick = () => {
     this.props.handleAPIDeselect(this.props.api)
-  },
+  };
+
   render() {
     return (
       <div className="selected-api">
@@ -32,24 +34,24 @@ const APIDiv = React.createClass({
       </div>
     )
   }
-})
+}
 
-const SearchBar = React.createClass({
-  getInitialState() {
-    return {
-      apiValue: '',
-      apiPos: { top: 0, left: 0 },
-      showApis: false,
-      moduleValue: '',
-      modulePos: { top: 0, left: 0 },
-      showModules: false
-    }
-  },
+class SearchBar extends React.Component {
+  state = {
+    apiValue: '',
+    apiPos: { top: 0, left: 0 },
+    showApis: false,
+    moduleValue: '',
+    modulePos: { top: 0, left: 0 },
+    showModules: false
+  };
+
   componentWillMount() {
     const ms = 1200
     this.debouncedHandleTextChange = debounce(this.handleTextChange, ms)
     this.debouncedHandleUserChange = debounce(this.handleUserChange, ms)
-  },
+  }
+
   componentDidUpdate() {
     if (this.refs) {
       if (this.refs.search || this.refs.search === '') {
@@ -59,8 +61,9 @@ const SearchBar = React.createClass({
         this.refs.user.value = this.props.query.userRaw
       }
     }
-  },
-  handleSearch() {
+  }
+
+  handleSearch = () => {
     const value = this.refs.search.value
     // TODO: parse file: ?
     const query = {
@@ -93,20 +96,23 @@ const SearchBar = React.createClass({
     }
 
     this.props.getSearch(mergedQuery)
-  },
-  handleObservableSearch() {
+  };
+
+  handleObservableSearch = () => {
     const value = this.refs.search.value
     const searchString = encodeURIComponent(value)
 
     const observableSearchURI = `https://beta.observablehq.com/search?query=${searchString}`
     window.open(observableSearchURI)
-  },
-  handleKeyDown(evt) {
+  };
+
+  handleKeyDown = (evt) => {
     if (evt.nativeEvent.keyCode === 13) {
       this.handleSearch()
     }
-  },
-  handleTextChange(evt) {
+  };
+
+  handleTextChange = (evt) => {
     const value = this.refs.search.value
     const query = { ...this.props.query, text: value }
     this.props.setQuery(query)
@@ -114,8 +120,9 @@ const SearchBar = React.createClass({
 
     // update the query string in the url
     updateQueryString('text', value)
-  },
-  handleThumbnailChange() {
+  };
+
+  handleThumbnailChange = () => {
     const checked = this.refs.thumbnail.checked
     let query
     if (checked) {
@@ -133,8 +140,9 @@ const SearchBar = React.createClass({
 
     // update the query string in the url
     updateQueryString('thumb', checked)
-  },
-  handleUserChange() {
+  };
+
+  handleUserChange = () => {
     // lowercase all user names
     // since this seems to be how we index them
     // in elasticsearch
@@ -146,13 +154,15 @@ const SearchBar = React.createClass({
 
     // update the query string in the url
     updateQueryString('user', value)
-  },
-  handleUserKeyDown(evt) {
+  };
+
+  handleUserKeyDown = (evt) => {
     if (evt.nativeEvent.keyCode === 13) {
       this.handleSearch()
     }
-  },
-  handleVersionChange() {
+  };
+
+  handleVersionChange = () => {
     let value = this.refs.d3version.value
     if (value === 'any version') value = ''
     const query = { ...this.props.query, d3version: value }
@@ -164,8 +174,9 @@ const SearchBar = React.createClass({
       // update the query string in the url
       updateQueryString('d3version', value)
     })
-  },
-  onAPIFocus() {
+  };
+
+  onAPIFocus = () => {
     if (!this.props.d3Apis.length) this.props.getAggregateD3API()
 
     const bbox = this.refs.api.getBoundingClientRect()
@@ -173,23 +184,27 @@ const SearchBar = React.createClass({
       apiPos: { top: bbox.bottom, left: bbox.left },
       showApis: true
     })
-  },
-  onAPIBlur() {
+  };
+
+  onAPIBlur = () => {
     const that = this
     setTimeout(() => {
       that.setState({ showApis: false })
     }, 250)
-  },
-  handleAPIChange() {
+  };
+
+  handleAPIChange = () => {
     const value = this.refs.api.value
     this.setState({ apiValue: value })
-  },
-  handleAPIKeyDown(evt) {
+  };
+
+  handleAPIKeyDown = (evt) => {
     if (evt.nativeEvent.keyCode === 27) {
       this.setState({ showApis: false })
     }
-  },
-  handleAPISelect(api) {
+  };
+
+  handleAPISelect = (api) => {
     this.setState({ showApis: false })
     if (this.props.query.api.indexOf(api) >= 0) return
     const apis = this.props.query.api.concat([api])
@@ -205,8 +220,9 @@ const SearchBar = React.createClass({
       // update the query string in the url
       updateQueryString('api', apis)
     })
-  },
-  handleAPIDeselect(api) {
+  };
+
+  handleAPIDeselect = (api) => {
     const index = this.props.query.api.indexOf(api)
     if (index < 0) return
     const apis = this.props.query.api.concat([])
@@ -222,9 +238,10 @@ const SearchBar = React.createClass({
       // update the query string in the url
       updateQueryString('api', apis)
     })
-  },
+  };
+
   // ///////////////////////////////////////////////////////////
-  onModuleFocus() {
+  onModuleFocus = () => {
     if (!this.props.d3Modules.length) this.props.getAggregateD3Modules()
 
     const bbox = this.refs.modules.getBoundingClientRect()
@@ -232,23 +249,27 @@ const SearchBar = React.createClass({
       modulePos: { top: bbox.bottom, left: bbox.left },
       showModules: true
     })
-  },
-  onModuleBlur() {
+  };
+
+  onModuleBlur = () => {
     const that = this
     setTimeout(() => {
       that.setState({ showModules: false })
     }, 250)
-  },
-  handleModuleChange() {
+  };
+
+  handleModuleChange = () => {
     const value = this.refs.modules.value
     this.setState({ moduleValue: value })
-  },
-  handleModuleKeyDown(evt) {
+  };
+
+  handleModuleKeyDown = (evt) => {
     if (evt.nativeEvent.keyCode === 27) {
       this.setState({ showModules: false })
     }
-  },
-  handleModuleSelect(module) {
+  };
+
+  handleModuleSelect = (module) => {
     this.setState({ showModules: false })
     if (this.props.query.d3modules.indexOf(module) >= 0) return
     const d3modules = this.props.query.d3modules.concat([module])
@@ -264,8 +285,9 @@ const SearchBar = React.createClass({
       // update the query string in the url
       updateQueryString('d3modules', d3modules)
     })
-  },
-  handleModuleDeselect(module) {
+  };
+
+  handleModuleDeselect = (module) => {
     const index = this.props.query.d3modules.indexOf(module)
     if (index < 0) return
     const d3modules = this.props.query.d3modules.concat([])
@@ -281,7 +303,8 @@ const SearchBar = React.createClass({
       // update the query string in the url
       updateQueryString('d3modules', d3modules)
     })
-  },
+  };
+
   render() {
     const that = this
     const apiDivs = []
@@ -455,6 +478,6 @@ const SearchBar = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default SearchBar

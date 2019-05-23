@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { IconHome, IconQuestion, IconSearch } from './icons.js'
 import './header.scss'
 
-const Header = React.createClass({
+class Header extends React.Component {
   render() {
     return (
       <div id="header">
@@ -39,6 +39,6 @@ const Header = React.createClass({
       </div>
     )
   }
-})
+}
 
 export default Header

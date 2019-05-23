@@ -6,20 +6,20 @@ import { graphSearchIPAddress } from '../constants'
 
 import './results.scss'
 
-const ResultsComponent = React.createClass({
+class ResultsComponent extends React.Component {
   componentDidMount() {
     window.addEventListener('scroll', this.handleScroll)
-  },
+  }
 
   componentWillUnmount() {
     window.removeEventListener('scroll', this.handleScroll)
-  },
+  }
 
-  handleLoadMore() {
+  handleLoadMore = () => {
     this.props.getPage(this.props.query, this.props.results.length)
-  },
+  };
 
-  isElementInViewport(el) {
+  isElementInViewport = (el) => {
     const rect = el.getBoundingClientRect()
 
     return (
@@ -32,9 +32,9 @@ const ResultsComponent = React.createClass({
         (window.innerWidth ||
           document.documentElement.clientWidth) /* or $(window).width() */
     )
-  },
+  };
 
-  handleScroll(event) {
+  handleScroll = (event) => {
     // is the footer in view?
     // if yes, load more data
     const footerEl = document.getElementById('credits')
@@ -42,9 +42,9 @@ const ResultsComponent = React.createClass({
     if (footerIsVisible) {
       this.handleLoadMore()
     }
-  },
+  };
 
-  onMouseOver(i, event) {
+  onMouseOver = (i, event) => {
     const currentBlockId = event.slice(14)
 
     // if the shift key is pressed
@@ -58,10 +58,12 @@ const ResultsComponent = React.createClass({
         '_blank'
       )
     })
-  },
-  onMouseOut() {
+  };
+
+  onMouseOut = () => {
     Mousetrap.unbind('shift')
-  },
+  };
+
   render() {
     const query = this.props.query
     // console.log('query', query)
@@ -180,7 +182,7 @@ const ResultsComponent = React.createClass({
       </div>
     )
   }
-})
+}
 
 const mapStateToProps = (state, ownProps) => ({
   query: state.query,
