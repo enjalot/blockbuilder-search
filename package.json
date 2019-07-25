@@ -4,7 +4,8 @@
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
-    "local": "webpack --color --progress --watch",
+    "dev": "cross-env API_URL=https://blockbuilder.org/api webpack --color --progress --watch",
+    "dev:local:backend": "webpack --color --progress --watch",
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
@@ -60,6 +61,7 @@
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
+    "cross-env": "^5.2.0",
     "css-loader": "^0.23.1",
     "eslint": "^5.4.0",
     "eslint-config-airbnb": "^17.1.0",

@@ -13,11 +13,13 @@ export default {
   // UI controls
 }
 
+const API_URL = process.env.API_URL || '';
+
 // Query elasticsearch
 function getSearch(query) {
   return dispatch => {
     dispatch(requestSearch(query))
-    d3.json(`/api/search?${qs.stringify(query)}`, (err, response) => {
+    d3.json(`${API_URL}/api/search?${qs.stringify(query)}`, (err, response) => {
       dispatch(receiveSearch(response))
     })
   }
@@ -28,7 +30,7 @@ function getPage(query, from) {
   const q = { ...query, from }
   return dispatch => {
     dispatch(requestPage(q))
-    d3.json(`/api/search?${qs.stringify(q)}`, (err, response) => {
+    d3.json(`${API_URL}/api/search?${qs.stringify(q)}`, (err, response) => {
       dispatch(receivePage(response))
     })
   }
@@ -49,7 +51,7 @@ function getScreenshotList() {
 function getAggregateD3API() {
   return dispatch => {
     dispatch(requestAggregateD3API())
-    d3.json('/api/aggregateD3API', (err, response) => {
+    d3.json(`${API_URL}/api/aggregateD3API`, (err, response) => {
       dispatch(receiveAggregateD3API(response))
     })
   }
@@ -58,7 +60,7 @@ function getAggregateD3API() {
 function getAggregateD3Modules() {
   return dispatch => {
     dispatch(requestAggregateD3Modules())
-    d3.json('/api/aggregateD3Modules', (err, response) => {
+    d3.json(`${API_URL}/api/aggregateD3Modules`, (err, response) => {
       dispatch(receiveAggregateD3Modules(response))
     })
   }
