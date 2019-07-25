@@ -4,7 +4,8 @@
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
-    "local": "cross-env API_URL=https://blockbuilder.org/api webpack --color --progress --watch",
+    "dev": "cross-env API_URL=https://blockbuilder.org/api webpack --color --progress --watch",
+    "dev:local:backend": "webpack --color --progress --watch"
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
     "buildProd": "webpack --color --progress -p",
