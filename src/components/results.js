@@ -1,8 +1,8 @@
 import Mousetrap from 'mousetrap'
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
 import { IconLoader } from './icons'
-import { graphSearchIPAddress } from '../constants'
+import { graphSearchIPAddress, README_FILENAME, THUMB_FILENAME } from '../constants'
 
 import './results.scss'
 
@@ -69,15 +69,21 @@ class ResultsComponent extends React.Component {
     // console.log('query', query)
     let results = this.props.results
 
+    // filter results by member filenames
     // if we are querying for only blocks with thumbnail images
-    if (
-      typeof query.filenames !== 'undefined' &&
-      query.filenames.indexOf('thumbnail.png') > -1
-    ) {
+    const hasFiles = typeof query.filenames !== 'undefined';
+    if (hasFiles && query.filenames.indexOf(THUMB_FILENAME) > -1) {
       results = this.props.results.filter(
         d => typeof d._source.thumb !== 'undefined'
       )
     }
+    // if we are querying for only blocks with README.md
+    if (hasFiles && query.filenames.includes(README_FILENAME)) {
+      results = this.props.results.filter(
+        d => d._source.filenames.includes(README_FILENAME)
+      )
+    }
+
     const totalResults = this.props.totalResults || 0
     const screenshots = this.props.screenshots || []
     // var aggregations = this.props.aggregations;

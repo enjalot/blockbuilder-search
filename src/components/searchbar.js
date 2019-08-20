@@ -1,7 +1,9 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { IconClose } from './icons'
 import updateQueryString from '../util/update-query-string'
 import debounce from '../util/debounce'
+
+import { README_FILENAME, THUMB_FILENAME } from '../constants';
 
 import './searchbar.scss'
 
@@ -124,22 +126,51 @@ class SearchBar extends React.Component {
 
   handleThumbnailChange = () => {
     const checked = this.refs.thumbnail.checked
-    let query
+    let query;
+    const filenames = this.props.query.filenames || [];
     if (checked) {
       query = {
         ...this.props.query,
-        filenames: ['thumbnail.png']
+        filenames: [
+          ...filenames,
+          THUMB_FILENAME
+        ]
       }
     } else {
+      const filenames = this.props.query.filenames || [];
       query = {
         ...this.props.query,
-        filenames: []
+        filenames: filenames.filter(filename => filename !== THUMB_FILENAME)
       }
     }
     this.props.setQuery(query)
 
     // update the query string in the url
     updateQueryString('thumb', checked)
+  };
+
+  // Modeled after handleThumbnailChange
+  handleReadmeChange = () => {
+    const hasReadme = this.refs.readme.checked;
+    const filenames = this.props.query.filenames || [];
+
+    let query;
+    if (hasReadme) {
+      query = {
+        ...this.props.query,
+        filenames: [
+          ...filenames,
+          README_FILENAME
+        ]
+      }
+    } else {
+      query = {
+        ...this.props.query,
+        filenames: filenames.filter(filename => filename !== README_FILENAME)
+      }
+    }
+    this.props.setQuery(query)
+    updateQueryString('hasReadme', hasReadme)
   };
 
   handleUserChange = () => {
@@ -452,7 +483,7 @@ class SearchBar extends React.Component {
           <option defaultValue="v2">v2</option>
         </select>
 
-        <div>
+        <div className='thumbnail-input-group'>
           <input
             ref="thumbnail"
             id="thumbnail-checkbox"
@@ -460,11 +491,25 @@ class SearchBar extends React.Component {
             type="checkbox"
             checked={
               this.props.query.filenames &&
-              this.props.query.filenames.includes('thumbnail.png')
+              this.props.query.filenames.includes(THUMB_FILENAME)
             }
             onChange={this.handleThumbnailChange}
           />
           <label htmlFor="thumbnail-checkbox">with thumbnail image</label>
+        </div>
+        <div className='readme-input-group'>
+          <input
+            ref="readme"
+            id="readme-checkbox"
+            className="readme-checkbox"
+            type="checkbox"
+            checked={
+              this.props.query.filenames &&
+              this.props.query.filenames.includes(README_FILENAME)
+            }
+            onChange={this.handleReadmeChange}
+          />
+          <label htmlFor="readme-checkbox">has README.md</label>
         </div>
 
         {apiDivs.length > 0 && <div id="selected-apis">{apiDivs}</div>}
