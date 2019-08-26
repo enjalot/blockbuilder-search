@@ -57,9 +57,6 @@ class App extends React.Component {
           break
         case 'thumb':
           if (!Array.isArray(query.filenames)) query.filenames = []
-          // intentionally use double equals type coercion
-          // to check if string value is boolean true
-          // eslint-disable-next-line eqeqeq
           if (value === 'true') {
             query.filenames.push(THUMB_FILENAME)
           } else {
@@ -72,9 +69,6 @@ class App extends React.Component {
           break
         case 'hasReadme':
           if (!Array.isArray(query.filenames)) query.filenames = []
-          // intentionally use double equals type coercion
-          // to check if string value is boolean true
-          // eslint-disable-next-line eqeqeq
           if (value === 'true') {
             query.filenames.push(README_FILENAME)
           } else {
