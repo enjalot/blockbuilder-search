@@ -70,18 +70,20 @@ class ResultsComponent extends React.Component {
     let results = this.props.results
 
     // filter results by member filenames
-    // if we are querying for only blocks with thumbnail images
     const hasFiles = typeof query.filenames !== 'undefined';
-    if (hasFiles && query.filenames.indexOf(THUMB_FILENAME) > -1) {
-      results = this.props.results.filter(
-        d => typeof d._source.thumb !== 'undefined'
-      )
-    }
-    // if we are querying for only blocks with README.md
-    if (hasFiles && query.filenames.includes(README_FILENAME)) {
-      results = this.props.results.filter(
-        d => d._source.filenames.includes(README_FILENAME)
-      )
+    if (hasFiles) {
+      // if we are querying for only blocks with thumbnail images
+      if (query.filenames.includes(THUMB_FILENAME)) {
+        results = results.filter(
+          d => typeof d._source.thumb !== 'undefined'
+        )
+      }
+      // if we are querying for only blocks with README.md
+      if (query.filenames.includes(README_FILENAME)) {
+        results = results.filter(
+          d => d._source.filenames.includes(README_FILENAME)
+        )
+      }
     }
 
     const totalResults = this.props.totalResults || 0
