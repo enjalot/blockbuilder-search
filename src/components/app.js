@@ -1,11 +1,12 @@
 import { connect } from 'react-redux'
-import React, { Component } from 'react'
+import React from 'react'
 import { bindActionCreators } from 'redux'
-import { createSelector } from 'reselect'
 import ReactTooltip from 'react-tooltip'
 import ActionCreators from '../actions/actionCreators'
 import updateQueryString from '../util/update-query-string.js'
 import removeLocationHash from '../util/remove-location-hash.js'
+
+import { README_FILENAME, THUMB_FILENAME } from '../constants';
 
 import Header from './header'
 import Results from './results'
@@ -56,17 +57,22 @@ class App extends React.Component {
           break
         case 'thumb':
           if (!Array.isArray(query.filenames)) query.filenames = []
-          // intentionally use double equals type coercion
-          // to check if string value is boolean true
-          // eslint-disable-next-line eqeqeq
           if (value === 'true') {
-            query.filenames.push('thumbnail.png')
+            query.filenames.push(THUMB_FILENAME)
           } else {
             // look for 'thumbnail.png' and remove it if we find it
-            const thumbIndex = query.filenames.indexOf('thumbnail.png')
+            const thumbIndex = query.filenames.indexOf(THUMB_FILENAME)
             if (thumbIndex > -1) {
               query.filenames.splice(thumbIndex, 1)
             }
+          }
+          break
+        case 'hasReadme':
+          if (!Array.isArray(query.filenames)) query.filenames = []
+          if (value === 'true') {
+            query.filenames.push(README_FILENAME)
+          } else {
+            query.filenames = query.filenames.filter(filename => filename !== README_FILENAME)
           }
           break
         default:
