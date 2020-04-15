@@ -4,7 +4,7 @@
   "description": "Blockbuilder search engine plugin.",
   "main": "index.js",
   "scripts": {
-    "dev": "cross-env API_URL=https://blockbuilder.org/api webpack --color --progress --watch",
+    "dev": "cross-env API_URL=https://blockbuilder.org webpack --color --progress --watch",
     "dev:local:backend": "webpack --color --progress --watch",
     "buildWatch": "webpack --color --progress --watch",
     "build": "webpack --color --progress",
@@ -12,7 +12,9 @@
     "format": "prettier --config .prettierrc.json --write 'src/**/*.js'",
     "format:check": "prettier --config config/.prettierrc.json --debug-check --list-different 'src/**/*.js'",
     "lint": "eslint 'src/**/*.js'",
-    "lint:fix": "eslint --fix 'src/**/*.js'"
+    "lint:fix": "eslint --fix 'src/**/*.js'",
+    "parcel": "parcel index.html",
+    "parcel:build": "parcel build index.html"
   },
   "engines": {
     "node": ">=12.3.0"
@@ -70,6 +72,7 @@
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.7.0",
+    "parcel-bundler": "1.12.3",
     "prettier": "^1.14.2",
     "progress-bar-webpack-plugin": "^1.12.1",
     "sass-loader": "^7.1.0",

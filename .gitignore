@@ -3,3 +3,7 @@ package-lock.json
 yarn-error.log
 *.sublime-project
 *.sublime-workspace
+
+# Parcel Outputs
+dist/
+.cache/
