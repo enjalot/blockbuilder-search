@@ -45,7 +45,7 @@
     "express": "^4.13.4",
     "handlebars": "^4.0.5",
     "mousetrap": "^1.6.1",
-    "node-sass": "^4.9.3",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
